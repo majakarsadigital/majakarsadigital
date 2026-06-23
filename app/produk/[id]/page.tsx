@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { sampleProducts } from '@/lib/products'
+import { sampleProducts } from '@/lib/data/products'
 import { notFound, useParams } from 'next/navigation'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { BxRevision, IconParkSolidPhoneTelephone, MaterialSymbolsEditSquare, MaterialSymbolsElectricBoltRounded, MaterialSymbolsLightWorkspacePremium, MaterialSymbolsResponsiveLayout, MaterialSymbolsRocket, RiRotateLockLine, StreamlineFlexWarrantyBadgeHighlight, StreamlineFreehandPhoneActions24HoursCall } from '@/public/assets/icons'
@@ -15,7 +15,7 @@ const categoryMeta: Record<string, { icon: string; color: string; bg: string; da
 
 const features = [
     { icon: <MaterialSymbolsElectricBoltRounded />, title: 'Performa Tinggi', desc: 'Dibangun dengan teknologi modern yang memastikan loading cepat dan pengalaman pengguna yang mulus.' },
-    { icon: <MaterialSymbolsResponsiveLayout />, title: 'Fully Responsive', desc: 'Tampil sempurna di semua perangkat — desktop, tablet, hingga smartphone.' },
+    { icon: <MaterialSymbolsResponsiveLayout />, title: 'Fully Responsive', desc: 'Tampil sempurna di semua perangkat - desktop, tablet, hingga smartphone.' },
     { icon: <RiRotateLockLine />, title: 'Keamanan Terjamin', desc: 'Standar keamanan industri diterapkan di setiap lapisan aplikasi.' },
     { icon: <MaterialSymbolsLightWorkspacePremium />, title: 'Desain Premium', desc: 'UI/UX dirancang oleh desainer berpengalaman dengan standar Behance-level.' },
     { icon: <MaterialSymbolsEditSquare />, title: 'Mudah Dikustomisasi', desc: 'Kode bersih dan terstruktur sehingga mudah dimodifikasi sesuai kebutuhan.' },
@@ -195,7 +195,7 @@ export default function ProductDetailPage() {
                         Kenapa Pilih Produk Ini?
                     </h2>
                     <p className="text-slate-500 dark:text-gray-500 max-w-xl mx-auto">
-                        Bukan sekadar template — ini adalah fondasi digital yang siap membawa bisnis Anda ke level berikutnya.
+                        Bukan sekadar template - ini adalah fondasi digital yang siap membawa bisnis Anda ke level berikutnya.
                     </p>
                 </div>
 
@@ -215,7 +215,7 @@ export default function ProductDetailPage() {
                     <div className="text-center mb-14">
                         <p className="text-xs tracking-[0.3em] text-white dark:text-indigo-400 uppercase font-semibold mb-3">Alur Kerja</p>
                         <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">Dari Brief ke Produk Jadi</h2>
-                        <p className="text-slate-500 dark:text-gray-500 max-w-lg mx-auto text-sm">Proses transparan dan terstruktur — Anda tahu apa yang terjadi di setiap tahap.</p>
+                        <p className="text-slate-500 dark:text-gray-500 max-w-lg mx-auto text-sm">Proses transparan dan terstruktur - Anda tahu apa yang terjadi di setiap tahap.</p>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

@@ -18,13 +18,16 @@ function usePingPongMarquee(speed: number) {
 
   useEffect(() => {
     let frame: number;
+
     const animate = () => {
       const el = ref.current;
       if (!el) return;
       const container = el.parentElement;
       if (!container) return;
+
       const maxScroll = el.scrollWidth - container.clientWidth;
       pos.current += speed * dir.current;
+
       if (pos.current <= -maxScroll) {
         pos.current = -maxScroll;
         dir.current = 1;
@@ -33,9 +36,11 @@ function usePingPongMarquee(speed: number) {
         pos.current = 0;
         dir.current = -1;
       }
+
       el.style.transform = `translate3d(${pos.current}px,0,0)`;
       frame = requestAnimationFrame(animate);
     };
+
     frame = requestAnimationFrame(animate);
     return () => cancelAnimationFrame(frame);
   }, [speed]);
@@ -48,11 +53,11 @@ export function TwoRowCarousel({ products }: Props) {
   const top = products.slice(0, mid);
   const bottom = products.slice(mid);
 
-  const topRef = usePingPongMarquee(1.8);
-  const bottomRef = usePingPongMarquee(2);
+  const topRef = usePingPongMarquee(1.2);
+  const bottomRef = usePingPongMarquee(1.4);
 
   const ProductItem = ({ product }: { product: Product }) => (
-    <div className="group w-[800px] flex-shrink-0 aspect-video rounded-xs overflow-hidden">
+    <div className="group w-[260px] sm:w-[420px] md:w-[600px] lg:w-[800px] flex-shrink-0 aspect-video rounded-xs overflow-hidden">
       <img
         src={product.image}
         alt={product.name}
@@ -63,17 +68,19 @@ export function TwoRowCarousel({ products }: Props) {
   );
 
   return (
-    <div className="w-full space-y-8 overflow-hidden">
+    <div className="w-full space-y-4 sm:space-y-6 md:space-y-8 overflow-hidden">
       <div className="overflow-hidden">
-        <div ref={topRef} className="flex gap-8">
+        <div ref={topRef} className="flex gap-3 sm:gap-5 md:gap-8">
           {top.map((p, i) => (
             <ProductItem key={`top-${i}`} product={p} />
           ))}
         </div>
       </div>
-
-      <div className="overflow-hidden ">
-        <div ref={bottomRef} className="flex gap-8 px-60">
+      <div className="overflow-hidden">
+        <div
+          ref={bottomRef}
+          className="flex gap-3 sm:gap-5 md:gap-8 px-8 sm:px-20 md:px-40 lg:px-60"
+        >
           {bottom.map((p, i) => (
             <ProductItem key={`bottom-${i}`} product={p} />
           ))}

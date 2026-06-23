@@ -11,18 +11,15 @@ import Link from 'next/link'
 export const metadata: Metadata = {
     title: 'Cara Order - Majakarsa Digital',
     description:
-        'Panduan lengkap memesan layanan website, aplikasi, dan sistem informasi di Majakarsa Digital — dari konsultasi hingga produk jadi.',
+        'Panduan lengkap memesan layanan website, aplikasi, dan sistem informasi di Majakarsa Digital - dari konsultasi hingga produk jadi.',
 }
 
-// ──────────────────────────────────────────────
-// DATA
-// ──────────────────────────────────────────────
 
 const steps = [
     {
         no: '01',
         title: 'Konsultasi Awal',
-        desc: 'Hubungi kami via WhatsApp atau email, ceritakan kebutuhan proyek Anda — jenis layanan, fitur yang diinginkan, dan target waktu.',
+        desc: 'Hubungi kami via WhatsApp atau email, ceritakan kebutuhan proyek Anda - jenis layanan, fitur yang diinginkan, dan target waktu.',
     },
     {
         no: '02',
@@ -32,7 +29,7 @@ const steps = [
     {
         no: '03',
         title: 'Pembayaran DP',
-        desc: 'Pengerjaan dimulai setelah uang muka (DP) diterima — umumnya 50% dari total biaya, sesuai kesepakatan.',
+        desc: 'Pengerjaan dimulai setelah uang muka (DP) diterima - umumnya 50% dari total biaya, sesuai kesepakatan.',
     },
     {
         no: '04',
@@ -100,7 +97,7 @@ export default function CaraOrderPage() {
                         Proses Order yang Simpel & Transparan
                     </h1>
                     <p className="mx-auto max-w-2xl text-base leading-relaxed text-slate-500 dark:text-gray-400">
-                        Dari konsultasi pertama hingga produk siap pakai — berikut alur kerja
+                        Dari konsultasi pertama hingga produk siap pakai - berikut alur kerja
                         sama yang kami terapkan di setiap proyek, besar maupun kecil.
                     </p>
                 </div>

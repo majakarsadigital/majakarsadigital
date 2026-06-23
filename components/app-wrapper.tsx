@@ -6,9 +6,9 @@ import { TopBanner } from './top-banner'
 
 export function AppWrapper({ children }: { children: React.ReactNode }) {
   return (
-    <div className='dark:bg-black'>
+    <div className='dark:bg-black bg-yellow-300'>
       <ThemeProvider>
-        <div className="relative mt-7 z-10">
+        <div className="relative mt-7 z-50">
           <TopBanner />
         </div>
         <Navbar />

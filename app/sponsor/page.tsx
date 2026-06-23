@@ -72,7 +72,7 @@ export default function SponsorPage() {
                             </h1>
                             <p className="text-slate-500 dark:text-gray-500 text-sm max-w-xl leading-relaxed">
                                 Agensi digital yang membangun website, aplikasi, dan sistem custom
-                                untuk bisnis di seluruh Indonesia — dipercaya 30+ klien aktif.
+                                untuk bisnis di seluruh Indonesia - dipercaya 30+ klien aktif.
                             </p>
                         </div>
                     </div>

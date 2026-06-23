@@ -10,11 +10,11 @@ export function Footer() {
 
     return (
         <footer className="relative z-10 bg-white dark:bg-black border-t border-slate-200 dark:border-white/5">
-            <div className="max-w-7xl mx-auto px-6 pt-16 pb-10">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-10 sm:pt-16 pb-8 sm:pb-10">
 
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-10 mb-12">
+                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-12 gap-x-6 gap-y-8 sm:gap-10 mb-10 sm:mb-12">
 
-                    <div className="md:col-span-4">
+                    <div className="col-span-2 md:col-span-4">
                         <Link href="/" className="inline-flex items-baseline text-lg font-bold text-slate-900 dark:text-white mb-4">
                             majakarsa
                             <span className="text-sm font-normal text-slate-400 dark:text-white/40 ml-1">digital</span>
@@ -55,11 +55,11 @@ export function Footer() {
                         </div>
                     </div>
 
-                    <div className="md:col-span-2">
-                        <h4 className="text-xs font-bold uppercase tracking-widest text-slate-900 dark:text-white mb-4">
+                    <div className="col-span-1 md:col-span-2">
+                        <h4 className="text-xs font-bold uppercase tracking-widest text-slate-900 dark:text-white mb-3 sm:mb-4">
                             Layanan
                         </h4>
-                        <ul className="space-y-2.5">
+                        <ul className="space-y-2 sm:space-y-2.5">
                             {['Website Development', 'Mobile App', 'E-Commerce', 'UI/UX Design', 'Custom System'].map((item) => (
                                 <li key={item}>
                                     <a href="#services" className="text-sm text-slate-500 dark:text-gray-500 hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">
@@ -70,11 +70,11 @@ export function Footer() {
                         </ul>
                     </div>
 
-                    <div className="md:col-span-2">
-                        <h4 className="text-xs font-bold uppercase tracking-widest text-slate-900 dark:text-white mb-4">
+                    <div className="col-span-1 md:col-span-2">
+                        <h4 className="text-xs font-bold uppercase tracking-widest text-slate-900 dark:text-white mb-3 sm:mb-4">
                             Perusahaan
                         </h4>
-                        <ul className="space-y-2.5">
+                        <ul className="space-y-2 sm:space-y-2.5">
                             <li><Link href="/tentang" className="text-sm text-slate-500 dark:text-gray-500 hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">Tentang Kami</Link></li>
                             <li><Link href="/portfolio" className="text-sm text-slate-500 dark:text-gray-500 hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">Portfolio</Link></li>
                             <li><Link href="/produk" className="text-sm text-slate-500 dark:text-gray-500 hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">Produk</Link></li>
@@ -83,39 +83,39 @@ export function Footer() {
                         </ul>
                     </div>
 
-                    <div className="md:col-span-2">
-                        <h4 className="text-xs font-bold uppercase tracking-widest text-slate-900 dark:text-white mb-4">
+                    <div className="col-span-1 md:col-span-2">
+                        <h4 className="text-xs font-bold uppercase tracking-widest text-slate-900 dark:text-white mb-3 sm:mb-4">
                             Mulai
                         </h4>
-                        <ul className="space-y-2.5">
+                        <ul className="space-y-2 sm:space-y-2.5">
                             <li><Link href="/buat" className="text-sm text-slate-500 dark:text-gray-500 hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">Buat Proyek</Link></li>
                             <li><Link href="/pricelist" className="text-sm text-slate-500 dark:text-gray-500 hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">Pricelist</Link></li>
                             <li><a href="#contact" className="text-sm text-slate-500 dark:text-gray-500 hover:text-indigo-500 dark:hover:text-indigo-400 transition-colors">Hubungi Kami</a></li>
                         </ul>
                     </div>
 
-                    <div className="md:col-span-2">
-                        <h4 className="text-xs font-bold uppercase tracking-widest text-slate-900 dark:text-white mb-4">
+                    <div className="col-span-1 md:col-span-2">
+                        <h4 className="text-xs font-bold uppercase tracking-widest text-slate-900 dark:text-white mb-3 sm:mb-4">
                             Kontak
                         </h4>
-                        <ul className="space-y-2.5 text-sm text-slate-500 dark:text-gray-500">
-                            <li>hello@majakarsadigital.com</li>
+                        <ul className="space-y-2 sm:space-y-2.5 text-sm text-slate-500 dark:text-gray-500">
+                            <li className="break-words">hello@majakarsadigital.com</li>
                             <li>+62 812-3456-7890</li>
                             <li>Sidoarjo, Jawa Timur</li>
                         </ul>
                     </div>
                 </div>
 
-                <div className="flex flex-col sm:flex-row items-center justify-between gap-4 py-8 border-t border-b border-slate-200 dark:border-white/5 mb-8">
+                <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 sm:gap-4 py-6 sm:py-8 border-t border-b border-slate-200 dark:border-white/5 mb-6 sm:mb-8">
                     <div>
                         <p className="text-sm font-semibold text-slate-900 dark:text-white mb-1">Dapatkan update terbaru</p>
-                        <p className="text-xs text-slate-400 dark:text-gray-600">Tips digital, studi kasus, dan penawaran spesial — langsung ke email Anda.</p>
+                        <p className="text-xs text-slate-400 dark:text-gray-600">Tips digital, studi kasus, dan penawaran spesial - langsung ke email Anda.</p>
                     </div>
-                    <form className="flex w-full sm:w-auto gap-2">
+                    <form className="flex flex-col xs:flex-row w-full sm:w-auto gap-2">
                         <input
                             type="email"
                             placeholder="Email Anda"
-                            className="flex-1 sm:w-64 px-4 py-2.5 text-sm rounded-full border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-600 focus:outline-none focus:border-indigo-400 dark:focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400/20 transition-all"
+                            className="flex-1 sm:w-64 px-4 py-2.5 text-sm rounded-full border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-gray-600 focus:outline-none focus:border-indigo-400 dark:focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400/20 transition-all min-w-0"
                         />
                         <button
                             type="submit"
@@ -126,11 +126,11 @@ export function Footer() {
                     </form>
                 </div>
 
-                <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 text-center sm:text-left">
                     <p className="text-slate-400 dark:text-gray-600 text-xs">
                         © 2025 Majakarsa Digital. All rights reserved.
                     </p>
-                    <div className="flex items-center gap-6">
+                    <div className="flex items-center gap-5 sm:gap-6">
                         <Link href="/privacy" className="text-xs text-slate-400 dark:text-gray-600 hover:text-slate-600 dark:hover:text-gray-400 transition-colors">
                             Kebijakan Privasi
                         </Link>

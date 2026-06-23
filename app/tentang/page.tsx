@@ -9,6 +9,8 @@ import {
   MaterialSymbolsRocket,
 } from '@/public/assets/icons'
 import type { Metadata } from 'next'
+import Image from 'next/image'
+import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Tentang Kami - Majakarsa Digital',
@@ -100,19 +102,77 @@ const team = [
 export default function TentangPage() {
   return (
     <main className="min-h-screen bg-[#f6f7fb] dark:bg-black">
-      <section className="border-b border-slate-200/70 dark:border-white/5 bg-gradient-to-b from-[#fafbff] to-[#f2f4f8] dark:from-black dark:to-black">
+      <div className="fixed right-6 bottom-6 z-50 hidden lg:block">
+        <div
+          className=" w-72 overflow-hidden rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0A0A0A] shadow-2xl backdrop-blur-xl
+    "
+        >
+          <div className="relative">
+            <Image
+              src="/assets/pictures/add-pos-y.jpg"
+              alt="Promo POS"
+              width={400}
+              height={500}
+              className="w-full h-auto"
+            />
+
+            <div className="absolute top-3 left-3">
+              <span className="rounded-full bg-indigo-600 px-2.5 py-1 text-[10px] font-semibold text-white">
+                PROMO
+              </span>
+            </div>
+          </div>
+
+          <div className="p-4">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white">
+              POS Modern untuk Bisnis Anda
+            </h3>
+
+            <p className="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-400">
+              Kelola penjualan, stok, laporan, dan pelanggan dalam satu sistem yang
+              cepat dan mudah digunakan.
+            </p>
+
+            <div className="mt-4 flex gap-2">
+              <Link
+                href="/produk/pos"
+                className=" flex-1 rounded-lg bg-indigo-600 px-3 py-2 text-center text-xs font-semibold text-white hover:bg-indigo-700 transition-colors
+          "
+              >
+                Lihat Detail
+              </Link>
+
+              <a
+                href="#contact"
+                className="
+            rounded-lg border border-slate-200
+            dark:border-white/10
+            px-3 py-2
+            text-xs font-semibold
+            text-slate-700 dark:text-white
+            hover:bg-slate-50 dark:hover:bg-white/5
+            transition-colors
+          "
+              >
+                Hubungi
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <section className="border-b border-slate-200/70 dark:border-white/5 bg-indigo-500 dark:bg-black">
         <div className="mx-auto max-w-5xl px-6 py-24 text-center">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-indigo-500 dark:text-indigo-400">
+          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-white dark:text-indigo-400">
             Tentang Kami
           </p>
 
-          <h1 className="mb-6 text-4xl md:text-6xl font-bold text-slate-800 dark:text-white">
+          <h1 className="mb-6 text-4xl md:text-6xl font-bold text-white dark:text-white">
             Membangun Produk Digital
             <br />
             yang Berdampak
           </h1>
 
-          <p className="mx-auto max-w-3xl text-lg leading-relaxed text-slate-500 dark:text-gray-400">
+          <p className="mx-auto max-w-3xl text-lg leading-relaxed text-white dark:text-gray-400">
             Majakarsa Digital membantu bisnis, startup, institusi pendidikan,
             dan organisasi dalam merancang, membangun, serta mengembangkan
             solusi digital modern yang cepat, aman, dan berkelanjutan.
@@ -338,7 +398,7 @@ export default function TentangPage() {
           </h2>
 
           <p className="mx-auto max-w-md text-sm text-slate-500 dark:text-gray-500 leading-relaxed">
-            Tim kecil dengan jam terbang tinggi — setiap proyek ditangani
+            Tim kecil dengan jam terbang tinggi - setiap proyek ditangani
             langsung oleh orang yang menulis kodenya.
           </p>
         </div>

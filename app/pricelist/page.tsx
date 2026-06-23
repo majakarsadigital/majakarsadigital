@@ -30,7 +30,7 @@ const categories: Category[] = [
         items: [
             {
                 name: 'Landing Page',
-                desc: 'Satu halaman, fokus konversi — cocok untuk produk atau campaign.',
+                desc: 'Satu halaman, fokus konversi - cocok untuk produk atau campaign.',
                 price: 'Rp 1.500.000',
             },
             {
@@ -86,13 +86,13 @@ const categories: Category[] = [
             },
             {
                 name: 'Sistem Akademik',
-                desc: 'Manajemen data siswa/mahasiswa, nilai, dan jadwal — untuk institusi pendidikan.',
+                desc: 'Manajemen data siswa/mahasiswa, nilai, dan jadwal - untuk institusi pendidikan.',
                 price: 'Rp 8.500.000',
                 popular: true,
             },
             {
                 name: 'Sistem Manajemen Internal (ERP ringan)',
-                desc: 'Modular: HR, keuangan, proyek — disesuaikan dengan struktur organisasi.',
+                desc: 'Modular: HR, keuangan, proyek - disesuaikan dengan struktur organisasi.',
                 price: 'Hubungi Kami',
             },
         ],
@@ -129,8 +129,8 @@ export default function PricelistPage() {
                 style={{ background: 'radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 70%)' }}
             />
 
-            <section className="border-b border-slate-200/70 dark:border-white/5 bg-gradient-to-b from-[#fafbff] to-white dark:from-black dark:to-black">
-                <div className="mx-auto max-w-5xl px-6 py-24 text-center">
+            <section className="bg-gradient-to-b from-[#fafbff] to-white dark:from-black dark:to-black">
+                <div className="mx-auto max-w-5xl px-6 py-24 pb-4 text-center">
                     <p className="mb-4 text-xs font-semibold uppercase tracking-[0.3em] text-indigo-500 dark:text-indigo-400">
                         Pricelist
                     </p>
@@ -144,8 +144,10 @@ export default function PricelistPage() {
                     </p>
                 </div>
             </section>
+            <div className="border-b border-slate-200/70 dark:border-white/5 bg-gradient-to-b h-20 sticky top-0 from-[#fafbff] to-white dark:from-black dark:to-black">
 
-            <nav className="sticky top-0 z-10 border-b border-slate-200/70 dark:border-white/5 bg-white/90 dark:bg-black/90 backdrop-blur">
+            </div>
+            <nav className="sticky top-17 z-10 border-b border-slate-200/70 dark:border-white/5 bg-white/90 dark:bg-black backdrop-blur">
                 <div className="mx-auto max-w-5xl px-6 py-4 flex flex-wrap gap-3 justify-center">
                     {categories.map((c) => (
                         <a

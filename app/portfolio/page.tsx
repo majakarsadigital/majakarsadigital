@@ -255,7 +255,7 @@ export default function PortfolioPage() {
           </h2>
           <p className="mx-auto mb-10 max-w-xl text-slate-500 dark:text-gray-500 leading-relaxed text-sm">
             Diskusikan ide Anda dan dapatkan solusi digital yang dirancang
-            spesifik untuk tujuan bisnis Anda — bukan template generik.
+            spesifik untuk tujuan bisnis Anda - bukan template generik.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <Link href="/buat"
