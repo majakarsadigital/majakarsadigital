@@ -144,7 +144,7 @@ export default function PricelistPage() {
                     </p>
                 </div>
             </section>
-            <div className="border-b border-slate-200/70 dark:border-white/5  h-20 sticky top-0 bg-white dark:from-black dark:to-black">
+            <div className="border-b border-slate-200/70 dark:border-white/5  h-20 sticky top-0 bg-white dark:bg-black">
 
             </div>
             <nav className="sticky top-17 z-10 border-b border-slate-200/70 dark:border-white/5 bg-white/90 dark:bg-black backdrop-blur">
