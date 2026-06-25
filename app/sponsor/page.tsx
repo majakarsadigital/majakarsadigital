@@ -13,6 +13,10 @@ const stats = [
     { label: 'npm Downloads / bln', value: '4.2K', icon: <MdiAccountStar className='size-6' /> },
     { label: 'Domain Rating', value: 'DR 38', icon: <StashDomain className='size-6' /> },
 ]
+const timestamp = new Date().toLocaleString('id-ID', {
+  dateStyle: 'full',
+  timeStyle: 'medium',
+})
 
 const tiers = [
     {
@@ -181,23 +185,28 @@ export default function SponsorPage() {
                                 </ul>
 
                                 <a
-                                    href={`https://wa.me/6285792743430?text=${encodeURIComponent(
-                                        `Halo Tim Majakarsa, Perkenalkan, saya tertarik untuk menjadi ${tier.name} dengan paket ${tier.price}${tier.period}.
+                                    href={`https://wa.me/628135382932?text=${encodeURIComponent(
+`Halo Tim Majakarsa,
 
-    Saya ingin mendapatkan informasi lebih lanjut mengenai:
-    • Benefit yang akan diperoleh
-    • Durasi sponsorship
-    • Mekanisme pembayaran
-    • Proses penayangan logo dan brand kami
-    • Ketentuan kerja sama lainnya
-    
-    Informasi perusahaan/brand:
-    Nama Brand:
-    Website:
-    Bidang Usaha:
-    Mohon dapat menghubungi saya untuk diskusi lebih lanjut.
-    Terima kasih.`
-                                    )}`}
+Waktu Pengajuan: ${timestamp}
+
+Perkenalkan, saya tertarik untuk menjadi ${tier.name} dengan paket ${tier.price}${tier.period}.
+
+Saya ingin mendapatkan informasi lebih lanjut mengenai:
+• Benefit yang akan diperoleh
+• Durasi sponsorship
+• Mekanisme pembayaran
+• Proses penayangan logo dan brand kami
+• Ketentuan kerja sama lainnya
+
+Informasi perusahaan/brand:
+Nama Brand:
+Website:
+Bidang Usaha:
+
+Mohon dapat menghubungi saya untuk diskusi lebih lanjut.
+Terima kasih.`
+)}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className={`w-full text-center py-3 rounded-xl text-sm font-semibold transition-colors ${i === 1
@@ -227,7 +236,7 @@ export default function SponsorPage() {
                     </p>
                     <a
 
-                        href="https://wa.me/6281234567890"
+                        href="https://wa.me/628135382932"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold transition-colors"

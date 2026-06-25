@@ -71,7 +71,7 @@ export default function PortfolioPage() {
   return (
     <main className="min-h-screen bg-[#f4f5f7] dark:bg-[#080808]">
 
-      <section className="bg-[#f4f5f7] dark:bg-[#080808] border-b border-slate-200/60 dark:border-white/5 px-6 py-24">
+      <section className="bg-[#f4f5f7] dark:bg-black border-b border-slate-200/60 dark:border-white/5 px-6 py-24">
         <div className="mx-auto max-w-5xl text-center">
           <p className="mb-5 text-[10px] font-bold uppercase tracking-[0.4em] text-indigo-500 dark:text-indigo-400">
             Portfolio

@@ -8,7 +8,7 @@ import Link from 'next/link'
 import { Footer } from '@/components/footer'
 import Marquee from 'react-fast-marquee'
 import Image from 'next/image'
-import { getSponsors } from '@/lib/repositories/sponsor.repository'
+import { getSponsors } from '@/lib/repositories/sponsors.repository'
 
 export const metadata: Metadata = {
   title: 'Majakarsa Digital - Solusi Digital Terpercaya',
@@ -80,13 +80,20 @@ export default async function Page() {
       >
         <div className="absolute inset-0">
           {/* Light Mode */}
-          <div
-            className="absolute inset-0 bg-cover bg-indigo-400 bg-center bg-fixed dark:hidden"
-            // style={{
-            //   backgroundImage: "url('/assets/pictures/background17.jpg')",
-            // }}
-          />
+          <div className="absolute inset-0 overflow-hidden">
+            <div
+              className="absolute inset-0 bg-indigo-500"
+              style={{
+                backgroundImage: `
+                  linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+                  linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)
+                `,
+                backgroundSize: '40px 40px',
+              }}
+            />
 
+            <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-white" />
+          </div>
           {/* Dark Mode */}
           <div
             className="absolute inset-0 hidden bg-cover bg-center bg-fixed dark:block"
@@ -105,7 +112,7 @@ export default async function Page() {
         {/* Floating social buttons - smaller & closer to edge on mobile */}
         <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 flex flex-col items-end gap-2 sm:gap-3">
           <a
-            href="https://wa.me/6281234567890"
+            href="https://wa.me/628135382932"
             target="_blank"
             rel="noopener noreferrer"
             className="group flex items-center rounded-full bg-white/10 backdrop-blur-xl border border-white/20 text-white shadow-[0_8px_32px_rgba(0,0,0,0.2)] hover:bg-[#25D366]/20 transition-all duration-300"
@@ -154,39 +161,81 @@ export default async function Page() {
             style={{ background: 'radial-gradient(ellipse at top, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 70%)' }}
           />
 
-          <div className="w-380 mx-auto dark:mx-auto px-2 sm:px-6 dark:text-center z-10">
-            <p className="hidden dark:block text-xs sm:text-sm tracking-[0.2em] sm:tracking-[0.3em] text-slate-600 dark:text-gray-400 mb-4 sm:mb-6">
-              powered by majakarsa
-            </p>
+          <div className="max-w-450 mx-auto px-6 relative z-10">
+            <div className="grid lg:grid-cols-2 dark:grid-cols-1 items-center gap-12">
 
-            <h1 className="text-4xl sm:text-5xl md:text-7xl font-semibold text-white dark:text-white leading-tight mb-4 sm:mb-6 break-words">
-              MAJAKARSA
-              <span className="text-white">
-                DIGITAL
-              </span>
-            </h1>
+              {/* Kiri */}
+              <div className="text-center lg:text-left dark:text-center">
+                <p className="hidden dark:block text-xs sm:text-sm tracking-[0.3em] text-slate-600 dark:text-gray-400 mb-6">
+                  powered by majakarsa
+                </p>
 
-            <p className="text-base font-medium sm:text-lg md:text-2xl text-white dark:text-gray-300 max-w-2xl dark:mx-auto mb-8 sm:mb-10 leading-relaxed">
-              Dari website, aplikasi mobile, hingga sistem enterprise - kami hadirkan
-              produk digital berkualitas tinggi yang siap skalakan bisnis Anda.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 dark:justify-center">
-              <a
-                href="#services"
-                className="px-6 py-3 sm:px-8 sm:py-3.5 bg-white dark:bg-white text-slate-900 dark:text-black font-semibold rounded-full hover:bg-white/70 dark:hover:bg-gray-100 transition-colors text-sm sm:text-base"
-              >
-                Lihat Layanan
-              </a>
-              <a
-                href="#contact"
-                className="px-6 py-3 sm:px-8 sm:py-3.5 border border-white dark:border-white/30 text-white dark:text-white font-semibold rounded-full hover:bg-white/10 dark:hover:bg-white/10 transition-colors text-sm sm:text-base"
-              >
-                Hubungi Kami
-              </a>
+                <h1 className="text-4xl sm:text-5xl md:text-7xl font-semibold text-white leading-tight mb-6">
+                  MAJAKARSA
+                  <span>
+                    DIGITAL
+                  </span>
+                </h1>
+
+                <p className="text-base sm:text-lg md:text-2xl text-gray-300 max-w-2xl mb-10 dark:mx-auto">
+                  Dari website, aplikasi mobile, hingga sistem enterprise - kami hadirkan
+                  produk digital berkualitas tinggi yang siap skalakan bisnis Anda.
+                </p>
+
+                <div className="flex flex-col sm:flex-row gap-4 dark:justify-center">
+                  <a
+                    href="#services"
+                    className="px-8 py-3.5 bg-slate-900 dark:bg-white text-white dark:text-black rounded-full font-semibold"
+                  >
+                    Lihat Layanan
+                  </a>
+
+                  <a
+                    href="#contact"
+                    className="px-8 py-3.5 border border-slate-300 dark:border-white/30 text-white dark:text-white rounded-full font-semibold"
+                  >
+                    Hubungi Kami
+                  </a>
+                </div>
+              </div>
+
+              {/* Kanan - hanya light mode */}
+              <div className="hidden lg:flex dark:hidden justify-start">
+                <img
+                  src="/assets/pictures/baksokuwung1_mockup.png"
+                  alt="Majakarsa Dashboard"
+                  className="max-w-4xl"
+                />
+              </div>
+
             </div>
           </div>
+          <div className="absolute hidden dark:block bg-black/50 p-2 sm:p-3 bottom-0 left-1/2 -translate-x-1/2 w-full max-w-full">
+            <Marquee
+              gradient
+              gradientColor="black"
+              speed={50}
+              pauseOnHover
+              autoFill
+            >
+              {sponsors.map((sponsor) => (
+                <div
+                  key={sponsor.id}
+                  className="mx-6 sm:mx-8 flex items-center transition-opacity duration-300"
+                >
+                  <Image
+                    src={sponsor.logo_url}
+                    alt={sponsor.name}
+                    width={120}
+                    height={40}
+                    className="h-5 sm:h-6 w-auto grayscale invert object-contain transition-all duration-300"
+                  />
+                </div>
+              ))}
+            </Marquee>
+          </div>
 
-          <div className="absolute bg-white p-2 sm:p-3 bottom-0 left-1/2 -translate-x-1/2 w-full max-w-full">
+          <div className="absolute dark:hidden bg-white p-2 sm:p-3 bottom-0 left-1/2 -translate-x-1/2 w-full max-w-full">
             <Marquee
               gradient
               speed={50}
@@ -209,6 +258,7 @@ export default async function Page() {
               ))}
             </Marquee>
           </div>
+
         </section >
 
         {/* CAROUSEL + QUOTE */}
@@ -355,7 +405,7 @@ export default async function Page() {
               <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
                 <a
                   href="#contact"
-                  className="px-8 py-3 rounded-full bg-primary text-white font-semibold hover:opacity-90 transition"
+                  className="px-8 py-3 rounded-full bg-primary dark:bg-white text-white dark:text-slate-900 font-semibold hover:opacity-90 transition"
                 >
                   Konsultasi Gratis
                 </a>
@@ -412,13 +462,13 @@ export default async function Page() {
                 <div className="flex flex-col sm:flex-row mt-5 text-sm gap-3 sm:gap-4">
                   <a
                     href="/portfolio"
-                    className="px-5 py-3 sm:py-3.5 text-center bg-slate-900 dark:bg-indigo-500 text-white dark:text-white font-semibold rounded-full hover:bg-slate-700 dark:hover:bg-indigo-600 transition-colors"
+                    className="px-5 py-3 sm:py-3.5 text-center bg-indigo-500 text-white font-semibold rounded-full hover:bg-indigo-600 transition-colors"
                   >
                     Lihat Portfolio
                   </a>
                   <a
                     href="/cara-order"
-                    className="px-5 py-3 sm:py-3.5 text-center border border-slate-900/30 dark:border-white/30 text-slate-900 dark:text-white font-semibold rounded-full hover:bg-slate-900/10 dark:hover:bg-white/10 transition-colors"
+                    className="px-5 py-3 sm:py-3.5 text-center border border-white/30 text-white font-semibold rounded-full hover:bg-slate-900/10 dark:hover:bg-white/10 transition-colors"
                   >
                     Cara Order
                   </a>

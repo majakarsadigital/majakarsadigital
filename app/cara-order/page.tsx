@@ -249,7 +249,7 @@ export default function CaraOrderPage() {
                 </p>
                 <div className="flex flex-wrap items-center justify-center gap-3">
                     <a
-                        href="https://wa.me/6281234567890"
+                        href="https://wa.me/628135382932"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold transition-colors"

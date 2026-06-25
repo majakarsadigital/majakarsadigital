@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/pagination'
 import Link from 'next/link'
 import { ProductCard } from '@/components/product-card'
+import StackedCards from '@/components/StackedCard'
 
 const PRODUCTS_PER_PAGE = 9
 const categories = ['Semua', 'Website', 'Aplikasi', 'Web & App']
@@ -189,61 +190,7 @@ export default function ProdukPage() {
         ? 'opacity-100 translate-x-0 pointer-events-auto'
         : 'opacity-0 translate-x-4 pointer-events-none'
         }`}>
-        <div
-          className=" w-72 overflow-hidden rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0A0A0A] shadow-2xl backdrop-blur-xl"
-        >
-          <div className="relative">
-            <Image
-              src="/assets/pictures/add-pos-y.jpg"
-              alt="Promo POS"
-              width={400}
-              height={500}
-              className="w-full h-auto"
-            />
-
-            <div className="absolute top-3 left-3">
-              <span className="rounded-full bg-indigo-600 px-2.5 py-1 text-[10px] font-semibold text-white">
-                PROMO
-              </span>
-            </div>
-          </div>
-
-          <div className="p-4">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white">
-              POS Modern untuk Bisnis Anda
-            </h3>
-
-            <p className="mt-2 text-xs leading-relaxed text-slate-600 dark:text-slate-400">
-              Kelola penjualan, stok, laporan, dan pelanggan dalam satu sistem yang
-              cepat dan mudah digunakan.
-            </p>
-
-            <div className="mt-4 flex gap-2">
-              <Link
-                href="/produk/pos"
-                className=" flex-1 rounded-lg bg-indigo-600 px-3 py-2 text-center text-xs font-semibold text-white hover:bg-indigo-700 transition-colors
-          "
-              >
-                Lihat Detail
-              </Link>
-
-              <a
-                href="#contact"
-                className="
-            rounded-lg border border-slate-200
-            dark:border-white/10
-            px-3 py-2
-            text-xs font-semibold
-            text-slate-700 dark:text-white
-            hover:bg-slate-50 dark:hover:bg-white/5
-            transition-colors
-          "
-              >
-                Hubungi
-              </a>
-            </div>
-          </div>
-        </div>
+            <StackedCards />
       </div>
 
       {/* Main content — tidak berubah sama sekali */}

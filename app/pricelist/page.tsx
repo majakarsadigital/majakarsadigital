@@ -212,7 +212,7 @@ export default function PricelistPage() {
                                             </p>
                                         </div>
                                         <a
-                                            href="https://wa.me/6281234567890"
+                                            href="https://wa.me/628135382932"
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="text-xs font-semibold px-4 py-2 rounded-full bg-slate-900 dark:bg-indigo-500 text-white hover:bg-slate-700 dark:hover:bg-indigo-600 transition-colors whitespace-nowrap"
@@ -287,7 +287,7 @@ export default function PricelistPage() {
                 </p>
                 <div className="flex flex-wrap items-center justify-center gap-3">
                     <a
-                        href="https://wa.me/6281234567890"
+                        href="https://wa.me/628135382932"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold transition-colors"

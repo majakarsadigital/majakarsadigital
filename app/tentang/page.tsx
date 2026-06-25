@@ -166,7 +166,7 @@ export default function TentangPage() {
   
         <StackedCards/>
       </div>
-      <section className="border-b border-slate-200/70 dark:border-white/5 bg-indigo-400 dark:bg-black">
+      <section className="border-b border-slate-200/70 dark:border-white/5 bg-indigo-500 dark:bg-black">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 md:px-8 py-16 sm:py-20 md:py-24 lg:py-28 text-center">
           {/* Label - lebih responsif */}
           <p className="mb-3 sm:mb-4 text-[10px] sm:text-xs font-semibold uppercase tracking-[0.2em] sm:tracking-[0.25em] md:tracking-[0.3em] text-white dark:text-indigo-400">
