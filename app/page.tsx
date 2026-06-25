@@ -170,7 +170,7 @@ export default async function Page() {
                   powered by majakarsa
                 </p>
 
-                <h1 className="text-4xl sm:text-5xl md:text-7xl font-semibold text-white leading-tight mb-6">
+                <h1 className="text-3xl sm:text-5xl md:text-7xl font-semibold text-white leading-tight mb-6">
                   MAJAKARSA
                   <span>
                     DIGITAL
