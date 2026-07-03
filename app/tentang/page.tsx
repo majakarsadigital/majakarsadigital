@@ -75,28 +75,34 @@ const timeline = [
 
 const team = [
   {
-    name: 'Raka Pradipta',
-    role: 'Founder & Lead Engineer',
-    focus: 'Arsitektur sistem, backend, dan infrastruktur',
-    initials: 'RP',
+    name: 'Rizky Firmansyah',
+    role: 'Founder & Product Manager',
+    focus: 'Manajemen produk, arsitektur sistem, dan strategi pengembangan',
+    initials: 'RF',
   },
   {
-    name: 'Sekar Ayuningtyas',
-    role: 'Frontend & UI/UX Engineer',
-    focus: 'Desain antarmuka dan pengalaman pengguna',
-    initials: 'SA',
+    name: 'Novri Nasution',
+    role: 'Founder & Fullstack Engineer',
+    focus: 'Pengembangan frontend, backend, dan integrasi sistem',
+    initials: 'NN',
   },
   {
-    name: 'Bima Wirawan',
-    role: 'Mobile Developer',
-    focus: 'Aplikasi iOS & Android, integrasi API',
-    initials: 'BW',
+    name: 'Rizal Alif',
+    role: 'IT Support & Computer Technician',
+    focus: 'Pemeliharaan perangkat, jaringan, dan dukungan teknis',
+    initials: 'RA',
   },
   {
-    name: 'Naila Putri',
-    role: 'Project Manager',
-    focus: 'Koordinasi klien dan delivery proyek',
-    initials: 'NP',
+    name: 'Dhika Karya',
+    role: 'Fullstack Engineer & UI/UX Designer',
+    focus: 'Desain antarmuka, pengalaman pengguna, dan pengembangan aplikasi web',
+    initials: 'DK',
+  },
+  {
+    name: 'Nabil Shalahudin',
+    role: 'Produk QC',
+    focus: 'Quality Control Produk',
+    initials: 'NS',
   },
 ]
 
@@ -163,8 +169,8 @@ export default function TentangPage() {
           </div>
         </div> */}
 
-  
-        <StackedCards/>
+
+        <StackedCards />
       </div>
       <section className="border-b border-slate-200/70 dark:border-white/5 bg-indigo-500 dark:bg-black">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 md:px-8 py-16 sm:py-20 md:py-24 lg:py-28 text-center">

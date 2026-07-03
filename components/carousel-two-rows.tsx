@@ -1,10 +1,11 @@
 'use client';
+import Image from 'next/image';
 import React, { useEffect, useRef } from 'react';
 
 interface Product {
   id: string;
   name: string;
-  image: string;
+  image_url: string;
 }
 
 interface Props {
@@ -58,9 +59,12 @@ export function TwoRowCarousel({ products }: Props) {
 
   const ProductItem = ({ product }: { product: Product }) => (
     <div className="group w-[260px] sm:w-[420px] md:w-[600px] lg:w-[800px] flex-shrink-0 aspect-video rounded-xs overflow-hidden">
-      <img
-        src={product.image}
+
+      <Image
+        src={product.image_url}
         alt={product.name}
+        width={800}
+        height={600}
         className="w-full h-full object-cover grayscale-100 transition-all duration-500 group-hover:grayscale-0"
         draggable={false}
       />

@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { TwoRowCarousel } from '@/components/carousel-two-rows'
-import { sampleProducts } from '@/lib/data/products'
 import { Navbar } from '@/components/navbar'
 import { TopBanner } from '@/components/top-banner'
 import { BxBxsQuoteLeft, BxBxsQuoteRight, FluentCalendarDataBar32Filled, IcBaselineApple, LogosFacebook, LogosWhatsappIcon, MaterialSymbolsAndroid, MaterialSymbolsDemographyRounded, MaterialSymbolsEditSquare, MaterialSymbolsShoppingBagSpeed, MaterialSymbolsViewQuiltRounded, RiRotateLockFill, RiRotateLockLine, SkillIconsInstagram, StreamlineInterfaceContentChartProductDataAnalysisAnalyticsGraphLineBusinessBoardChart, StreamlinePlumpBrowserWebsite1Remix, TypcnCloudStorage } from '@/public/assets/icons'
@@ -9,6 +8,9 @@ import { Footer } from '@/components/footer'
 import Marquee from 'react-fast-marquee'
 import Image from 'next/image'
 import { getSponsors } from '@/lib/repositories/sponsors.repository'
+import { HeroCarousel } from '@/components/hero-carousel'
+import { SponsorLogo } from '@/components/sponsor-logo'
+import { getProducts } from '@/lib/repositories/products.repository'
 
 export const metadata: Metadata = {
   title: 'Majakarsa Digital - Solusi Digital Terpercaya',
@@ -73,6 +75,9 @@ const services = [
 
 export default async function Page() {
   const sponsors = await getSponsors()
+  const products = await getProducts()
+
+  
   return (
     <>
       <main
@@ -155,13 +160,15 @@ export default async function Page() {
         </div>
 
         {/* HERO */}
-        <section className="relative z-10 min-h-screen flex -mt-30 dark:sm:-mt-30 sm:-mt-29 items-center dark:justify-center px-4" >
+        <section className="relative z-10 min-h-screen flex -mt-30 dark:sm:-mt-30 sm:-mt-15 items-center dark:justify-center px-4" >
           <div
             className="absolute inset-0 pointer-events-none hidden dark:block"
             style={{ background: 'radial-gradient(ellipse at top, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 70%)' }}
           />
-
-          <div className="max-w-450 mx-auto px-6 relative z-10">
+          <div className="max-w-450 hidden lg:block dark:hidden mx-auto relative z-10">
+            <HeroCarousel />
+          </div>
+          <div className="max-w-450 hidden dark:block mx-auto px-6 relative z-10">
             <div className="grid lg:grid-cols-2 dark:grid-cols-1 items-center gap-12">
 
               {/* Kiri */}
@@ -241,8 +248,9 @@ export default async function Page() {
               speed={50}
               pauseOnHover
               autoFill
+              className='bg-white'
             >
-              {sponsors.map((sponsor) => (
+              {/* {sponsors.map((sponsor) => (
                 <div
                   key={sponsor.id}
                   className="mx-6 sm:mx-8 flex items-center transition-opacity duration-300"
@@ -255,6 +263,15 @@ export default async function Page() {
                     className="h-5 sm:h-6 w-auto object-contain transition-all duration-300"
                   />
                 </div>
+              ))} */}
+
+              {sponsors.map((sponsor) => (
+                <div
+                  key={sponsor.id}
+                  className="mx-6 sm:mx-8 flex items-center transition-opacity duration-300"
+                >
+                  <SponsorLogo sponsor={sponsor} />
+                </div>
               ))}
             </Marquee>
           </div>
@@ -263,7 +280,7 @@ export default async function Page() {
 
         {/* CAROUSEL + QUOTE */}
         <section className="relative z-10 bg-black dark:bg-black py-10 sm:py-24" >
-          <TwoRowCarousel products={sampleProducts} />
+          <TwoRowCarousel products={products} />
         </ section >
 
         <section className="relative z-10 bg-[#f4f5f7] dark:bg-black py-12 sm:py-24" >

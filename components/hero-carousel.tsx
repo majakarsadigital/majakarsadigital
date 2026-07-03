@@ -1,35 +1,190 @@
 'use client'
 
-import * as React from "react"
-import { Card, CardContent } from "@/components/ui/card"
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel"
-import { Button } from '@/components/ui/button'
-import { ArrowRight } from 'lucide-react'
+import { useRef, useState } from "react"
+import { Swiper, SwiperSlide } from "swiper/react"
+import type { Swiper as SwiperType } from "swiper"
+import "swiper/css"
+import { Autoplay } from "swiper/modules"
+
+const AUTOPLAY_DELAY = 5000
+const TOTAL_SLIDES = 3
 
 export function HeroCarousel() {
+  const swiperRef = useRef<SwiperType | null>(null)
+  const [activeIndex, setActiveIndex] = useState(0)
+  const [progress, setProgress] = useState(0)
+
+  const handleSwiper = (swiper: SwiperType) => {
+    swiperRef.current = swiper
+  }
+
+  const handleSlideChange = (swiper: SwiperType) => {
+    setActiveIndex(swiper.realIndex)
+  }
+
+  const goPrev = () => swiperRef.current?.slidePrev()
+  const goNext = () => swiperRef.current?.slideNext()
+  const goTo = (i: number) => swiperRef.current?.slideToLoop(i)
+
+  const padded = (n: number) => String(n + 1).padStart(2, "0")
+
   return (
-    <Carousel className="w-full max-w-[12rem] sm:max-w-xs">
-      <CarouselContent>
-        {Array.from({ length: 5 }).map((_, index) => (
-          <CarouselItem key={index}>
-            <div className="p-1">
-              <Card>
-                <CardContent className="flex aspect-square items-center justify-center p-6">
-                  <span className="text-4xl font-semibold">{index + 1}</span>
-                </CardContent>
-              </Card>
+    <div className="relative">
+      <Swiper
+        modules={[Autoplay]}
+        slidesPerView={1}
+        autoplay={{ delay: AUTOPLAY_DELAY, disableOnInteraction: false }}
+        loop
+        onSwiper={handleSwiper}
+        onSlideChange={handleSlideChange}
+        onAutoplayTimeLeft={(_, __, ratio) => {
+          setProgress((1 - ratio) * 100)
+        }}
+      >
+        {/* Slide 1 - Website Usaha / Toko Makanan */}
+        <SwiperSlide>
+          <div className="grid lg:grid-cols-2 dark:grid-cols-1 items-center gap-12 min-h-[80vh]">
+            <div className="text-center lg:text-left dark:text-center">
+              <p className="hidden dark:block text-xs sm:text-sm tracking-[0.3em] text-slate-600 dark:text-gray-400 mb-6">
+                powered by majakarsa
+              </p>
+              <h1 className="text-3xl sm:text-5xl md:text-7xl font-semibold text-white leading-tight mb-6">
+                WEBSITE
+                <span>KULINER</span>
+              </h1>
+              <p className="text-base sm:text-lg md:text-2xl text-gray-300 max-w-2xl mb-10 dark:mx-auto">
+                Bawa usaha kuliner Anda ke ranah digital dengan website yang menarik,
+                mudah dikelola, dan siap menerima pesanan online kapan saja.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 dark:justify-center">
+                <a href="#services" className="px-8 py-3.5 bg-slate-900 dark:bg-white text-white dark:text-black rounded-full font-semibold">
+                  Lihat Layanan
+                </a>
+                <a href="#contact" className="px-8 py-3.5 border border-slate-300 dark:border-white/30 text-white rounded-full font-semibold">
+                  Hubungi Kami
+                </a>
+              </div>
             </div>
-          </CarouselItem>
-        ))}
-      </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
-    </Carousel>
+            <div className="hidden lg:flex dark:hidden justify-start">
+              <img src="/assets/pictures/Group 5.png" alt="Website Toko Makanan" className="max-w-4xl" />
+            </div>
+          </div>
+        </SwiperSlide>
+
+        {/* Slide 2 - Website Portfolio Personal */}
+        <SwiperSlide>
+          <div className="grid lg:grid-cols-2 dark:grid-cols-1 items-center gap-12 min-h-[80vh]">
+            <div className="text-center lg:text-left dark:text-center">
+              <p className="hidden dark:block text-xs sm:text-sm tracking-[0.3em] text-slate-600 dark:text-gray-400 mb-6">
+                powered by majakarsa
+              </p>
+              <h1 className="text-3xl sm:text-5xl md:text-7xl font-semibold text-white leading-tight mb-6">
+                PORTFOLIO
+                <span>PERSONAL</span>
+              </h1>
+              <p className="text-base sm:text-lg md:text-2xl text-gray-300 max-w-2xl mb-10 dark:mx-auto">
+                Tampilkan karya dan identitas profesional Anda lewat website portfolio
+                personal yang elegan, responsif, dan mudah diperbarui.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 dark:justify-center">
+                <a href="#services" className="px-8 py-3.5 bg-slate-900 dark:bg-white text-white dark:text-black rounded-full font-semibold">
+                  Lihat Layanan
+                </a>
+                <a href="#contact" className="px-8 py-3.5 border border-slate-300 dark:border-white/30 text-white rounded-full font-semibold">
+                  Hubungi Kami
+                </a>
+              </div>
+            </div>
+            <div className="hidden lg:flex dark:hidden justify-end">
+              <img src="/assets/pictures/personal_portfolio_mock.png" alt="Website Portfolio Personal" className="max-w-lg" />
+            </div>
+          </div>
+        </SwiperSlide>
+
+        {/* Slide 3 - Platform Properti (Rumah, Apartemen, dll) */}
+        <SwiperSlide>
+          <div className="grid lg:grid-cols-2 dark:grid-cols-1 items-center gap-12 min-h-[80vh]">
+            <div className="text-center lg:text-left dark:text-center">
+              <p className="hidden dark:block text-xs sm:text-sm tracking-[0.3em] text-slate-600 dark:text-gray-400 mb-6">
+                powered by majakarsa
+              </p>
+              <h1 className="text-3xl sm:text-5xl md:text-7xl font-semibold text-white leading-tight mb-6">
+                PLATFORM
+                <span>PROPERTI</span>
+              </h1>
+              <p className="text-base sm:text-lg md:text-2xl text-gray-300 max-w-2xl mb-10 dark:mx-auto">
+                Solusi digital untuk pemasaran rumah, apartemen, dan properti lainnya
+                dengan fitur pencarian, filter, dan manajemen listing yang praktis.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 dark:justify-center">
+                <a href="#services" className="px-8 py-3.5 bg-slate-900 dark:bg-white text-white dark:text-black rounded-full font-semibold">
+                  Lihat Layanan
+                </a>
+                <a href="#contact" className="px-8 py-3.5 border border-slate-300 dark:border-white/30 text-white rounded-full font-semibold">
+                  Hubungi Kami
+                </a>
+              </div>
+            </div>
+            <div className="hidden lg:flex dark:hidden justify-end">
+              <img src="/assets/pictures/properties_platform_mock.png" alt="Platform Properti" className="max-w-4xl" />
+            </div>
+          </div>
+        </SwiperSlide>
+      </Swiper>
+
+      {/* Custom Navigation */}
+      <div className="flex items-center gap-4 justify-center lg:justify-end dark:justify-center">
+        {/* Counter */}
+        <div className="flex items-center gap-2">
+          <span className="text-white font-medium text-base tabular-nums">
+            {padded(activeIndex)}
+          </span>
+          <div className="h-[1.5px] bg-white/15 rounded-full overflow-hidden w-20">
+            <div
+              className="h-full bg-white rounded-full transition-none"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+          <span className="text-white/30 text-sm tabular-nums">
+            {padded(TOTAL_SLIDES - 1)}
+          </span>
+        </div>
+
+        {/* Prev */}
+        <button
+          onClick={goPrev}
+          aria-label="Slide sebelumnya"
+          className="w-10 h-10 rounded-full border border-white/20 bg-white/5 flex items-center justify-center text-white hover:bg-white/12 hover:border-white/40 active:scale-95 transition-all duration-150"
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M10 12L6 8L10 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+
+        {/* Dots */}
+        <div className="flex items-center gap-1.5">
+          {Array.from({ length: TOTAL_SLIDES }).map((_, i) => (
+            <button
+              key={i}
+              onClick={() => goTo(i)}
+              aria-label={`Slide ${i + 1}`}
+              className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${i === activeIndex ? "w-5 bg-white" : "w-1.5 bg-white/25 hover:bg-white/45"
+                }`}
+            />
+          ))}
+        </div>
+
+        {/* Next */}
+        <button
+          onClick={goNext}
+          aria-label="Slide berikutnya"
+          className="w-10 h-10 rounded-full border border-white/20 bg-white/5 flex items-center justify-center text-white hover:bg-white/12 hover:border-white/40 active:scale-95 transition-all duration-150"
+        >
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M6 4L10 8L6 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+      </div>
+    </div>
   )
 }

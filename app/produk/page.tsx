@@ -4,6 +4,8 @@ import { useState, useMemo, useRef, useEffect } from 'react'
 import Image from 'next/image'
 import { getProducts } from '@/lib/repositories/products.repository'
 import { ReadyProductsCarousel } from '@/components/ready-products-carousel'
+import Masonry from 'react-masonry-css'
+
 import {
   Pagination,
   PaginationContent,
@@ -16,6 +18,7 @@ import {
 import Link from 'next/link'
 import { ProductCard } from '@/components/product-card'
 import StackedCards from '@/components/StackedCard'
+import { CatalogCarousel } from '@/components/catalog_carousel'
 
 const PRODUCTS_PER_PAGE = 9
 const categories = ['Semua', 'Website', 'Aplikasi', 'Web & App']
@@ -40,21 +43,37 @@ export default function ProdukPage() {
     loadProducts()
   }, [])
 
+  const searchTerm = search.trim().toLowerCase()
+  const isSearching = searchTerm !== ''
+
+  // Cek apakah produk cocok dengan kata kunci search (dipakai untuk highlight, bukan filter)
+  const isMatch = (p: any) => {
+    if (!isSearching) return false
+    return (
+      p.name.toLowerCase().includes(searchTerm) ||
+      p.description.toLowerCase().includes(searchTerm) ||
+      p.category.toLowerCase().includes(searchTerm)
+    )
+  }
+
+  // Hanya difilter oleh kategori — search tidak lagi menghilangkan produk
   const filtered = useMemo(() => {
-    return products.filter((p) => {
-      const matchCategory =
-        activeCategory === 'Semua' ||
-        p.category === activeCategory
+    return products.filter((p) => activeCategory === 'Semua' || p.category === activeCategory)
+  }, [products, activeCategory])
 
-      const matchSearch =
-        search.trim() === '' ||
-        p.name.toLowerCase().includes(search.toLowerCase()) ||
-        p.description.toLowerCase().includes(search.toLowerCase()) ||
-        p.category.toLowerCase().includes(search.toLowerCase())
+  const matchedCount = useMemo(() => {
+    if (!isSearching) return filtered.length
+    return filtered.filter(isMatch).length
+  }, [filtered, searchTerm, isSearching])
 
-      return matchCategory && matchSearch
-    })
-  }, [products, activeCategory, search])
+  // Grouping per kategori, dipakai saat tab "Semua" aktif
+  const groupedByCategory = useMemo(() => {
+    if (activeCategory !== 'Semua') return []
+    const cats = categories.filter((c) => c !== 'Semua')
+    return cats
+      .map((cat) => ({ category: cat, items: filtered.filter((p) => p.category === cat) }))
+      .filter((g) => g.items.length > 0)
+  }, [filtered, activeCategory])
 
   const totalPages = Math.ceil(filtered.length / PRODUCTS_PER_PAGE)
   const start = (currentPage - 1) * PRODUCTS_PER_PAGE
@@ -72,6 +91,14 @@ export default function ProdukPage() {
     if (currentPage < totalPages - 2) pages.push('ellipsis')
     pages.push(totalPages)
     return pages
+  }
+
+  // Class wrapper kartu: highlight kalau cocok search, redup kalau tidak
+  const cardWrapperClass = (product: any) => {
+    if (!isSearching) return ''
+    return isMatch(product)
+      ? 'ring-2 ring-indigo-500 dark:ring-indigo-400 rounded-2xl shadow-lg shadow-indigo-500/10 scale-[1.02] transition-all duration-200'
+      : 'opacity-40 grayscale-[0.4] transition-all duration-200'
   }
 
   useEffect(() => {
@@ -128,13 +155,6 @@ export default function ProdukPage() {
         </div>
       </div>
 
-      {/* Carousel produk siap pakai */}
-      <div className="bg-indigo-50/60 dark:bg-[#0A0A0A] border-slate-200/60 dark:border-white/5">
-        <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 py-8 sm:py-10">
-          <ReadyProductsCarousel products={products} />
-        </div>
-      </div>
-
       {/* Spacer navbar */}
       <div className="h-14 sm:h-20 sticky top-0 z-10 bg-white dark:bg-black border-b border-slate-200/60 dark:border-white/5" />
 
@@ -179,7 +199,7 @@ export default function ProdukPage() {
 
           {filtered.length > 0 && (
             <p className="text-xs text-slate-400 dark:text-gray-600 sm:ml-auto flex-shrink-0">
-              {filtered.length} produk ditemukan
+              {isSearching ? `${matchedCount} dari ${filtered.length} produk cocok` : `${filtered.length} produk ditemukan`}
             </p>
           )}
         </div>
@@ -193,12 +213,13 @@ export default function ProdukPage() {
             <StackedCards />
       </div>
 
-      {/* Main content — tidak berubah sama sekali */}
+      {/* Main content */}
       <div ref={contentSectionRef} className="mx-auto max-w-7xl px-4 sm:px-6 py-8 sm:py-10">
 
         {/* Banner posisi asli (horizontal) */}
         <div ref={promoAnchorRef} className="mb-8 sm:mb-10">
-          <div className={`rounded overflow-hidden transition-opacity duration-200 ${promoDocked ? 'opacity-0 pointer-events-none' : 'opacity-100'
+          <CatalogCarousel/>
+          {/* <div className={`rounded overflow-hidden transition-opacity duration-200 ${promoDocked ? 'opacity-0 pointer-events-none' : 'opacity-100'
             }`}>
             <Image
               src="/assets/pictures/add-pos-x.jpg"
@@ -208,11 +229,10 @@ export default function ProdukPage() {
               sizes="100vw"
               className="w-full h-auto"
             />
-          </div>
+          </div> */}
         </div>
 
-
-        {/* Empty state */}
+        {/* Empty state — kategori ini tidak punya produk sama sekali */}
         {filtered.length === 0 && (
           <div className="text-center py-24 sm:py-32">
             <p className="text-4xl sm:text-5xl mb-5">🔍</p>
@@ -227,43 +247,65 @@ export default function ProdukPage() {
           </div>
         )}
 
-        {/* Grid produk — tidak digeser, tidak diubah */}
-        {filtered.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-            {paginated.map((product) => (
-              <ProductCard key={product.id} product={product} />
+        {/* Mode "Semua": grid dibagi per kategori, tanpa pagination */}
+        {filtered.length > 0 && activeCategory === 'Semua' && (
+          <div className="space-y-12">
+            {groupedByCategory.map(({ category, items }) => (
+              <section key={category}>
+                <div className="flex items-center gap-2.5 mb-4 sm:mb-5">
+                  <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">{category}</h2>
+                  <span className="text-[11px] text-slate-400 dark:text-gray-600">{items.length} produk</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+                  {items.map((product) => (
+                    <div key={product.id} className={cardWrapperClass(product)}>
+                      <ProductCard product={product} />
+                    </div>
+                  ))}
+                </div>
+              </section>
             ))}
           </div>
         )}
 
-        {/* Pagination */}
-        {filtered.length > 0 && (
-          <div className="mt-8 sm:mt-10 pt-6 border-t border-slate-200/60 dark:border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-xs text-slate-400 dark:text-gray-600 text-center sm:text-left">
-              Menampilkan{' '}
-              <span className="font-semibold text-slate-600 dark:text-gray-400">{start + 1}–{Math.min(start + PRODUCTS_PER_PAGE, filtered.length)}</span>
-              {' '}dari{' '}
-              <span className="font-semibold text-slate-600 dark:text-gray-400">{filtered.length}</span> produk
-            </p>
+        {/* Mode kategori spesifik: grid flat + pagination, seperti semula */}
+        {filtered.length > 0 && activeCategory !== 'Semua' && (
+          <>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+              {paginated.map((product) => (
+                <div key={product.id} className={cardWrapperClass(product)}>
+                  <ProductCard product={product} />
+                </div>
+              ))}
+            </div>
 
-            {totalPages > 1 && (
-              <Pagination className="mx-0 w-auto">
-                <PaginationContent>
-                  <PaginationItem>
-                    <PaginationPrevious href="#" onClick={(e) => { e.preventDefault(); setCurrentPage(p => Math.max(1, p - 1)) }} className={currentPage === 1 ? 'pointer-events-none opacity-30' : ''} />
-                  </PaginationItem>
-                  {getPageNumbers().map((page, i) =>
-                    page === 'ellipsis'
-                      ? <PaginationItem key={`e-${i}`}><PaginationEllipsis /></PaginationItem>
-                      : <PaginationItem key={page}><PaginationLink href="#" isActive={currentPage === page} onClick={(e) => { e.preventDefault(); setCurrentPage(page) }}>{page}</PaginationLink></PaginationItem>
-                  )}
-                  <PaginationItem>
-                    <PaginationNext href="#" onClick={(e) => { e.preventDefault(); setCurrentPage(p => Math.min(totalPages, p + 1)) }} className={currentPage === totalPages ? 'pointer-events-none opacity-30' : ''} />
-                  </PaginationItem>
-                </PaginationContent>
-              </Pagination>
-            )}
-          </div>
+            <div className="mt-8 sm:mt-10 pt-6 border-t border-slate-200/60 dark:border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
+              <p className="text-xs text-slate-400 dark:text-gray-600 text-center sm:text-left">
+                Menampilkan{' '}
+                <span className="font-semibold text-slate-600 dark:text-gray-400">{start + 1}–{Math.min(start + PRODUCTS_PER_PAGE, filtered.length)}</span>
+                {' '}dari{' '}
+                <span className="font-semibold text-slate-600 dark:text-gray-400">{filtered.length}</span> produk
+              </p>
+
+              {totalPages > 1 && (
+                <Pagination className="mx-0 w-auto">
+                  <PaginationContent>
+                    <PaginationItem>
+                      <PaginationPrevious href="#" onClick={(e) => { e.preventDefault(); setCurrentPage(p => Math.max(1, p - 1)) }} className={currentPage === 1 ? 'pointer-events-none opacity-30' : ''} />
+                    </PaginationItem>
+                    {getPageNumbers().map((page, i) =>
+                      page === 'ellipsis'
+                        ? <PaginationItem key={`e-${i}`}><PaginationEllipsis /></PaginationItem>
+                        : <PaginationItem key={page}><PaginationLink href="#" isActive={currentPage === page} onClick={(e) => { e.preventDefault(); setCurrentPage(page) }}>{page}</PaginationLink></PaginationItem>
+                    )}
+                    <PaginationItem>
+                      <PaginationNext href="#" onClick={(e) => { e.preventDefault(); setCurrentPage(p => Math.min(totalPages, p + 1)) }} className={currentPage === totalPages ? 'pointer-events-none opacity-30' : ''} />
+                    </PaginationItem>
+                  </PaginationContent>
+                </Pagination>
+              )}
+            </div>
+          </>
         )}
 
         {/* CTA custom */}

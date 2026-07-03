@@ -2,10 +2,12 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
-import { sampleProducts } from '@/lib/data/products'
+import { getProducts } from '@/lib/repositories/products.repository'
 import { notFound, useParams } from 'next/navigation'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { BxRevision, IconParkSolidPhoneTelephone, MaterialSymbolsEditSquare, MaterialSymbolsElectricBoltRounded, MaterialSymbolsLightWorkspacePremium, MaterialSymbolsResponsiveLayout, MaterialSymbolsRocket, RiRotateLockLine, StreamlineFlexWarrantyBadgeHighlight, StreamlineFreehandPhoneActions24HoursCall } from '@/public/assets/icons'
+import { useEffect, useState } from 'react'
+import { getProductImages } from '@/lib/repositories/product-images.repository'
 
 const categoryMeta: Record<string, { icon: string; color: string; bg: string; darkBg: string }> = {
     'Website': { icon: '🌐', color: 'text-blue-500', bg: 'bg-blue-50', darkBg: 'dark:bg-blue-500/10' },
@@ -61,16 +63,41 @@ const faqs = [
 export default function ProductDetailPage() {
     const params = useParams()
 
-    const product = sampleProducts.find(
-        p => p.id === params.id
-    )
+    const [products, setProducts] = useState<any[] | null>(null)
+    const [loading, setLoading] = useState(true)
+    const [images, setImages] = useState<any[]>([])
+    const [activeImage, setActiveImage] = useState<string | null>(null)
+    const [activeOrientation, setActiveOrientation] = useState<'landscape' | 'portrait'>('landscape')
+    const [activeRatio, setActiveRatio] = useState<number>(16 / 9) // default sebelum gambar termuat
+
+    useEffect(() => {
+        getProducts()
+            .then(data => setProducts(data))
+            .finally(() => setLoading(false))
+    }, [])
+
+    // dihitung lebih awal (bukan hook, aman dipanggil sebelum early return)
+    const product = products?.find(p => p.slug === params.id)
+
+    useEffect(() => {
+        if (!product?.id) return
+        getProductImages(product.id).then(data => {
+            setImages(data || [])
+            const primary = data?.find((img: any) => img.is_primary) || data?.[0]
+            setActiveImage(primary?.image_url || null)
+        })
+    }, [product?.id])
+
+    if (loading) {
+        return <div className="min-h-screen flex items-center justify-center">Memuat...</div>
+    }
 
     if (!product) {
         return <div>Produk tidak ditemukan</div>
     }
 
     const meta = categoryMeta[product.category]
-    const related = sampleProducts.filter(p => p.category === product.category && p.id !== product.id).slice(0, 3)
+    const related = products!.filter(p => p.category === product.category && p.slug !== product.slug).slice(0, 3)
 
     return (
         <main className="min-h-screen bg-slate-50 dark:bg-black">
@@ -165,18 +192,18 @@ export default function ProductDetailPage() {
                     <div className="relative">
                         <div className="absolute inset-0 bg-indigo-500/10 dark:bg-indigo-500/20 blur-3xl rounded-full scale-75" />
 
-                        <div className="relative rounded-2xl overflow-hidden border border-slate-200 dark:border-white/10 shadow-2xl">
-                            <div className="flex items-center gap-1.5 px-4 py-3 bg-slate-100 dark:bg-white/[0.06] border-b border-slate-200 dark:border-white/5">
+                        <div className="relative rounded overflow-hidden border border-slate-200 dark:border-white/10 shadow-2xl">
+                            {/* <div className="flex items-center gap-1.5 px-4 py-3 bg-slate-100 dark:bg-white/[0.06] border-b border-slate-200 dark:border-white/5">
                                 <span className="w-3 h-3 rounded-full bg-red-400" />
                                 <span className="w-3 h-3 rounded-full bg-yellow-400" />
                                 <span className="w-3 h-3 rounded-full bg-green-400" />
                                 <div className="flex-1 mx-3 h-6 rounded-md bg-white dark:bg-white/10 flex items-center px-3 gap-2">
                                     <svg className="w-3 h-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 11c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2zm-6 0c0-1.1.9-2 2-2s2 .9 2 2-.9 2-2 2-2-.9-2-2z" /></svg>
-                                    <span className="text-[10px] text-slate-400 dark:text-gray-600">majakarsa.com/produk/{product.name.toLowerCase().replace(/\s+/g, '-')}</span>
+                                    <span className="text-[10px] text-slate-400 dark:text-gray-600">majakarsadigital.site/produk/{product.name.toLowerCase().replace(/\s+/g, '-')}</span>
                                 </div>
-                            </div>
+                            </div> */}
                             <div className="relative h-80 overflow-hidden">
-                                <Image src={product.image} alt={product.name} fill className="object-cover object-top" />
+                                <Image src={product.image_url} alt={product.name} fill className="object-cover object-top" />
                             </div>
                         </div>
 
@@ -186,6 +213,64 @@ export default function ProductDetailPage() {
                         </div>
                     </div>
                 </div>
+                {images.length > 0 && (
+                    <section className="mx-auto max-w-7xl px-6  border-t py-16">
+                        <div className="grid grid-cols-1 lg:grid-cols-[1fr_280px] gap-4 items-start">
+                            {/* Gambar utama - ukuran container mengikuti rasio asli gambar, tanpa crop */}
+                            <div className="relative h-[520px] overflow-hidden rounded-2xl border border-slate-200 dark:border-white/10">
+                                {/* Background */}
+                                {activeImage && (
+                                    <Image
+                                        src={activeImage}
+                                        alt=""
+                                        fill
+                                        priority
+                                        className="absolute inset-0 object-cover scale-125 blur-3xl opacity-30 dark:opacity-40"
+                                    />
+                                )}
+
+                                {/* Overlay */}
+                                <div className="absolute inset-0 bg-white/40 dark:bg-black/40 backdrop-blur-xl" />
+
+                                {/* Gradient */}
+                                <div className="absolute inset-0 bg-gradient-to-b from-white/10 via-transparent to-white/10 dark:from-black/10 dark:via-transparent dark:to-black/20" />
+
+                                {/* Image */}
+                                <div className="relative flex h-full items-center justify-center p-5">
+                                    {activeImage && (
+                                        <Image
+                                            src={activeImage}
+                                            alt={product.name}
+                                            width={1600}
+                                            height={1600}
+                                            className="max-h-full max-w-full object-contain drop-shadow-2xl"
+                                        />
+                                    )}
+                                </div>
+                            </div>
+                            {/* Thumbnail - tetap tanpa crop, hanya dikemas dalam kotak seragam */}
+                            <div className="grid grid-cols-4 lg:grid-cols-2 gap-3">
+                                {images.map((img) => (
+                                    <button
+                                        key={img.id}
+                                        onClick={() => setActiveImage(img.image_url)}
+                                        className={`relative aspect-square rounded-xl overflow-hidden border-2 bg-slate-100 dark:bg-white/[0.04] flex items-center justify-center transition-all ${activeImage === img.image_url
+                                            ? 'border-indigo-500 ring-2 ring-indigo-500/30'
+                                            : 'border-slate-200 dark:border-white/10 hover:border-indigo-300 dark:hover:border-indigo-500/40'
+                                            }`}
+                                    >
+                                        <Image
+                                            src={img.image_url}
+                                            alt={img.alt_text || product.name}
+                                            fill
+                                            className="object-contain p-1"
+                                        />
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+                )}
             </section>
 
             <section className="mx-auto max-w-7xl px-6 py-20">
@@ -280,7 +365,7 @@ export default function ProductDetailPage() {
                                                     <span className="w-1.5 h-1.5 rounded-full bg-green-400" />
                                                 </div>
                                                 <div className="flex-1 relative overflow-hidden">
-                                                    <Image src={p.image} alt={p.name} fill className="object-cover object-top group-hover:scale-105 transition-transform duration-500" />
+                                                    <Image src={p.image_url} alt={p.name} fill className="object-cover object-top group-hover:scale-105 transition-transform duration-500" />
                                                 </div>
                                             </div>
                                         </div>
