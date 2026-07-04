@@ -4,6 +4,7 @@ export async function getProjects() {
   const { data, error } = await supabase
     .from('projects')
     .select('*')
+    .order('sort_order', { ascending: true })
 
   if (error) {
     throw new Error(error.message)

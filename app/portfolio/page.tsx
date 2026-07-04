@@ -2,6 +2,7 @@ import { Fa7SolidHandshakeAngle, MaterialSymbolsLightEventAvailable, MaterialSym
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getProjects } from '@/lib/repositories/projects.repository'
+import ProjectCard from '@/components/ProjectCard'
 
 export const metadata: Metadata = {
   title: 'Portfolio - Majakarsa Digital',
@@ -15,14 +16,35 @@ type Project = {
   category: string
   description: string
   image_url: string
-  tech_stack: string | null
+  tech_stack?: string
   year: number
-  color: string | null
+  color?: string
   sort_order: number
   is_featured: boolean
 }
 
 const DEFAULT_GRADIENT = 'from-indigo-500/10 to-blue-500/5'
+
+function getTileClasses(index: number, total: number): string {
+  const fullGroups = Math.floor(total / 4)
+  const groupBoundary = fullGroups * 4
+  const remainder = total - groupBoundary
+
+  if (index < groupBoundary) {
+    const posInGroup = index % 5
+    if (posInGroup === 0) return 'lg:col-span-4 lg:row-span-2'
+    if (posInGroup === 1) return 'lg:col-span-2 lg:row-span-1'
+    if (posInGroup === 2) return 'lg:col-span-2 lg:row-span-1'
+    // posInGroup 3 & 4 -> baris pemisah dibagi 2, bukan full-width
+    return 'lg:col-span-3 lg:row-span-1'
+  }
+
+  // Bagian sisa di ujung — selalu row-span-1, lebar dibagi rata.
+  if (remainder === 1) return 'lg:col-span-6 lg:row-span-1'
+  if (remainder === 2) return 'lg:col-span-3 lg:row-span-1'
+  if (remainder === 3) return 'lg:col-span-2 lg:row-span-1'
+  return 'lg:col-span-3 lg:row-span-1' // remainder === 4
+}
 
 export default async function PortfolioPage() {
   const projectsRaw = (await getProjects()) as Project[]
@@ -73,99 +95,34 @@ export default async function PortfolioPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 pb-8">
-        <div className="flex flex-wrap gap-2">
-          {categories.map((item) => (
-            <button key={item}
-              className="rounded-full border border-slate-200 dark:border-white/10 bg-white dark:bg-white/[0.03] px-4 py-1.5 text-xs font-semibold text-slate-500 dark:text-gray-400 hover:border-indigo-400 hover:text-indigo-500 dark:hover:border-indigo-500/40 dark:hover:text-indigo-400 transition-colors"
-            >
-              {item}
-            </button>
-          ))}
-        </div>
-      </section>
-
+      {/* ================= BENTO GRID PROJECT ================= */}
       <section className="mx-auto max-w-7xl px-6 pb-24">
         {projects.length === 0 ? (
           <div className="rounded-2xl border border-dashed border-slate-300 dark:border-white/10 py-24 text-center">
             <p className="text-sm text-slate-400 dark:text-gray-600">Belum ada proyek yang ditambahkan.</p>
           </div>
         ) : (
-          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {projects.map((project) => {
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 auto-rows-[15rem] lg:auto-rows-[13rem] gap-4">
+            {projects.map((project, index) => {
               const techList = project.tech_stack
                 ? project.tech_stack.split(',').map((t) => t.trim()).filter(Boolean)
                 : []
               const gradient = project.color || DEFAULT_GRADIENT
+              const tileClasses = getTileClasses(index, projects.length)
+              const isLarge = tileClasses.includes('row-span-2')
 
               return (
-                <Link key={project.id} href={`/portfolio/project/${project.slug}`}>
-                  <article
-                    className="group overflow-hidden rounded-2xl border border-slate-200/80 dark:border-white/[0.06] bg-white dark:bg-white/[0.02] hover:border-slate-300 dark:hover:border-white/10 hover:shadow-xl hover:shadow-slate-200/60 dark:hover:shadow-black/40 hover:-translate-y-1 transition-all duration-300 cursor-pointer h-full"
-                  >
-                    {/* IMAGE AREA — aspect-ratio tetap, object-cover handle semua rasio gambar */}
-                    <div className={`relative aspect-[4/3] overflow-hidden bg-gradient-to-br ${gradient} dark:from-white/[0.03] dark:to-transparent`}>
-                      <img
-                        src={project.image_url}
-                        alt={project.title}
-                        className="absolute inset-0 h-full w-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
-                        loading="lazy"
-                      />
-
-                      {/* Overlay gelap + tombol saat hover */}
-                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-colors duration-300 flex items-center justify-center">
-                        <span
-                          className="inline-flex items-center gap-1.5 rounded-full bg-white text-slate-900 px-5 py-2.5 text-xs font-bold opacity-0 translate-y-2 scale-95 group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100 transition-all duration-300 shadow-lg"
-                        >
-                          Lihat Project
-                          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                          </svg>
-                        </span>
-                      </div>
-
-                      <span className="absolute top-4 right-4 rounded-full bg-white/80 dark:bg-black/60 px-2 py-1 text-[9px] font-bold backdrop-blur">
-                        {project.year}
-                      </span>
-
-                      {project.is_featured && (
-                        <span className="absolute top-4 left-4 text-[9px] font-bold px-2 py-1 rounded-full bg-indigo-600 text-white z-10">
-                          Featured
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="p-6">
-                      <span className="inline-flex rounded-full bg-indigo-50 dark:bg-indigo-500/10 px-3 py-1 text-[9px] font-bold uppercase tracking-widest text-indigo-600 dark:text-indigo-400">
-                        {project.category}
-                      </span>
-
-                      <h3 className="mt-4 mb-2 text-[17px] font-bold text-slate-800 dark:text-white leading-snug">
-                        {project.title}
-                      </h3>
-
-                      <p className="text-xs leading-relaxed text-slate-500 dark:text-gray-500 line-clamp-3">
-                        {project.description}
-                      </p>
-
-                      {techList.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5 mt-5">
-                          {techList.map((tech) => (
-                            <span key={tech}
-                              className="rounded-full border border-slate-200 dark:border-white/10 px-2.5 py-0.5 text-[10px] font-medium text-slate-500 dark:text-gray-500"
-                            >
-                              {tech}
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  </article>
-                </Link>
+                <ProjectCard
+                  key={project.id}
+                  project={project}
+                  tileClasses={tileClasses}
+                  isLarge={isLarge}
+                  gradient={gradient}
+                  techList={techList}
+                />
               )
             })}
-          </div>
-        )}
+          </div>)}
       </section>
 
       <section className="border-y border-slate-200/60 dark:border-white/5 bg-white dark:bg-white/[0.01] py-24">
