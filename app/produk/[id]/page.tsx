@@ -158,8 +158,8 @@ export default function ProductDetailPage() {
                         <div className="flex items-end gap-6 p-6 rounded-2xl bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/5">
                             <div>
                                 <p className="text-xs text-slate-400 dark:text-gray-600 mb-1">Harga mulai dari</p>
-                                <p className="text-3xl font-bold text-slate-900 dark:text-white">{product.price}</p>
-                                <p className="text-sm text-slate-400 dark:text-gray-600 line-through mt-0.5">{product.originalPrice}</p>
+                                <p className="text-3xl font-bold text-slate-900 dark:text-white">{Number(product.price).toLocaleString('id-ID')}</p>
+                                <p className="text-sm text-slate-400 dark:text-gray-600 line-through mt-0.5">{Number(product.original_price).toLocaleString('id-ID')}</p>
                             </div>
                             <div className="flex flex-col gap-2 flex-1">
                                 <button className="w-full py-3 px-6 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm transition-colors">
