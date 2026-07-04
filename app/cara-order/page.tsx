@@ -257,7 +257,7 @@ export default function CaraOrderPage() {
                         Order via WhatsApp →
                     </a>
                     <a
-                        href="mailto:hello@majakarsadigital.com"
+                        href="mailto:majakarsadigital@gmail.com"
                         className="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-slate-200 dark:border-white/10 text-slate-600 dark:text-gray-400 hover:bg-slate-100 dark:hover:bg-white/5 text-sm font-semibold transition-colors"
                     >
                         <MaterialSymbolsMail className="size-4" /> Kirim Email

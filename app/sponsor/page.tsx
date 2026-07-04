@@ -21,7 +21,7 @@ const timestamp = new Date().toLocaleString('id-ID', {
 const tiers = [
     {
         name: 'Sponsor',
-        price: 'Rp 250rb',
+        price: 'Rp 100rb',
         period: '/bln',
         badge: null,
         benefits: [
@@ -33,7 +33,7 @@ const tiers = [
     },
     {
         name: 'Gold Sponsor',
-        price: 'Rp 500rb',
+        price: 'Rp 250rb',
         period: '/bln',
         badge: 'Visibilitas Terbaik',
         benefits: [
@@ -46,7 +46,7 @@ const tiers = [
     },
     {
         name: 'Platinum Sponsor',
-        price: 'Rp 1jt',
+        price: 'Rp 500rb',
         period: '/bln',
         badge: 'Eksklusif',
         benefits: [
@@ -236,7 +236,7 @@ Terima kasih.`
                     </p>
                     <a
 
-                        href="https://wa.me/628135382932"
+                        href="https://wa.me/628135382932?text=Halo%20Tim%20Majakarsa,%0A%0ASaya%20tertarik%20untuk%20mendiskusikan%20paket%20sponsorship%20custom.%20Mohon%20dapat%20menghubungi%20saya%20untuk%20diskusi%20lebih%20lanjut.%0A%0ATerima%20kasih."
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold transition-colors"

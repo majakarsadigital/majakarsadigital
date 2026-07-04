@@ -11,6 +11,7 @@ import { getSponsors } from '@/lib/repositories/sponsors.repository'
 import { HeroCarousel } from '@/components/hero-carousel'
 import { SponsorLogo } from '@/components/sponsor-logo'
 import { getProducts } from '@/lib/repositories/products.repository'
+import { ContactForm } from '@/components/contact-form'
 
 export const metadata: Metadata = {
   title: 'Majakarsa Digital - Solusi Digital Terpercaya',
@@ -73,11 +74,30 @@ const services = [
   },
 ]
 
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault()
+
+  const formData = new FormData(e.currentTarget)
+
+  await fetch('/api/contact', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name: formData.get('name')?.toString() ?? '',
+      email: formData.get('email')?.toString() ?? '',
+      subject: formData.get('subject')?.toString() ?? '',
+      message: formData.get('message')?.toString() ?? '',
+    }),
+  })
+}
+
 export default async function Page() {
   const sponsors = await getSponsors()
   const products = await getProducts()
 
-  
+
   return (
     <>
       <main
@@ -427,12 +447,13 @@ export default async function Page() {
                   Konsultasi Gratis
                 </a>
 
-                <a
-                  href="#portfolio"
+                <Link
+                  href="/portfolio"
                   className="px-8 py-3 rounded-full border border-primary text-primary font-semibold hover:bg-primary/5 transition"
                 >
                   Lihat Portfolio
-                </a>
+                </Link>
+
               </div>
             </div>
 
@@ -550,9 +571,16 @@ export default async function Page() {
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-3 sm:mb-4">
                 Apa yang Kami Kerjakan
               </h2>
-              <p className="text-sm sm:text-base text-slate-500 dark:text-gray-500 max-w-xl mx-auto">
+              <p className="text-sm sm:text-base text-slate-500 dark:text-gray-500 max-w-xl mx-auto mb-3 sm:mb-4">
                 Layanan IT end-to-end - dari konsultasi, desain, pengembangan, hingga maintenance jangka panjang.
               </p>
+              <Link
+                href="/sponsor"
+                className="inline-flex items-center px-6 py-2.5 rounded-full bg-slate-900 dark:bg-white text-white dark:text-black text-sm font-semibold hover:bg-indigo-600 dark:hover:bg-indigo-400 dark:hover:text-white transition-colors"
+              >
+                Lihat Product Kami
+              </Link>
+
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
@@ -568,6 +596,7 @@ export default async function Page() {
               ))}
             </div>
           </div>
+
         </section >
 
         {/* SPONSOR */}
@@ -628,6 +657,85 @@ export default async function Page() {
                     Jadi Sponsor →
                   </Link>
                 </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        {/* CONTACT */}
+        <section id="contact" className="relative z-10 bg-white dark:bg-black py-12 sm:py-24 border-t border-slate-200 dark:border-white/5 overflow-hidden">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[90%] sm:w-[600px] h-[300px] bg-indigo-500/[0.07] dark:bg-indigo-500/[0.08] blur-[100px] rounded-full pointer-events-none" />
+
+          <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
+            <div className="text-center mb-10 sm:mb-16">
+              <p className="text-xs tracking-[0.2em] sm:tracking-[0.3em] text-blue-500 dark:text-blue-400 uppercase mb-3 sm:mb-4">
+                Hubungi Kami
+              </p>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-3 sm:mb-4">
+                Mari Wujudkan Produk Digital Anda
+              </h2>
+              <p className="text-sm sm:text-base text-slate-500 dark:text-gray-500 max-w-xl mx-auto">
+                Ceritakan kebutuhan proyek Anda, tim kami akan segera merespons dan
+                memberikan konsultasi gratis.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-6 sm:gap-8">
+              {/* Info Kontak */}
+              <div className="md:col-span-2 rounded-3xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/10 p-6 sm:p-8 flex flex-col justify-between">
+                <div className="space-y-6">
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-full bg-indigo-500/10 flex items-center justify-center flex-shrink-0">
+                      <svg className="w-5 h-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-slate-900 dark:text-white">Email</p>
+                      <a href="mailto:majakarsadigital@gmail.com" className="text-sm text-slate-500 dark:text-gray-400 hover:text-indigo-500 transition-colors">
+                        majakarsadigital@gmail.com
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-full bg-indigo-500/10 flex items-center justify-center flex-shrink-0">
+                      <LogosWhatsappIcon className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-slate-900 dark:text-white">WhatsApp</p>
+                      <a href="https://wa.me/628135382932" target="_blank" rel="noopener noreferrer" className="text-sm text-slate-500 dark:text-gray-400 hover:text-indigo-500 transition-colors">
+                        +62 813-5382-932
+                      </a>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 h-10 rounded-full bg-indigo-500/10 flex items-center justify-center flex-shrink-0">
+                      <svg className="w-5 h-5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-slate-900 dark:text-white">Lokasi</p>
+                      <p className="text-sm text-slate-500 dark:text-gray-400">Mojokerto, Jawa Timur, Indonesia</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex gap-3 mt-8">
+                  <a href="https://instagram.com/majakarsadigital" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center hover:border-indigo-400 transition-colors">
+                    <SkillIconsInstagram className="w-4 h-4" />
+                  </a>
+                  <a href="https://facebook.com/majakarsadigital" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center hover:border-indigo-400 transition-colors">
+                    <LogosFacebook className="w-4 h-4 text-[#1877F2]" />
+                  </a>
+                </div>
+              </div>
+
+              {/* Form Kontak */}
+              <div className="md:col-span-3 rounded-3xl bg-white dark:bg-white/[0.02] border border-slate-200 dark:border-white/10 p-6 sm:p-8">
+                <ContactForm />
               </div>
             </div>
           </div>

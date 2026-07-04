@@ -99,9 +99,9 @@ export function Footer() {
                             Kontak
                         </h4>
                         <ul className="space-y-2 sm:space-y-2.5 text-sm text-slate-500 dark:text-gray-500">
-                            <li className="break-words">hello@majakarsadigital.com</li>
-                            <li>+62 812-3456-7890</li>
-                            <li>Sidoarjo, Jawa Timur</li>
+                            <li className="break-words">majakarsadigital@gmail.com</li>
+                            <li>+62 813-5382-932</li>
+                            <li>Mojokerto, Jawa Timur</li>
                         </ul>
                     </div>
                 </div>
