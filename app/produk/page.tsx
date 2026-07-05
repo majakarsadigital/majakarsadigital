@@ -19,6 +19,7 @@ import Link from 'next/link'
 import { ProductCard } from '@/components/product-card'
 import StackedCards from '@/components/StackedCard'
 import { CatalogCarousel } from '@/components/catalog_carousel'
+import { MingcuteSearchLine } from '@/public/assets/icons'
 
 const PRODUCTS_PER_PAGE = 9
 const categories = ['Semua', 'Website', 'Aplikasi', 'Web & App']
@@ -116,6 +117,17 @@ export default function ProdukPage() {
     return () => observer.disconnect()
   }, [])
 
+
+  const latestProduct = useMemo(() => {
+    if (products.length === 0) return null
+    return [...products].sort((a, b) => {
+      const dateA = new Date(a.created_at ?? 0).getTime()
+      const dateB = new Date(b.created_at ?? 0).getTime()
+      return dateB - dateA
+    })[0]
+  }, [products])
+
+
   return (
     <main className="min-h-screen bg-[#f4f5f7] dark:bg-black">
 
@@ -210,15 +222,129 @@ export default function ProdukPage() {
         ? 'opacity-100 translate-x-0 pointer-events-auto'
         : 'opacity-0 translate-x-4 pointer-events-none'
         }`}>
-            <StackedCards />
+        <StackedCards />
       </div>
 
       {/* Main content */}
       <div ref={contentSectionRef} className="mx-auto max-w-7xl px-4 sm:px-6 py-8 sm:py-10">
+        {/* Section Produk Terbaru */}
+        <div className={`hidden left-14 xl:block fixed bottom-10 z-20 w-64 transition-all duration-200 ${promoDocked
+          ? 'opacity-100 translate-x-0 pointer-events-auto'
+          : 'opacity-0 -translate-x-4 pointer-events-none'
+          }`}>
+          <div className="rounded border border-slate-200/60 dark:border-white/10 bg-white/80 dark:bg-white/[0.03] backdrop-blur-xl shadow-lg shadow-slate-900/5 p-3">
+            <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-indigo-500 dark:text-indigo-400 px-2 pt-1 pb-2">
+              Produk
+            </p>
 
+            <div className="space-y-1 max-h-80 overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              {products.map((product) => (
+                <Link
+                  key={product.id}
+                  href={`/produk/${product.slug ?? product.id}`}
+                  className="flex items-center border-b gap-3 px-2 py-2 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors group"
+                >
+                  <div className="relative w-10 h-10 rounded overflow-hidden bg-slate-100 dark:bg-white/5 flex-shrink-0">
+                    {product.image_url && (
+                      <Image
+                        src={product.image_url}
+                        alt={product.name}
+                        fill
+                        className="object-cover"
+                      />
+                    )}
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-xs font-semibold text-slate-900 dark:text-white leading-tight truncate group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                      {product.name}
+                    </p>
+                    <p className="text-[10px] text-slate-400 dark:text-gray-500 leading-tight mt-0.5">
+                      {product.category}
+                    </p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+
+          </div>
+        </div>
+
+        {latestProduct && !isSearching && (
+          <div className="mb-10 sm:mb-14">
+            <div className="flex items-center gap-2 mb-5 sm:mb-6">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-indigo-500" />
+              </span>
+              <p className="text-[10px] font-bold uppercase tracking-[0.3em] text-indigo-500 dark:text-indigo-400">
+                Produk Terbaru
+              </p>
+            </div>
+
+            <Link
+              href={`/produk/${latestProduct.slug ?? latestProduct.id}`}
+              className="group relative block aspect-[21/9] sm:aspect-[3/1] rounded-2xl sm:rounded-3xl overflow-hidden bg-slate-100 dark:bg-white/5"
+            >
+              {latestProduct.image_url && (
+                <Image
+                  src={latestProduct.image_url}
+                  alt={latestProduct.name}
+                  fill
+                  sizes="100vw"
+                  className="object-cover group-hover:scale-[1.04] transition-transform duration-500"
+                />
+              )}
+
+              {/* Overlay gradient bawah — info dasar selalu terlihat */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
+
+              {/* Backdrop blur gelap saat hover, menutupi seluruh gambar */}
+              <div className="absolute inset-0 bg-black/40 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+              {/* Info dasar — pojok bawah, redup saat hover */}
+              <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 md:p-10 group-hover:opacity-0 transition-opacity duration-200">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="px-2.5 py-1 rounded-md bg-white/15 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wider">
+                    Baru
+                  </span>
+                  <span className="text-[10px] font-semibold uppercase tracking-wider text-white/70">
+                    {latestProduct.category}
+                  </span>
+                </div>
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white leading-tight">
+                  {latestProduct.name}
+                </h3>
+              </div>
+
+              {/* Konten center — muncul saat hover */}
+              <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="flex items-center gap-2 mb-3 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                  <span className="px-2.5 py-1 rounded-md bg-white/15 text-white text-[10px] font-bold uppercase tracking-wider">
+                    Baru
+                  </span>
+                  <span className="text-[10px] font-semibold uppercase tracking-wider text-white/70">
+                    {latestProduct.category}
+                  </span>
+                </div>
+
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 leading-tight opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 delay-75">
+                  {latestProduct.name}
+                </h3>
+
+                <p className="text-sm text-white/70 leading-relaxed max-w-md mb-6 line-clamp-2 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 delay-100">
+                  {latestProduct.description}
+                </p>
+
+                <span className="inline-flex items-center gap-2 px-6 py-3 rounded bg-white text-slate-900 text-sm font-semibold opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 delay-150">
+                  Lihat Detail
+                </span>
+              </div>
+            </Link>
+          </div>
+        )}
         {/* Banner posisi asli (horizontal) */}
         <div ref={promoAnchorRef} className="mb-8 sm:mb-10">
-          <CatalogCarousel/>
+          <CatalogCarousel />
           {/* <div className={`rounded overflow-hidden transition-opacity duration-200 ${promoDocked ? 'opacity-0 pointer-events-none' : 'opacity-100'
             }`}>
             <Image
@@ -235,7 +361,7 @@ export default function ProdukPage() {
         {/* Empty state — kategori ini tidak punya produk sama sekali */}
         {filtered.length === 0 && (
           <div className="text-center py-24 sm:py-32">
-            <p className="text-4xl sm:text-5xl mb-5">🔍</p>
+            <p className="text-4xl sm:text-5xl mb-5"><MingcuteSearchLine/></p>
             <p className="text-slate-900 dark:text-white font-bold text-lg mb-2">Produk tidak ditemukan</p>
             <p className="text-slate-400 dark:text-gray-600 text-sm mb-6">Coba kata kunci lain atau ubah filter kategori</p>
             <button
@@ -249,14 +375,19 @@ export default function ProdukPage() {
 
         {/* Mode "Semua": grid dibagi per kategori, tanpa pagination */}
         {filtered.length > 0 && activeCategory === 'Semua' && (
-          <div className="space-y-12">
+          <div className="space-y-14">
             {groupedByCategory.map(({ category, items }) => (
               <section key={category}>
-                <div className="flex items-center gap-2.5 mb-4 sm:mb-5">
-                  <h2 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">{category}</h2>
-                  <span className="text-[11px] text-slate-400 dark:text-gray-600">{items.length} produk</span>
+                <div className="flex items-baseline gap-3 mb-5 sm:mb-6 pb-3 border-b border-slate-200 dark:border-white/10">
+                  <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
+                    {category}
+                  </h2>
+                  <span className="text-[11px] text-slate-400 dark:text-gray-600">
+                    {items.length} produk
+                  </span>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+
+                <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6">
                   {items.map((product) => (
                     <div key={product.id} className={cardWrapperClass(product)}>
                       <ProductCard product={product} />
@@ -271,7 +402,7 @@ export default function ProdukPage() {
         {/* Mode kategori spesifik: grid flat + pagination, seperti semula */}
         {filtered.length > 0 && activeCategory !== 'Semua' && (
           <>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
               {paginated.map((product) => (
                 <div key={product.id} className={cardWrapperClass(product)}>
                   <ProductCard product={product} />

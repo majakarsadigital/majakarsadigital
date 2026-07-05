@@ -333,7 +333,7 @@ export default function BuatPage() {
               disabled={status === 'submitting'}
               className="rounded-full bg-indigo-600 px-10 py-4 text-sm font-semibold text-white transition-colors hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {status === 'submitting' ? 'Mengirim...' : 'Kirim Permintaan Proyek →'}
+              {status === 'submitting' ? 'Mengirim...' : 'Kirim Permintaan Proyek'}
             </button>
 
             <p className="mt-4 text-xs text-slate-500 dark:text-gray-500">

@@ -2,29 +2,33 @@ import { Product } from '@/lib/interfaces/products.inteface'
 import Image from 'next/image'
 import Link from 'next/link'
 
-
 export function ProductCard({ product }: { product: Product }) {
   return (
-    <div className="group relative rounded-sm border border-slate-200 dark:border-white/40 bg-white dark:bg-white/[0.02] hover:border-slate-300 dark:hover:border-white/10 hover:shadow-lg dark:hover:shadow-black/30 hover:-translate-y-0.5 transition-all duration-300 overflow-hidden cursor-pointer">
-
-      {/* Thumbnail */}
-      <div className="relative h-56 sm:h-64 bg-slate-100 dark:bg-white/[0.03] overflow-hidden">
+    <div className="group relative rounded-sm border border-slate-200 dark:border-white/40 bg-white dark:bg-white/[0.02] hover:border-slate-300 dark:hover:border-white/10 hover:shadow-xl dark:hover:shadow-black/40 hover:-translate-y-1 transition-all duration-300 overflow-hidden cursor-pointer">
+      
+      {/* Thumbnail — diperbesar & jadi anchor utama card */}
+      <div className="relative h-80 sm:h-96 bg-slate-100 dark:bg-white/[0.03] overflow-hidden">
         {product.image_url && (
-        <Image
-          src={product.image_url}
-          alt={product.name}
-          fill
-          className="object-cover group-hover:scale-105 transition-transform duration-500"
-        />
+          <Image
+            src={product.image_url}
+            alt={product.name}
+            fill
+            className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+          />
         )}
+
+        {/* Gradient scrim biar teks/badge di atas gambar tetap kebaca */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+
+        {/* Badges tetap di atas gambar */}
         {product.discount_percent && (
-          <span className="absolute top-3 left-3 text-[10px] font-bold px-2 py-1 rounded-full bg-black/60 backdrop-blur-sm text-white">
+          <span className="absolute top-3 left-3 text-[10px] font-bold px-2 py-1 rounded-full bg-black/60 backdrop-blur-sm text-white z-10">
             {product.discount_percent}
           </span>
         )}
         {product.badge && (
           <span
-            className={`absolute top-3 right-3 text-[9px] font-bold px-2 py-1 rounded-full backdrop-blur-sm ${
+            className={`absolute top-3 right-3 text-[9px] font-bold px-2 py-1 rounded-full backdrop-blur-sm z-10 ${
               product.badge === 'Popular'
                 ? 'bg-indigo-500/90 text-white'
                 : 'bg-emerald-500/90 text-white'
@@ -33,21 +37,24 @@ export function ProductCard({ product }: { product: Product }) {
             {product.badge === 'Popular' ? '🔥 Popular' : '✨ New'}
           </span>
         )}
+
+        {/* Judul & kategori dipindah ke dalam gambar, di atas scrim gelap */}
+        <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-5 z-10">
+          <span className="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-widest uppercase text-white/70 mb-1.5">
+            {product.category}
+          </span>
+          <h3 className="text-white font-bold text-base sm:text-lg leading-snug drop-shadow-sm">
+            {product.name}
+          </h3>
+        </div>
       </div>
 
-      {/* Body */}
+      {/* Body — jadi lebih ringkas karena judul sudah pindah ke gambar */}
       <div className="p-4 sm:p-5">
-        <span className="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-widest uppercase py-1 rounded-full mb-3">
-          {product.category}
-        </span>
-        <h3 className="text-slate-900 dark:text-white font-bold text-[15px] leading-snug mb-1.5">
-          {product.name}
-        </h3>
         <p className="text-slate-500 dark:text-gray-500 text-xs leading-relaxed mb-4">
           {product.description}
         </p>
 
-        {/* Tech tags */}
         <div className="flex gap-1.5 flex-wrap mb-4">
           {(['Next.js', 'Tailwind', 'TypeScript'] as const).map(tag => (
             <span
@@ -59,12 +66,15 @@ export function ProductCard({ product }: { product: Product }) {
           ))}
         </div>
 
-        {/* Footer */}
         <div className="flex items-center justify-between pt-3 border-t border-slate-100 dark:border-white/5 gap-2">
           <div className="min-w-0">
-            <p className="text-slate-900 dark:text-white font-bold text-sm truncate">Rp{Number(product.price).toLocaleString('id-ID')}</p>
+            <p className="text-slate-900 dark:text-white font-bold text-sm truncate">
+              Rp{Number(product.price).toLocaleString('id-ID')}
+            </p>
             {product.original_price && (
-              <p className="text-slate-400 dark:text-gray-600 text-[11px] line-through mt-0.5 truncate">Rp{Number(product.original_price).toLocaleString('id-ID')}</p>
+              <p className="text-slate-400 dark:text-gray-600 text-[11px] line-through mt-0.5 truncate">
+                Rp{Number(product.original_price).toLocaleString('id-ID')}
+              </p>
             )}
           </div>
           <div className="flex items-center gap-2 flex-shrink-0">

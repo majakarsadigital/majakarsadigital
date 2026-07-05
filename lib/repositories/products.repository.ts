@@ -4,6 +4,8 @@ export async function getProducts() {
   const { data, error } = await supabase
     .from('products')
     .select('*')
+    .eq('is_show', true)
+
 
   if (error) {
     throw new Error(error.message)

@@ -18,8 +18,8 @@ type Project = {
 const DEFAULT_GRADIENT = 'from-indigo-500/10 to-blue-500/5'
 
 function getTileClasses(index: number, total: number): string {
-    const fullGroups = Math.floor(total / 4)
-    const groupBoundary = fullGroups * 4
+    const fullGroups = Math.floor(total / 5)
+    const groupBoundary = fullGroups * 5
     const remainder = total - groupBoundary
 
     if (index < groupBoundary) {
