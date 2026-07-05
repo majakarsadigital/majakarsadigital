@@ -11,25 +11,25 @@ const bannerItems = [
     id: 1,
     label: 'From Majakarsa Author',
     description: 'Konsultasi gratis sekarang',
-    link: 'https://startpagehq.com',
+    link: '/#contact',
     linkText: 'Butuh website atau aplikasi?',
     bgColor:'bg-white'
   },
   {
     id: 2,
-    label: '✨ Special Offer',
+    label: 'Special Offer',
     title: 'Diskon 20% untuk project pertama!',
     description: 'Hubungi kami sekarang',
-    link: 'https://startpagehq.com',
+    link: '/produk',
     linkText: 'Dapatkan promo',
     bgColor:'bg-white'
   },
   {
     id: 3,
-    label: '🚀 Fast Delivery',
+    label: 'Fast Delivery',
     title: 'Pengerjaan cepat & profesional',
     description: 'Garansi kepuasan 100%',
-    link: 'https://startpagehq.com',
+    link: '/#portfolio',
     linkText: 'Lihat portofolio',
     bgColor:'bg-indigo-200'
   }

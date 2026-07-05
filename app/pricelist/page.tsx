@@ -22,6 +22,14 @@ type Category = {
     items: PricelistItem[]
 }
 
+type AddOn = {
+    name: string
+    desc: string
+    price: string
+    features?: string[]
+    recommended?: boolean
+}
+
 const categories: Category[] = [
     {
         id: 'website',
@@ -31,12 +39,12 @@ const categories: Category[] = [
             {
                 name: 'Landing Page',
                 desc: 'Satu halaman, fokus konversi - cocok untuk produk atau campaign.',
-                price: 'Rp 1.500.000',
+                price: 'Rp 1.000.000',
             },
             {
                 name: 'Company Profile',
                 desc: 'Multi-halaman (Beranda, Tentang, Layanan, Kontak) dengan CMS sederhana.',
-                price: 'Rp 3.500.000',
+                price: 'Rp 2.500.000',
                 popular: true,
             },
             {
@@ -99,11 +107,52 @@ const categories: Category[] = [
     },
 ]
 
-const addOns = [
-    { name: 'Maintenance Bulanan', price: 'mulai Rp 300.000/bln' },
-    { name: 'Desain UI/UX Tambahan', price: 'mulai Rp 1.000.000' },
-    { name: 'Integrasi Payment Gateway', price: 'mulai Rp 750.000' },
-    { name: 'Migrasi & Hosting Setup', price: 'mulai Rp 500.000' },
+const addOns: AddOn[] = [
+    {
+        name: 'Maintenance Bulanan',
+        desc: 'Jaga website tetap aman, cepat, dan up-to-date setiap bulan - tanpa Anda perlu memikirkan sisi teknisnya.',
+        price: 'mulai Rp 300.000/bln',
+        recommended: true,
+        features: [
+            'Update konten (teks, gambar, harga) hingga 4x per bulan',
+            'Monitoring uptime & performa server 24/7',
+            'Backup otomatis mingguan + penyimpanan 3 bulan terakhir',
+            'Update dependency, plugin, dan patch keamanan',
+            'Perbaikan bug minor tanpa biaya tambahan',
+            'Laporan ringkas kondisi website setiap bulan',
+            'Respon prioritas jika terjadi down atau error',
+        ],
+    },
+    {
+        name: 'Desain UI/UX Tambahan',
+        desc: 'Revisi atau penambahan desain di luar cakupan paket awal.',
+        price: 'mulai Rp 1.000.000',
+        features: [
+            'Wireframe & mockup halaman baru',
+            'Revisi desain sesuai brand guideline',
+            '1x sesi konsultasi desain dengan tim',
+        ],
+    },
+    {
+        name: 'Integrasi Payment Gateway',
+        desc: 'Sambungkan website atau aplikasi dengan metode pembayaran pilihan.',
+        price: 'mulai Rp 750.000',
+        features: [
+            'Setup Midtrans / Xendit / payment gateway lain',
+            'Testing transaksi end-to-end',
+            'Notifikasi status pembayaran otomatis',
+        ],
+    },
+    {
+        name: 'Migrasi & Hosting Setup',
+        desc: 'Pindahkan atau siapkan environment produksi dengan aman.',
+        price: 'mulai Rp 500.000',
+        features: [
+            'Setup domain, DNS, dan SSL',
+            'Migrasi data dari hosting/server lama',
+            'Konfigurasi environment production-ready',
+        ],
+    },
 ]
 
 const included = [
@@ -240,12 +289,47 @@ export default function PricelistPage() {
                         {addOns.map((a) => (
                             <div
                                 key={a.name}
-                                className="flex items-center justify-between gap-4 px-5 py-4 rounded-xl border border-slate-200/80 dark:border-white/5 bg-white dark:bg-white/[0.02]"
+                                className={`flex flex-col gap-4 px-6 py-5 rounded-2xl border ${a.recommended
+                                    ? 'border-indigo-300/70 dark:border-indigo-500/30 bg-indigo-50/60 dark:bg-indigo-500/[0.06]'
+                                    : 'border-slate-200/80 dark:border-white/5 bg-white dark:bg-white/[0.02]'
+                                    }`}
                             >
-                                <span className="text-sm text-slate-700 dark:text-gray-300">{a.name}</span>
-                                <span className="text-xs font-semibold text-indigo-500 dark:text-indigo-400 whitespace-nowrap">
-                                    {a.price}
-                                </span>
+                                <div className="flex items-start justify-between gap-3">
+                                    <div>
+                                        <div className="flex items-center gap-2 mb-1">
+                                            <h3 className="text-sm font-semibold text-slate-900 dark:text-white">
+                                                {a.name}
+                                            </h3>
+                                            {a.recommended && (
+                                                <span className="text-[9px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full bg-indigo-600 text-white whitespace-nowrap">
+                                                    Direkomendasikan
+                                                </span>
+                                            )}
+                                        </div>
+                                        <p className="text-xs text-slate-500 dark:text-gray-500 leading-relaxed max-w-sm">
+                                            {a.desc}
+                                        </p>
+                                    </div>
+                                    <span className="text-xs font-semibold text-indigo-500 dark:text-indigo-400 whitespace-nowrap text-right">
+                                        {a.price}
+                                    </span>
+                                </div>
+
+                                {a.features && (
+                                    <ul className="grid grid-cols-1 gap-1.5 pt-3 border-t border-slate-200/70 dark:border-white/5">
+                                        {a.features.map((f) => (
+                                            <li
+                                                key={f}
+                                                className="flex items-start gap-2 text-xs text-slate-600 dark:text-gray-400"
+                                            >
+                                                <span className="text-white mt-0.5 shrink-0">
+                                                    <MdiCheckDecagram className="size-3.5" />
+                                                </span>
+                                                {f}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
                             </div>
                         ))}
                     </div>
@@ -255,7 +339,7 @@ export default function PricelistPage() {
             <section className="border-y border-slate-200/70 dark:border-white/5 bg-[#fafbff] dark:bg-white/[0.01]">
                 <div className="mx-auto max-w-5xl px-6 py-16">
                     <div className="flex items-start gap-3 mb-8">
-                        <span className="text-2xl text-indigo-500"><Fa7SolidHandshakeAngle /></span>
+                        <span className="text-2xl text-white"><Fa7SolidHandshakeAngle /></span>
                         <div>
                             <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-1">
                                 Termasuk di Setiap Paket
@@ -269,7 +353,7 @@ export default function PricelistPage() {
                     <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         {included.map((item) => (
                             <li key={item} className="flex items-start gap-2.5 text-sm text-slate-600 dark:text-gray-400">
-                                <span className="text-indigo-500 mt-0.5"><MdiCheckDecagram className="size-4" /></span>
+                                <span className="text-white mt-0.5"><MdiCheckDecagram className="size-4" /></span>
                                 {item}
                             </li>
                         ))}

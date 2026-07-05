@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getProjects } from '@/lib/repositories/projects.repository'
 import ProjectCard from '@/components/ProjectCard'
+import BentoGallery from '@/components/BentoGallery'
 
 export const metadata: Metadata = {
   title: 'Portfolio - Majakarsa Digital',
@@ -97,32 +98,8 @@ export default async function PortfolioPage() {
 
       {/* ================= BENTO GRID PROJECT ================= */}
       <section className="mx-auto max-w-7xl px-6 pb-24">
-        {projects.length === 0 ? (
-          <div className="rounded-2xl border border-dashed border-slate-300 dark:border-white/10 py-24 text-center">
-            <p className="text-sm text-slate-400 dark:text-gray-600">Belum ada proyek yang ditambahkan.</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 auto-rows-[15rem] lg:auto-rows-[13rem] gap-4">
-            {projects.map((project, index) => {
-              const techList = project.tech_stack
-                ? project.tech_stack.split(',').map((t) => t.trim()).filter(Boolean)
-                : []
-              const gradient = project.color || DEFAULT_GRADIENT
-              const tileClasses = getTileClasses(index, projects.length)
-              const isLarge = tileClasses.includes('row-span-2')
+          <BentoGallery />
 
-              return (
-                <ProjectCard
-                  key={project.id}
-                  project={project}
-                  tileClasses={tileClasses}
-                  isLarge={isLarge}
-                  gradient={gradient}
-                  techList={techList}
-                />
-              )
-            })}
-          </div>)}
       </section>
 
       <section className="border-y border-slate-200/60 dark:border-white/5 bg-white dark:bg-white/[0.01] py-24">

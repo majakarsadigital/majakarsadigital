@@ -10,7 +10,7 @@ const cards = [
     title: "POS Modern untuk Bisnis Anda",
     desc: "Kelola penjualan, stok, laporan, dan pelanggan dalam satu sistem yang cepat.",
     action: "Lihat Detail",
-    href: "/produk/pos",
+    href: "/produk/point_of_sale",
     preview: (
       <div className="relative w-full h-24 rounded-xl overflow-hidden mb-3">
         <Image
@@ -32,7 +32,7 @@ const cards = [
     title: "Aplikasi Mobile Custom untuk Brand Anda",
     desc: "Bangun aplikasi iOS & Android berperforma tinggi dengan UI yang memukau.",
     action: "Konsultasi Gratis",
-    href: "#contact",
+    href: "/#contact",
     preview: (
       <div className="flex gap-2 mb-3">
         {["iOS", "Android", "Flutter"].map((tag) => (
@@ -49,19 +49,19 @@ const cards = [
   {
     badge: "DISKON 20%",
     badgeStyle: "bg-rose-100 dark:bg-rose-900/40 text-rose-700 dark:text-rose-300",
-    title: "Website Profesional Mulai 2 Jutaan",
+    title: "Website Profesional Mulai 1 Jutaan",
     desc: "Landing page, company profile, hingga toko online siap pakai dalam 7 hari kerja.",
     action: "Pesan Sekarang",
-    href: "#contact",
+    href: "/buat",
     preview: (
       <div className="bg-slate-100 dark:bg-white/5 rounded-lg p-3 mb-3 text-xs space-y-1.5">
         <div className="flex justify-between text-slate-600 dark:text-slate-400">
           <span>Landing Page</span>
-          <span className="line-through text-slate-400">Rp 2.500.000</span>
+          <span className="line-through text-slate-400">Rp 1.500.000</span>
         </div>
         <div className="flex justify-between font-semibold text-slate-800 dark:text-white">
           <span>Harga Promo</span>
-          <span className="text-indigo-600 dark:text-indigo-400">Rp 2.000.000</span>
+          <span className="text-indigo-600 dark:text-indigo-400">Rp 1.000.000</span>
         </div>
       </div>
     ),

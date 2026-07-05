@@ -354,27 +354,62 @@ export default function ProductDetailPage() {
                             {related.map((p) => {
                                 const m = categoryMeta[p.category]
                                 return (
-                                    <Link key={p.id} href={`/produk/${p.id}`}
-                                        className="group rounded-2xl border border-slate-200 dark:border-white/5 bg-white dark:bg-white/[0.02] hover:border-slate-300 dark:hover:border-white/10 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 overflow-hidden"
+                                    <Link key={p.id} href={`/produk/${p.slug}`}
+                                        className="group rounded-lg border border-slate-200 dark:border-white/5 bg-white dark:bg-white/[0.02] hover:border-slate-300 dark:hover:border-white/10 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 overflow-hidden"
                                     >
-                                        <div className="relative h-36 overflow-hidden">
-                                            <div className="absolute inset-2 rounded-lg overflow-hidden border border-black/10 dark:border-white/10 shadow-lg flex flex-col">
-                                                <div className="flex-shrink-0 flex items-center gap-1 px-2 py-1.5 bg-slate-100 dark:bg-white/[0.06]">
-                                                    <span className="w-1.5 h-1.5 rounded-full bg-red-400" />
-                                                    <span className="w-1.5 h-1.5 rounded-full bg-yellow-400" />
-                                                    <span className="w-1.5 h-1.5 rounded-full bg-green-400" />
-                                                </div>
-                                                <div className="flex-1 relative overflow-hidden">
-                                                    <Image src={p.image_url} alt={p.name} fill className="object-cover object-top group-hover:scale-105 transition-transform duration-500" />
-                                                </div>
+                                        <div>
+                                            {/* Thumbnail */}
+                                            <div className="relative h-56 sm:h-64 bg-slate-100 dark:bg-white/[0.03] overflow-hidden">
+                                                {p.image_url && (
+                                                    <Image
+                                                        src={p.image_url}
+                                                        alt={p.name}
+                                                        fill
+                                                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                                    />
+                                                )}
+                                                {p.discount_percent && (
+                                                    <span className="absolute top-3 left-3 text-[10px] font-bold px-2 py-1 rounded-full bg-black/60 backdrop-blur-sm text-white">
+                                                        {p.discount_percent}
+                                                    </span>
+                                                )}
+                                                {p.badge && (
+                                                    <span
+                                                        className={`absolute top-3 right-3 text-[9px] font-bold px-2 py-1 rounded-full backdrop-blur-sm ${p.badge === 'Popular'
+                                                            ? 'bg-indigo-500/90 text-white'
+                                                            : 'bg-emerald-500/90 text-white'
+                                                            }`}
+                                                    >
+                                                        {p.badge === 'Popular' ? '🔥 Popular' : '✨ New'}
+                                                    </span>
+                                                )}
                                             </div>
-                                        </div>
-                                        <div className="p-4">
-                                            <span className={`text-[9px] font-bold tracking-widest uppercase ${m.color}`}>{p.category}</span>
-                                            <h3 className="text-slate-900 dark:text-white font-semibold text-sm mt-1 mb-2">{p.name}</h3>
-                                            <div className="flex items-center justify-between">
-                                                <p className="text-slate-900 dark:text-white font-bold text-sm">{p.price}</p>
-                                                <span className="text-[9px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">{p.discount}</span>
+
+                                            {/* Body */}
+                                            <div className="p-4 sm:p-5">
+                                                <span className="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-widest uppercase py-1 rounded-full mb-3">
+                                                    {p.category}
+                                                </span>
+                                                <h3 className="text-slate-900 dark:text-white font-bold text-[15px] leading-snug mb-1.5">
+                                                    {p.name}
+                                                </h3>
+                                                <p className="text-slate-500 dark:text-gray-500 text-xs leading-relaxed mb-4">
+                                                    {p.description}
+                                                </p>
+
+                                                {/* Tech tags */}
+                                                <div className="flex gap-1.5 flex-wrap mb-4">
+                                                    {(['Next.js', 'Tailwind', 'TypeScript'] as const).map(tag => (
+                                                        <span
+                                                            key={tag}
+                                                            className="text-[9px] font-semibold px-2 py-0.5 rounded border border-slate-200 dark:border-white/10 text-slate-500 dark:text-gray-500"
+                                                        >
+                                                            {tag}
+                                                        </span>
+                                                    ))}
+                                                </div>
+
+                                                {/* Footer */}
                                             </div>
                                         </div>
                                     </Link>
