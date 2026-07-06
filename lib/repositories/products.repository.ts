@@ -5,14 +5,11 @@ export async function getProducts() {
     .from('products')
     .select('*')
     .eq('is_show', true)
-
+    .order('created_at', { ascending: false })
 
   if (error) {
     throw new Error(error.message)
   }
-  // console.log({
-  //   data,
-  //   error,
-  // })
+
   return data
 }

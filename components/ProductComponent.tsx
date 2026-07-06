@@ -120,15 +120,16 @@ export default function ProductComponent() {
   }, [])
 
 
-  const latestProduct = useMemo(() => {
-    if (products.length === 0) return null
-    return [...products].sort((a, b) => {
-      const dateA = new Date(a.created_at ?? 0).getTime()
-      const dateB = new Date(b.created_at ?? 0).getTime()
-      return dateB - dateA
-    })[0]
+  const latestProducts = useMemo(() => {
+    if (products.length === 0) return []
+    return [...products]
+      .sort((a, b) => {
+        const dateA = new Date(a.created_at ?? 0).getTime()
+        const dateB = new Date(b.created_at ?? 0).getTime()
+        return dateB - dateA
+      })
+      .slice(0, 2)
   }, [products])
-
 
   return (
     <main className="min-h-screen bg-[#f4f5f7] dark:bg-black">
@@ -170,10 +171,10 @@ export default function ProductComponent() {
       </div>
 
       {/* Spacer navbar */}
-      <div className="h-14 sm:h-20 sticky top-0 z-10 bg-white dark:bg-black border-b border-slate-200/60 dark:border-white/5" />
+      <div className="h-14 sm:h-20 sticky top-0 z-20 bg-white dark:bg-black border-b border-slate-200/60 dark:border-white/5" />
 
       {/* Filter bar */}
-      <div className="bg-white/80 dark:bg-black/60 border-b border-slate-200/60 dark:border-white/5 sticky top-14 sm:top-17 z-10 backdrop-blur-xl">
+      <div className="bg-white/80 dark:bg-black border-b border-slate-200/60 dark:border-white/5 sticky top-14 sm:top-17 z-50 backdrop-blur-xl">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-3 sm:py-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
 
           <div className="relative w-full sm:w-72">
@@ -271,7 +272,7 @@ export default function ProductComponent() {
           </div>
         </div>
 
-        {latestProduct && !isSearching && (
+        {latestProducts.length > 0 && !isSearching && (
           <div className="mb-10 sm:mb-14">
             <div className="flex items-center gap-2 mb-5 sm:mb-6">
               <span className="relative flex h-1.5 w-1.5">
@@ -283,67 +284,74 @@ export default function ProductComponent() {
               </p>
             </div>
 
-            <Link
-              href={`/produk/${latestProduct.slug ?? latestProduct.id}`}
-              className="group relative block aspect-[21/9] sm:aspect-3/1 rounded sm:rounded-lg overflow-hidden bg-slate-100 dark:bg-white/5"
-            >
-              {latestProduct.image_url && (
-                <Image
-                  src={latestProduct.image_url}
-                  alt={latestProduct.name}
-                  fill
-                  sizes="100vw"
-                  className="object-cover group-hover:scale-[1.04] transition-transform duration-500"
-                />
-              )}
+            <div className="flex flex-col gap-4 sm:gap-5">
+              {latestProducts.map((product) => (
+                <Link
+                  key={product.id}
+                  href={`/produk/${product.slug ?? product.id}`}
+                  className="group relative block aspect-[21/9] sm:aspect-3/1 rounded sm:rounded-lg overflow-hidden bg-slate-100 dark:bg-white/5"
+                >
+                  {product.image_url && (
+                    <Image
+                      src={product.image_url}
+                      alt={product.name}
+                      fill
+                      sizes="100vw"
+                      className="object-cover group-hover:scale-[1.04] transition-transform duration-500"
+                    />
+                  )}
 
-              {/* Overlay gradient bawah — info dasar selalu terlihat */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
+                  {/* Overlay gradient bawah — info dasar selalu terlihat */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
 
-              {/* Backdrop blur gelap saat hover, menutupi seluruh gambar */}
-              <div className="absolute inset-0 bg-black/40 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  {/* Backdrop blur gelap saat hover */}
+                  <div className="absolute inset-0 bg-black/40 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-              {/* Info dasar — pojok bawah, redup saat hover */}
-              <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 md:p-10 group-hover:opacity-0 transition-opacity duration-200">
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="px-2.5 py-1 rounded-md bg-white/15 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wider">
-                    Baru
-                  </span>
-                  <span className="text-[10px] font-semibold uppercase tracking-wider text-white/70">
-                    {latestProduct.category}
-                  </span>
-                </div>
-                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white leading-tight">
-                  {latestProduct.name}
-                </h3>
-              </div>
+                  {/* Info dasar — pojok bawah, redup saat hover */}
+                  <div className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 md:p-10 group-hover:opacity-0 transition-opacity duration-200">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="px-2.5 py-1 rounded-md bg-white/15 backdrop-blur-sm text-white text-[10px] font-bold uppercase tracking-wider">
+                        Baru
+                      </span>
+                      <span className="text-[10px] font-semibold uppercase tracking-wider text-white/70">
+                        {product.category}
+                      </span>
+                    </div>
+                    <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white leading-tight">
+                      {product.name}
+                    </h3>
+                  </div>
 
-              {/* Konten center — muncul saat hover */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="flex items-center gap-2 mb-3 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-                  <span className="px-2.5 py-1 rounded-md bg-white/15 text-white text-[10px] font-bold uppercase tracking-wider">
-                    Baru
-                  </span>
-                  <span className="text-[10px] font-semibold uppercase tracking-wider text-white/70">
-                    {latestProduct.category}
-                  </span>
-                </div>
+                  {/* Konten center — muncul saat hover */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="flex items-center gap-2 mb-3 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                      <span className="px-2.5 py-1 rounded-md bg-white/15 text-white text-[10px] font-bold uppercase tracking-wider">
+                        Baru
+                      </span>
+                      <span className="text-[10px] font-semibold uppercase tracking-wider text-white/70">
+                        {product.category}
+                      </span>
+                    </div>
 
-                <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 leading-tight opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 delay-75">
-                  {latestProduct.name}
-                </h3>
+                    <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 leading-tight opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 delay-75">
+                      {product.name}
+                    </h3>
 
-                <p className="text-sm text-white/70 leading-relaxed max-w-md mb-6 line-clamp-2 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 delay-100">
-                  {latestProduct.description}
-                </p>
+                    <p className="text-sm text-white/70 leading-relaxed max-w-md mb-6 line-clamp-2 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 delay-100">
+                      {product.description}
+                    </p>
 
-                <span className="inline-flex items-center gap-2 px-6 py-3 rounded bg-white text-slate-900 text-sm font-semibold opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 delay-150">
-                  Lihat Detail
-                </span>
-              </div>
-            </Link>
+                    <span className="inline-flex items-center gap-2 px-6 py-3 rounded bg-white text-slate-900 text-sm font-semibold opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300 delay-150">
+                      Lihat Detail
+                    </span>
+                  </div>
+                </Link>
+              ))}
+            </div>
           </div>
         )}
+
+
         {/* Banner posisi asli (horizontal) */}
         <div ref={promoAnchorRef} className="mb-8 sm:mb-10">
           <CatalogCarousel />
@@ -363,7 +371,7 @@ export default function ProductComponent() {
         {/* Empty state — kategori ini tidak punya produk sama sekali */}
         {filtered.length === 0 && (
           <div className="text-center py-24 sm:py-32">
-            <p className="text-4xl sm:text-5xl mb-5"><MingcuteSearchLine/></p>
+            <p className="text-4xl sm:text-5xl mb-5"><MingcuteSearchLine /></p>
             <p className="text-slate-900 dark:text-white font-bold text-lg mb-2">Produk tidak ditemukan</p>
             <p className="text-slate-400 dark:text-gray-600 text-sm mb-6">Coba kata kunci lain atau ubah filter kategori</p>
             <button
