@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-    title: 'Pricelist - Majakarsa Digital',
+    title: 'Pricelist',
     description:
         'Daftar harga layanan pembuatan website, aplikasi, dan sistem informasi custom dari Majakarsa Digital.',
 }
@@ -161,6 +161,8 @@ const included = [
     'Source code sepenuhnya milik klien',
     'Dukungan teknis pasca-rilis',
 ]
+
+
 
 export default function PricelistPage() {
     return (

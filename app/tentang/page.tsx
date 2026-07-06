@@ -14,7 +14,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Tentang Kami - Majakarsa Digital',
+  title: 'Tentang Kami | MajakarsaDigital',
   description: 'Pelajari lebih lanjut tentang Majakarsa Digital',
 }
 
@@ -322,7 +322,7 @@ export default function TentangPage() {
           {process.map((p) => (
             <div
               key={p.step}
-              className="rounded-3xl border border-slate-200/70 bg-[#fcfcfd] p-7 dark:border-white/5 dark:bg-white/[0.02]"
+              className="rounded-3xl border border-slate-200/70 bg-[#2c2c4c] p-7 dark:border-white/5 dark:bg-white/[0.02]"
             >
               <span className="mb-5 block text-3xl font-bold text-indigo-200 dark:text-indigo-900">
                 {p.step}

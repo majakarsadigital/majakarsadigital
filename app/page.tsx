@@ -17,7 +17,7 @@ import { getProjects } from '@/lib/repositories/projects.repository'
 import BentoGallery from '@/components/BentoGallery'
 
 export const metadata: Metadata = {
-  title: 'Majakarsa Digital - Solusi Digital Terpercaya',
+  title: 'Solusi Digital Terpercaya | MajakarsaDigital',
   description: 'Majakarsa Digital menyediakan solusi digital terbaik untuk bisnis Anda',
 }
 

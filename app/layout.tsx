@@ -11,25 +11,11 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
-  title: 'majakarsa-digital',
-  description: 'Created by majakarsa',
-  icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
+  title: {
+    default: 'MajakarsaDigital',
+    template: '%s | MajakarsaDigital',
   },
+  description: 'Created by Majakarsa',
 }
 
 export const viewport: Viewport = {

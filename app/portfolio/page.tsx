@@ -6,8 +6,7 @@ import ProjectCard from '@/components/ProjectCard'
 import BentoGallery from '@/components/BentoGallery'
 
 export const metadata: Metadata = {
-  title: 'Portfolio - Majakarsa Digital',
-  description: 'Lihat proyek-proyek yang telah kami selesaikan',
+  title: 'Portfolio',
 }
 
 type Project = {
