@@ -15,6 +15,7 @@ import { ContactForm } from '@/components/contact-form'
 import ProjectCard from '@/components/ProjectCard'
 import { getProjects } from '@/lib/repositories/projects.repository'
 import BentoGallery from '@/components/BentoGallery'
+import { SponsorLogo2 } from '@/components/sponsor-logo2'
 
 export const metadata: Metadata = {
   title: 'Solusi Digital Terpercaya | MajakarsaDigital',
@@ -253,15 +254,9 @@ export default async function Page() {
               {sponsors.map((sponsor) => (
                 <div
                   key={sponsor.id}
-                  className="mx-6 sm:mx-8 flex items-center transition-opacity duration-300"
+                  className="mx-6 grayscale invert sm:mx-8 flex items-center transition-opacity duration-300"
                 >
-                  <Image
-                    src={sponsor.logo_url}
-                    alt={sponsor.name}
-                    width={120}
-                    height={40}
-                    className="h-5 sm:h-6 w-auto grayscale invert object-contain transition-all duration-300"
-                  />
+                  <SponsorLogo sponsor={sponsor} />
                 </div>
               ))}
             </Marquee>
@@ -633,13 +628,7 @@ export default async function Page() {
                       key={sponsor.id}
                       className="w-16 h-16 sm:w-20 sm:h-20 bg-white flex items-center justify-center p-2"
                     >
-                      <Image
-                        src={sponsor.logo_url}
-                        alt={sponsor.name}
-                        width={100}
-                        height={100}
-                        className="max-w-full max-h-full object-contain"
-                      />
+                     <SponsorLogo2 sponsor={sponsor} />
                     </div>
                   ))}
                 </div>

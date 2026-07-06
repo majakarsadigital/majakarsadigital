@@ -2,7 +2,7 @@ import { supabase } from '@/lib/supabase'
 
 export async function getSponsors() {
   const { data, error } = await supabase
-    .from('sponsors')
+    .from('sponsors_samples')
     .select('*')
     .order('sort_order')
 

@@ -15,7 +15,7 @@ export function SponsorLogo({ sponsor }: { sponsor: Sponsor }) {
   if (hasError) {
     return (
       <div className="flex h-5 sm:h-6 items-center">
-        <span className="text-sm sm:text-base font-semibold tracking-wide text-gray-800 whitespace-nowrap">
+        <span className="text-sm sm:text-base font-semibold tracking-wide text-gray-800 dark:text-black whitespace-nowrap">
           {sponsor.name}
         </span>
       </div>
