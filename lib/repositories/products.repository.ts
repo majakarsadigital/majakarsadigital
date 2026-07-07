@@ -13,3 +13,16 @@ export async function getProducts() {
 
   return data
 }
+
+
+export async function getProductBySlug(slug: string) {
+  const { data, error } = await supabase
+    .from('products')
+    .select('*')
+    .eq('slug', slug)
+    .single()
+
+  if (error) throw error
+
+  return data
+}

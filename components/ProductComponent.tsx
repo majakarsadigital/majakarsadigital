@@ -20,31 +20,26 @@ import { ProductCard } from '@/components/product-card'
 import StackedCards from '@/components/StackedCard'
 import { CatalogCarousel } from '@/components/catalog_carousel'
 import { MingcuteSearchLine } from '@/public/assets/icons'
+import { Product } from '@/lib/interfaces/products.inteface'
 
 const PRODUCTS_PER_PAGE = 9
 const categories = ['Semua', 'Website', 'Aplikasi', 'Web & App']
 
+interface ProductComponentProps {
+  products: Product[]
+}
 
-
-export default function ProductComponent() {
+export default function ProductComponent({
+  products,
+}: ProductComponentProps) {
   const [currentPage, setCurrentPage] = useState(1)
   const [activeCategory, setActiveCategory] = useState('Semua')
   const [search, setSearch] = useState('')
   const [promoDocked, setPromoDocked] = useState(false)
+
   const promoAnchorRef = useRef<HTMLDivElement>(null)
   const contentSectionRef = useRef<HTMLDivElement>(null)
-  const [products, setProducts] = useState<any[]>([])
-  const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-    async function loadProducts() {
-      const data = await getProducts()
-      setProducts(data)
-      setLoading(false)
-    }
-
-    loadProducts()
-  }, [])
 
   const searchTerm = search.trim().toLowerCase()
   const isSearching = searchTerm !== ''
@@ -221,7 +216,7 @@ export default function ProductComponent() {
       </div>
 
       {/* Banner docked — fixed di luar max-w-7xl, sisi kanan layar */}
-      <div className={`hidden right-14 xl:block fixed bottom-10 z-20 w-64 transition-all duration-200 ${promoDocked
+      <div className={`hidden right-14 xl:block fixed bottom-10 z-50 w-64 transition-all duration-200 ${promoDocked
         ? 'opacity-100 translate-x-0 pointer-events-auto'
         : 'opacity-0 translate-x-4 pointer-events-none'
         }`}>

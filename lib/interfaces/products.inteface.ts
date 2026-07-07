@@ -10,4 +10,6 @@ export interface Product {
   badge: string | null
   type: string | null
   image_url: string | null
+  created_at: string
+  updated_at: string
 }
