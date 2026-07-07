@@ -179,6 +179,17 @@
   margin-bottom: 16px;
 }
 
+@font-face {
+  font-family: 'FuturaLogo';
+  src: url('/fonts/FuturaExtraBlackItalic.otf') format('opentype');
+  font-weight: 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+.font-futura {
+  font-family: 'FuturaLogo', sans-serif;
+}
 
 @layer base {
   * {

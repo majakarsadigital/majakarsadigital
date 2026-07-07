@@ -437,7 +437,7 @@ export default function ProductDetailComponent({
                 <p className="text-xs tracking-[0.3em] text-white dark:text-indigo-400 uppercase font-semibold mb-4">Siap Mulai?</p>
                 <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
                     Wujudkan Ide Digital Anda <br />
-                    <span className="text-white">Bersama Kami</span>
+                    <span className="text-slate-900 dark:text-white">Bersama Kami</span>
                 </h2>
                 <p className="text-slate-500 dark:text-gray-500 max-w-xl mx-auto mb-10 leading-relaxed">
                     Jangan biarkan ide brilian Anda terhenti di atas kertas. Tim kami siap mengubahnya
@@ -447,9 +447,10 @@ export default function ProductDetailComponent({
                     <button onClick={() => setOrderOpen(true)} className="px-8 cursor-pointer py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-full transition-colors">
                         Pesan {product.name}
                     </button>
-                    <button className="px-8 py-3.5 border cursor-pointer border-slate-900/20 dark:border-white/20 text-slate-900 dark:text-white font-semibold rounded-full hover:bg-slate-900/5 dark:hover:bg-white/5 transition-colors">
+                    <a href="https://wa.me/628135382932" target="_blank" rel="noreferrer" className="px-8 py-3.5 border cursor-pointer border-slate-900/20 dark:border-white/20 text-slate-900 dark:text-white font-semibold rounded-full hover:bg-slate-900/5 dark:hover:bg-white/5 transition-colors">
                         Hubungi Tim Kami
-                    </button>
+                    </a>
+                    
                 </div>
             </section>
             <OrderModal

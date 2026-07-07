@@ -20,10 +20,10 @@ export function NavbarLight() {
                         >
                             <Link
                                 href="/"
-                                className={`font-bold tracking-[2px] uppercase text-slate-900 transition-all duration-300 ease-out ${scrolled ? 'text-[13px] sm:text-[14px]' : 'text-[16px] sm:text-[18px]'
+                                className={`font-futura tracking-[2px] uppercase text-slate-900 transition-all duration-300 ease-out ${scrolled ? 'text-[13px] sm:text-[14px]' : 'text-[16px] sm:text-[18px]'
                                     }`}
                             >
-                                majakarsa<span className="font-normal text-slate-900/40 tracking-normal normal-case">digital</span>
+                                majakarsa<span className='text-slate-700'>digital</span>
                             </Link>
 
                             <div className="absolute right-0 flex items-center gap-1 sm:gap-1.5">
