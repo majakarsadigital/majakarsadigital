@@ -40,19 +40,19 @@ export default function ProjectCard({ project, tileClasses, isLarge, gradient, t
       href={`/portfolio/project/${project.slug}`}
       onMouseMove={handleImageZoom}
       onMouseLeave={resetImageZoom}
-      className={`group relative overflow-hidden rounded-2xl border bg-white dark:bg-white/[0.02] hover:shadow-xl hover:shadow-slate-200/60 dark:hover:shadow-black/50 transition-all duration-300 ${tileClasses} ${
+      className={`group relative overflow-hidden rounded-2xl border bg-white/[0.02] hover:shadow-xl hover:shadow-black/50 transition-all duration-300 ${tileClasses} ${
         project.is_featured
-          ? 'border-indigo-300 dark:border-indigo-500/40 ring-1 ring-indigo-200 dark:ring-indigo-500/20'
-          : 'border-slate-200/80 dark:border-white/[0.06] hover:border-slate-300 dark:hover:border-white/10'
+          ? 'border-indigo-500/40 ring-1 ring-indigo-500/20'
+          : 'border-white/[0.06] hover:border-white/10'
       }`}
       style={{ '--zoom-x': '50%', '--zoom-y': '50%' } as React.CSSProperties}
     >
-      <div className={`absolute inset-0 overflow-hidden bg-gradient-to-br ${gradient} dark:from-white/[0.03] dark:to-transparent`}>
+      <div className={`absolute inset-0 overflow-hidden bg-gradient-to-br from-white/[0.03] to-transparent`}>
         <img
           src={project.image_url}
           alt=""
           aria-hidden="true"
-          className="absolute inset-0 h-full w-full object-cover blur-xl scale-110 opacity-40 dark:opacity-25"
+          className="absolute inset-0 h-full w-full object-cover blur-xl scale-110 opacity-25"
           loading="lazy"
         />
         <img
@@ -68,7 +68,7 @@ export default function ProjectCard({ project, tileClasses, isLarge, gradient, t
       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300" />
 
       <div className="absolute top-4 right-4 z-10">
-        <span className="rounded-full bg-white/90 dark:bg-black/70 px-2.5 py-1 text-[9px] font-bold text-slate-800 dark:text-white backdrop-blur">
+        <span className="rounded-full bg-black/70 px-2.5 py-1 text-[9px] font-bold text-white backdrop-blur">
           {project.year}
         </span>
       </div>

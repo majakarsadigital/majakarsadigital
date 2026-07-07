@@ -111,19 +111,18 @@ export default async function Page() {
       >
         <div className="absolute inset-0">
           {/* Light Mode */}
-          <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 overflow-hidden bg-[#f4f5f7]">
             <div
-              className="absolute inset-0 bg-indigo-500"
+              className="absolute inset-0"
               style={{
                 backgroundImage: `
-                  linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
-                  linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)
-                `,
+          linear-gradient(rgba(79,70,229,0.06) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(79,70,229,0.06) 1px, transparent 1px)
+        `,
                 backgroundSize: '40px 40px',
               }}
             />
-
-            <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-white" />
+            <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-[#f4f5f7]" />
           </div>
           {/* Dark Mode */}
           <div
@@ -262,14 +261,15 @@ export default async function Page() {
             </Marquee>
           </div>
 
-          <div className="absolute dark:hidden bg-white p-2 sm:p-3 bottom-0 left-1/2 -translate-x-1/2 w-full max-w-full">
+          <div className="absolute dark:hidden bg-[#f4f5f7] border-t border-slate-200/60 p-2 sm:p-3 bottom-0 left-1/2 -translate-x-1/2 w-full max-w-full">
             <Marquee
               gradient
               speed={50}
               pauseOnHover
               autoFill
-              className='bg-white'
+              className='bg-[#f4f5f7]'
             >
+
               {/* {sponsors.map((sponsor) => (
                 <div
                   key={sponsor.id}
@@ -295,7 +295,6 @@ export default async function Page() {
               ))}
             </Marquee>
           </div>
-
         </section >
 
         {/* CAROUSEL + QUOTE */}
@@ -303,7 +302,7 @@ export default async function Page() {
           <TwoRowCarousel products={products} />
         </ section >
 
-        <section className="relative z-10 bg-[#f4f5f7] dark:bg-black py-12 sm:py-24" >
+        <section className="relative border-b z-10 bg-[#f4f5f7] dark:bg-black py-12 sm:py-24" >
           {/* <div
             className="absolute hidden dark:block inset-0 -z-50 bg-cover bg-center bg-fixed"
             style={{
@@ -327,10 +326,6 @@ export default async function Page() {
 
             {/* Heading */}
             <div className="text-center mb-14">
-              <p className="text-primary text-sm font-semibold tracking-[0.25em] uppercase">
-                Tentang Kami
-              </p>
-
               <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 dark:text-white">
                 Teknologi yang Dibangun
                 <span className="text-primary"> untuk Bertumbuh</span>
@@ -548,7 +543,7 @@ export default async function Page() {
         </section >
 
         {/* SERVICES */}
-        <section id="services" className="relative z-10 bg-slate-50 dark:bg-[#0a0a0a] py-12 sm:py-24" >
+        <section id="services" className="relative z-10 bg-[#f4f5f7] dark:bg-[#0a0a0a] py-12 sm:py-24" >
           <div
             className="absolute inset-0 -z-50 bg-cover bg-center bg-fixed"
             style={{
@@ -556,15 +551,13 @@ export default async function Page() {
             }}
           />
           <div className="absolute inset-0 -z-40 bg-[#f4f5f7] dark:bg-black/80" />
-
           <div
             className="absolute inset-0 -z-40 pointer-events-none hidden dark:block"
             style={{ background: 'radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 70%)' }}
           />
-
           <div className="max-w-6xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-10 sm:mb-16">
-              <p className="text-xs tracking-[0.2em] sm:tracking-[0.3em] text-blue-500 dark:text-blue-400 uppercase mb-3 sm:mb-4">
+              <p className="text-xs tracking-[0.2em] sm:tracking-[0.3em] text-indigo-500 dark:text-blue-400 uppercase mb-3 sm:mb-4">
                 Layanan
               </p>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-3 sm:mb-4">
@@ -579,14 +572,13 @@ export default async function Page() {
               >
                 Lihat Product Kami
               </Link>
-
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
               {services.map((s) => (
                 <div
                   key={s.title}
-                  className="group p-4 sm:p-5 rounded-2xl border border-slate-200 dark:border-white/5 bg-white dark:bg-white/[0.02] hover:bg-slate-50 dark:hover:bg-white/[0.05] hover:border-slate-300 dark:hover:border-white/10 transition-all duration-300 cursor-pointer"
+                  className="group p-4 sm:p-5 rounded-2xl border border-slate-200/80 dark:border-white/5 bg-white/70 dark:bg-white/[0.02] hover:bg-white hover:border-slate-300 dark:hover:bg-white/[0.05] dark:hover:border-white/10 transition-all duration-300 cursor-pointer"
                 >
                   <div className="text-2xl sm:text-3xl mb-3 sm:mb-4">{s.icon}</div>
                   <h3 className="text-slate-900 dark:text-white font-semibold text-xs sm:text-sm mb-1.5 sm:mb-2">{s.title}</h3>
@@ -594,9 +586,73 @@ export default async function Page() {
                 </div>
               ))}
             </div>
-          </div>
 
-        </section >
+            {/* Kenapa pilih kami */}
+            <div className="grid sm:grid-cols-3 gap-6 sm:gap-8 mt-14 sm:mt-20 pt-10 sm:pt-14 border-t border-slate-200 dark:border-white/10">
+              <div className="flex items-start gap-3">
+                <div className="w-9 h-9 rounded-full bg-indigo-500/10 flex items-center justify-center flex-shrink-0">
+                  <svg className="w-4 h-4 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 className="text-sm font-semibold text-slate-900 dark:text-white mb-1">Pengerjaan Cepat</h4>
+                  <p className="text-xs text-slate-500 dark:text-gray-500 leading-relaxed">
+                    Proses development terstruktur dengan timeline yang jelas dari awal hingga selesai.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="w-9 h-9 rounded-full bg-indigo-500/10 flex items-center justify-center flex-shrink-0">
+                  <svg className="w-4 h-4 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 className="text-sm font-semibold text-slate-900 dark:text-white mb-1">Kualitas Terjamin</h4>
+                  <p className="text-xs text-slate-500 dark:text-gray-500 leading-relaxed">
+                    Standar kode modern dengan pengujian menyeluruh sebelum produk kami serahkan.
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <div className="w-9 h-9 rounded-full bg-indigo-500/10 flex items-center justify-center flex-shrink-0">
+                  <svg className="w-4 h-4 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 className="text-sm font-semibold text-slate-900 dark:text-white mb-1">Support Berkelanjutan</h4>
+                  <p className="text-xs text-slate-500 dark:text-gray-500 leading-relaxed">
+                    Pendampingan pasca-launching untuk maintenance, update, dan pengembangan fitur baru.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="relative z-10 bg-black py-12 sm:py-24" >
+          <div className="max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="text-center mb-14">
+              <p className="text-xs tracking-[0.2em] sm:tracking-[0.3em] text-indigo-500 dark:text-blue-400 uppercase mb-3 sm:mb-4">
+                Portfolio
+              </p>
+
+              <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-bold text-white">
+                Projek Yang telah Kami Kerjakan
+              </h2>
+              <p className="mt-5 max-w-2xl mx-auto text-sm sm:text-base text-white/60">
+                Kumpulan website, aplikasi, dan sistem yang telah kami rancang dan kembangkan
+                untuk berbagai klien - mulai dari bisnis kecil hingga instansi.
+              </p>
+            </div>
+            <BentoGallery />
+          </div>
+        </section>
 
         {/* SPONSOR */}
         <section id="sponsor" className="relative z-10 bg-[#f4f5f7] dark:bg-black py-12 sm:py-24 border-t border-slate-200 dark:border-white/5 overflow-hidden">
@@ -604,9 +660,10 @@ export default async function Page() {
 
           <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-10 sm:mb-16">
-              <p className="text-xs tracking-[0.2em] sm:tracking-[0.3em] text-blue-500 dark:text-blue-400 uppercase mb-3 sm:mb-4">
-                Dukung Kami
+              <p className="text-xs tracking-[0.2em] sm:tracking-[0.3em] text-indigo-500 dark:text-blue-400 uppercase mb-3 sm:mb-4">
+                didukung oleh
               </p>
+
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-3 sm:mb-4">
                 Sponsor
               </h2>
@@ -628,7 +685,7 @@ export default async function Page() {
                       key={sponsor.id}
                       className="w-16 h-16 sm:w-20 sm:h-20 bg-white flex items-center justify-center p-2"
                     >
-                     <SponsorLogo2 sponsor={sponsor} />
+                      <SponsorLogo2 sponsor={sponsor} />
                     </div>
                   ))}
                 </div>
@@ -654,32 +711,18 @@ export default async function Page() {
             </div>
           </div>
         </section>
-        <section className="relative z-10 bg-[#f4f5f7] dark:bg-black py-12 sm:py-24" >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6">
-            <div className="text-center mb-14">
-              <p className="text-primary text-sm font-semibold tracking-[0.25em] uppercase">
-                Gallery
-              </p>
-
-              <h2 className="mt-4 text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 dark:text-white">
-                Projek Yang telah Kami Kerjakan
-              </h2>
-
-            </div>
-            <BentoGallery />
-          </div>
-        </section>
 
 
         {/* CONTACT */}
-        <section id="contact" className="relative z-10 bg-white dark:bg-black py-12 sm:py-24 border-t border-slate-200 dark:border-white/5 overflow-hidden">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[90%] sm:w-[600px] h-[300px] bg-indigo-500/[0.07] dark:bg-indigo-500/[0.08] blur-[100px] rounded-full pointer-events-none" />
+        <section id="contact" className="relative z-10 bg-[#f4f5f7] dark:bg-black py-12 sm:py-24 border-t border-slate-200 dark:border-white/5 overflow-hidden">
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[90%] sm:w-[600px] h-[300px] bg-indigo-500/[0.06] dark:bg-indigo-500/[0.08] blur-[100px] rounded-full pointer-events-none" />
 
           <div className="relative max-w-6xl mx-auto px-4 sm:px-6">
             <div className="text-center mb-10 sm:mb-16">
-              <p className="text-xs tracking-[0.2em] sm:tracking-[0.3em] text-blue-500 dark:text-blue-400 uppercase mb-3 sm:mb-4">
-                Hubungi Kami
+              <p className="text-xs tracking-[0.2em] sm:tracking-[0.3em] text-indigo-500 dark:text-blue-400 uppercase mb-3 sm:mb-4">
+                contact
               </p>
+
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-3 sm:mb-4">
                 Mari Wujudkan Produk Digital Anda
               </h2>
@@ -691,7 +734,7 @@ export default async function Page() {
 
             <div className="grid grid-cols-1 md:grid-cols-5 gap-6 sm:gap-8">
               {/* Info Kontak */}
-              <div className="md:col-span-2 rounded-3xl bg-slate-50 dark:bg-white/[0.02] border border-slate-200 dark:border-white/10 p-6 sm:p-8 flex flex-col justify-between">
+              <div className="md:col-span-2 rounded-3xl bg-white dark:bg-white/[0.02] border border-slate-200 dark:border-white/10 p-6 sm:p-8 flex flex-col justify-between">
                 <div className="space-y-6">
                   <div className="flex items-start gap-4">
                     <div className="w-10 h-10 rounded-full bg-indigo-500/10 flex items-center justify-center flex-shrink-0">
@@ -734,10 +777,10 @@ export default async function Page() {
                 </div>
 
                 <div className="flex gap-3 mt-8">
-                  <a href="https://instagram.com/majakarsadigital" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center hover:border-indigo-400 transition-colors">
+                  <a href="https://instagram.com/majakarsadigital" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-[#f4f5f7] dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center hover:border-indigo-400 transition-colors">
                     <SkillIconsInstagram className="w-4 h-4" />
                   </a>
-                  <a href="https://facebook.com/majakarsadigital" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center hover:border-indigo-400 transition-colors">
+                  <a href="https://facebook.com/majakarsadigital" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-[#f4f5f7] dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center hover:border-indigo-400 transition-colors">
                     <LogosFacebook className="w-4 h-4 text-[#1877F2]" />
                   </a>
                 </div>

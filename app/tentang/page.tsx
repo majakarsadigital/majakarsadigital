@@ -307,39 +307,33 @@ export default function TentangPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-24">
-        <div className="text-center mb-16">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-indigo-500">
-            Cara Kami Bekerja
-          </p>
+      <section className="border-y border-slate-200/60 dark:border-white/5 bg-white dark:bg-white/[0.01] py-24">
+        <div className="mx-auto max-w-7xl px-6">
+          <div className="mb-16 text-center">
+            <p className="mb-3 text-[10px] font-bold uppercase tracking-[0.4em] text-indigo-500 dark:text-indigo-400">
+              Cara Kami Bekerja
+            </p>
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-800 dark:text-white">
+              Dari Ide Menjadi Produk
+            </h2>
+          </div>
 
-          <h2 className="text-4xl font-bold text-slate-800 dark:text-white">
-            Proses yang Jelas, Hasil yang Terukur
-          </h2>
-        </div>
-
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-5">
-          {process.map((p) => (
-            <div
-              key={p.step}
-              className="rounded-3xl border border-slate-200/70 bg-[#2c2c4c] p-7 dark:border-white/5 dark:bg-white/[0.02]"
-            >
-              <span className="mb-5 block text-3xl font-bold text-indigo-200 dark:text-indigo-900">
-                {p.step}
-              </span>
-
-              <h3 className="mb-2 font-semibold text-slate-800 dark:text-white">
-                {p.title}
-              </h3>
-
-              <p className="text-sm leading-relaxed text-slate-500 dark:text-gray-500">
-                {p.desc}
-              </p>
-            </div>
-          ))}
+          <div className="grid gap-8 md:grid-cols-4">
+            {[
+              { step: '01', title: 'Discovery', desc: 'Kami menggali tujuan bisnis, target pengguna, dan kebutuhan teknis secara mendalam sebelum menulis satu baris kode pun.' },
+              { step: '02', title: 'Design', desc: 'Wireframe, prototype interaktif, dan sistem desain dibangun untuk memastikan tampilan dan alur sesuai ekspektasi.' },
+              { step: '03', title: 'Development', desc: 'Kode bersih, terstruktur, dan teruji ditulis oleh developer berpengalaman dengan standar industri modern.' },
+              { step: '04', title: 'Launch', desc: 'Deployment, testing menyeluruh, dan handover dilakukan secara profesional. Kami pastikan produk siap meluncur.' },
+            ].map((s) => (
+              <div key={s.step} className="group relative p-6 rounded-2xl border border-slate-200/60 dark:border-white/5 bg-[#f4f5f7] dark:bg-white/[0.02] hover:border-indigo-200 dark:hover:border-indigo-500/20 transition-colors">
+                <p className="text-6xl font-black text-slate-200 dark:text-white/[0.04] select-none mb-3">{s.step}</p>
+                <h3 className="font-bold text-slate-800 dark:text-white mb-2 -mt-8">{s.title}</h3>
+                <p className="text-xs text-slate-500 dark:text-gray-500 leading-relaxed">{s.desc}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
-
       <section id="services" className="relative z-10 bg-slate-50 dark:bg-[#0a0a0a] py-24" >
         <div
           className="absolute inset-0 -z-50 bg-cover bg-center bg-fixed"

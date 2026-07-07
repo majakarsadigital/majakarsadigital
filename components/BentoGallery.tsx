@@ -57,12 +57,10 @@ export default async function BentoGallery() {
     return (
         <div  >
 
-
-
             {
                 projects.length === 0 ? (
-                    <div className="rounded-2xl border border-dashed border-slate-300 dark:border-white/10 py-24 text-center">
-                        <p className="text-sm text-slate-400 dark:text-gray-600">Belum ada proyek yang ditambahkan.</p>
+                    <div className="rounded-2xl border border-dashed border-white/10 py-24 text-center">
+                        <p className="text-sm text-gray-600">Belum ada proyek yang ditambahkan.</p>
                     </div>
                 ) : (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 auto-rows-[15rem] lg:auto-rows-[13rem] gap-4">

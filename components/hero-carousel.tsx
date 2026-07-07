@@ -43,29 +43,29 @@ export function HeroCarousel() {
       >
         {/* Slide 1 - Website Usaha / Toko Makanan */}
         <SwiperSlide>
-          <div className="grid lg:grid-cols-2 dark:grid-cols-1 items-center gap-12 min-h-[80vh]">
-            <div className="text-center lg:text-left dark:text-center">
-              <p className="hidden dark:block text-xs sm:text-sm tracking-[0.3em] text-slate-600 dark:text-gray-400 mb-6">
+          <div className="grid lg:grid-cols-2 items-center gap-12 min-h-[75vh]">
+            <div className="text-center lg:text-left">
+              <p className="text-xs sm:text-sm tracking-[0.3em] text-slate-500 mb-6">
                 powered by majakarsa
               </p>
-              <h1 className="text-3xl sm:text-5xl md:text-7xl font-semibold text-white leading-tight mb-6">
+              <h1 className="text-3xl sm:text-5xl md:text-7xl font-semibold text-slate-900 leading-tight mb-6">
                 WEBSITE
                 <span>KULINER</span>
               </h1>
-              <p className="text-base sm:text-lg md:text-2xl text-gray-300 max-w-2xl mb-10 dark:mx-auto">
+              <p className="text-base sm:text-lg md:text-2xl text-slate-600 max-w-2xl mb-10">
                 Bawa usaha kuliner Anda ke ranah digital dengan website yang menarik,
                 mudah dikelola, dan siap menerima pesanan online kapan saja.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 dark:justify-center">
-                <a href="#services" className="px-8 py-3.5 bg-slate-900 dark:bg-white text-white dark:text-black rounded-full font-semibold">
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a href="#services" className="px-8 py-3.5 bg-slate-900 text-white rounded-full font-semibold">
                   Lihat Layanan
                 </a>
-                <a href="#contact" className="px-8 py-3.5 border border-slate-300 dark:border-white/30 text-white rounded-full font-semibold">
+                <a href="#contact" className="px-8 py-3.5 border border-slate-300 text-slate-900 rounded-full font-semibold">
                   Hubungi Kami
                 </a>
               </div>
             </div>
-            <div className="hidden lg:flex dark:hidden justify-start">
+            <div className="hidden lg:flex justify-start">
               <img src="/assets/pictures/Group 5.png" alt="Website Toko Makanan" className="max-w-4xl" />
             </div>
           </div>
@@ -73,29 +73,29 @@ export function HeroCarousel() {
 
         {/* Slide 2 - Website Portfolio Personal */}
         <SwiperSlide>
-          <div className="grid lg:grid-cols-2 dark:grid-cols-1 items-center gap-12 min-h-[80vh]">
-            <div className="text-center lg:text-left dark:text-center">
-              <p className="hidden dark:block text-xs sm:text-sm tracking-[0.3em] text-slate-600 dark:text-gray-400 mb-6">
+          <div className="grid lg:grid-cols-2 items-center gap-12 min-h-[75vh]">
+            <div className="text-center lg:text-left">
+              <p className="text-xs sm:text-sm tracking-[0.3em] text-slate-500 mb-6">
                 powered by majakarsa
               </p>
-              <h1 className="text-3xl sm:text-5xl md:text-7xl font-semibold text-white leading-tight mb-6">
+              <h1 className="text-3xl sm:text-5xl md:text-7xl font-semibold text-slate-900 leading-tight mb-6">
                 PORTFOLIO
                 <span>PERSONAL</span>
               </h1>
-              <p className="text-base sm:text-lg md:text-2xl text-gray-300 max-w-2xl mb-10 dark:mx-auto">
+              <p className="text-base sm:text-lg md:text-2xl text-slate-600 max-w-2xl mb-10">
                 Tampilkan karya dan identitas profesional Anda lewat website portfolio
                 personal yang elegan, responsif, dan mudah diperbarui.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 dark:justify-center">
-                <a href="#services" className="px-8 py-3.5 bg-slate-900 dark:bg-white text-white dark:text-black rounded-full font-semibold">
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a href="#services" className="px-8 py-3.5 bg-slate-900 text-white rounded-full font-semibold">
                   Lihat Layanan
                 </a>
-                <a href="#contact" className="px-8 py-3.5 border border-slate-300 dark:border-white/30 text-white rounded-full font-semibold">
+                <a href="#contact" className="px-8 py-3.5 border border-slate-300 text-slate-900 rounded-full font-semibold">
                   Hubungi Kami
                 </a>
               </div>
             </div>
-            <div className="hidden lg:flex dark:hidden justify-end">
+            <div className="hidden lg:flex justify-end">
               <img src="/assets/pictures/personal_portfolio_mock.png" alt="Website Portfolio Personal" className="max-w-lg" />
             </div>
           </div>
@@ -103,29 +103,29 @@ export function HeroCarousel() {
 
         {/* Slide 3 - Platform Properti (Rumah, Apartemen, dll) */}
         <SwiperSlide>
-          <div className="grid lg:grid-cols-2 dark:grid-cols-1 items-center gap-12 min-h-[80vh]">
-            <div className="text-center lg:text-left dark:text-center">
-              <p className="hidden dark:block text-xs sm:text-sm tracking-[0.3em] text-slate-600 dark:text-gray-400 mb-6">
+          <div className="grid lg:grid-cols-2 items-center gap-12 min-h-[75vh]">
+            <div className="text-center lg:text-left">
+              <p className="text-xs sm:text-sm tracking-[0.3em] text-slate-500 mb-6">
                 powered by majakarsa
               </p>
-              <h1 className="text-3xl sm:text-5xl md:text-7xl font-semibold text-white leading-tight mb-6">
+              <h1 className="text-3xl sm:text-5xl md:text-7xl font-semibold text-slate-900 leading-tight mb-6">
                 PLATFORM
                 <span>PROPERTI</span>
               </h1>
-              <p className="text-base sm:text-lg md:text-2xl text-gray-300 max-w-2xl mb-10 dark:mx-auto">
+              <p className="text-base sm:text-lg md:text-2xl text-slate-600 max-w-2xl mb-10">
                 Solusi digital untuk pemasaran rumah, apartemen, dan properti lainnya
                 dengan fitur pencarian, filter, dan manajemen listing yang praktis.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 dark:justify-center">
-                <a href="#services" className="px-8 py-3.5 bg-slate-900 dark:bg-white text-white dark:text-black rounded-full font-semibold">
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a href="#services" className="px-8 py-3.5 bg-slate-900 text-white rounded-full font-semibold">
                   Lihat Layanan
                 </a>
-                <a href="#contact" className="px-8 py-3.5 border border-slate-300 dark:border-white/30 text-white rounded-full font-semibold">
+                <a href="#contact" className="px-8 py-3.5 border border-slate-300 text-slate-900 rounded-full font-semibold">
                   Hubungi Kami
                 </a>
               </div>
             </div>
-            <div className="hidden lg:flex dark:hidden justify-end">
+            <div className="hidden lg:flex justify-end">
               <img src="/assets/pictures/properties_platform_mock.png" alt="Platform Properti" className="max-w-4xl" />
             </div>
           </div>
@@ -133,19 +133,19 @@ export function HeroCarousel() {
       </Swiper>
 
       {/* Custom Navigation */}
-      <div className="flex items-center gap-4 justify-center lg:justify-end dark:justify-center">
+      <div className="flex items-center gap-4 justify-center lg:justify-end">
         {/* Counter */}
         <div className="flex items-center gap-2">
-          <span className="text-white font-medium text-base tabular-nums">
+          <span className="text-slate-900 font-medium text-base tabular-nums">
             {padded(activeIndex)}
           </span>
-          <div className="h-[1.5px] bg-white/15 rounded-full overflow-hidden w-20">
+          <div className="h-[1.5px] bg-slate-900/15 rounded-full overflow-hidden w-20">
             <div
-              className="h-full bg-white rounded-full transition-none"
+              className="h-full bg-slate-900 rounded-full transition-none"
               style={{ width: `${progress}%` }}
             />
           </div>
-          <span className="text-white/30 text-sm tabular-nums">
+          <span className="text-slate-400 text-sm tabular-nums">
             {padded(TOTAL_SLIDES - 1)}
           </span>
         </div>
@@ -154,7 +154,7 @@ export function HeroCarousel() {
         <button
           onClick={goPrev}
           aria-label="Slide sebelumnya"
-          className="w-10 h-10 rounded-full border border-white/20 bg-white/5 flex items-center justify-center text-white hover:bg-white/12 hover:border-white/40 active:scale-95 transition-all duration-150"
+          className="w-10 h-10 rounded-full border border-slate-300 bg-slate-900/5 flex items-center justify-center text-slate-900 hover:bg-slate-900/10 hover:border-slate-400 active:scale-95 transition-all duration-150"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path d="M10 12L6 8L10 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -168,7 +168,7 @@ export function HeroCarousel() {
               key={i}
               onClick={() => goTo(i)}
               aria-label={`Slide ${i + 1}`}
-              className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${i === activeIndex ? "w-5 bg-white" : "w-1.5 bg-white/25 hover:bg-white/45"
+              className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer ${i === activeIndex ? "w-5 bg-slate-900" : "w-1.5 bg-slate-900/25 hover:bg-slate-900/45"
                 }`}
             />
           ))}
@@ -178,7 +178,7 @@ export function HeroCarousel() {
         <button
           onClick={goNext}
           aria-label="Slide berikutnya"
-          className="w-10 h-10 rounded-full border border-white/20 bg-white/5 flex items-center justify-center text-white hover:bg-white/12 hover:border-white/40 active:scale-95 transition-all duration-150"
+          className="w-10 h-10 rounded-full border border-slate-300 bg-slate-900/5 flex items-center justify-center text-slate-900 hover:bg-slate-900/10 hover:border-slate-400 active:scale-95 transition-all duration-150"
         >
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
             <path d="M6 4L10 8L6 12" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

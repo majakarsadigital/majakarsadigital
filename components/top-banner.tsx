@@ -49,12 +49,12 @@ export function TopBanner() {
   const item = bannerItems[currentIndex]
 
   return (
-    <div className="dark:px-4 pt-1 dark:pt-4 -mt-8 dark:pb-1">
+    <div className="dark:px-4 dark:pt-4 -mt-8 dark:pb-1">
       <div
         className={`
           mx-auto py-2 dark:py-0 dark:max-w-xl dark:rounded-2xl
-          border border-b-0 dark:border-b dark:border-white/10
-          bg-white dark:bg-white/[0.06]
+          dark:border dark:border-b dark:border-white/10
+          bg-black dark:bg-white/[0.06]
           backdrop-blur-xl
           shadow-[0_4px_24px_rgba(0,0,0,0.08),inset_0_1px_0_rgba(255,255,255,0.9)]
           dark:shadow-[0_4px_32px_rgba(0,0,0,0.3),inset_0_1px_0_rgba(255,255,255,0.07)]
@@ -69,7 +69,7 @@ export function TopBanner() {
             text-center
           "
         >
-          <span className="text-[9px] sm:text-[10px] font-semibold tracking-[0.5px] uppercase text-indigo-600/80 dark:text-white/75">
+          <span className="text-[9px] sm:text-[10px] font-semibold tracking-[0.5px] uppercase text-white dark:text-white/75">
             {item.label}
           </span>
           <span className="hidden sm:inline text-black/20 dark:text-white/55 text-xs">·</span>
@@ -81,9 +81,9 @@ export function TopBanner() {
               text-[10px] sm:text-[10.5px]
               font-semibold
               tracking-[0.3px]
-              text-indigo-600
+              text-white
               dark:text-green-400
-              hover:text-indigo-700
+              hover:text-white
               transition-colors
               underline
               underline-offset-2
@@ -92,12 +92,12 @@ export function TopBanner() {
             {item.linkText}
           </Link>
           <span className="hidden sm:inline text-black/20 dark:text-white/55 text-xs">-</span>
-          <span className="text-[10px] sm:text-[10.5px] font-medium text-slate-600 dark:text-white/75 basis-full sm:basis-auto">
+          <span className="text-[10px] sm:text-[10.5px] font-medium text-white dark:text-white/75 basis-full sm:basis-auto">
             {item.description}
           </span>
         </div>
         {/* Dots indicator */}
-        <div className="flex  dark:hidden justify-center gap-1.5">
+        <div className="hidden justify-center gap-1.5">
           {bannerItems.map((_, index) => (
             <button
               key={index}
