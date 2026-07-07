@@ -25,7 +25,8 @@ const featureOptions = [
 
 const budgetRanges = [
     'Sesuai harga di katalog',
-    '< Rp 3.000.000',
+    '< Rp 1.000.000',
+    'Rp 1.000.000 - Rp 3.000.000',
     'Rp 3.000.000 - Rp 7.000.000',
     'Rp 7.000.000 - Rp 15.000.000',
     '> Rp 15.000.000',
