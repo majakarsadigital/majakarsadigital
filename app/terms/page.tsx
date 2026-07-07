@@ -151,10 +151,10 @@ export default function TermsPage() {
                             Jika Anda memiliki pertanyaan terkait syarat dan ketentuan ini, silakan
                             hubungi kami di{' '}
                             <a
-                                href="mailto:hello@majakarsadigital.com"
+                                href="mailto:majakarsadigital.site"
                                 className="text-indigo-500 dark:text-indigo-400 hover:underline"
                             >
-                                hello@majakarsadigital.com
+                                majakarsadigital.site
                             </a>
                             . Lihat juga{' '}
                             <Link

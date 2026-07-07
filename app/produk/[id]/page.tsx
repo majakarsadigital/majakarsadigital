@@ -167,9 +167,9 @@ export default function ProductDetailPage() {
                                 <button onClick={() => setOrderOpen(true)} className="w-full cursor-pointer py-3 px-6 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm transition-colors">
                                     Pesan Sekarang
                                 </button>
-                                <button className="w-full py-3 px-6 cursor-pointer rounded-xl border border-slate-200 dark:border-white/10 text-slate-700 dark:text-gray-300 font-semibold text-sm hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
+                                <a href="https://wa.me/628135382932" target="_blank" rel="noreferrer" className="w-full inline-flex items-center justify-center py-3 px-6 cursor-pointer rounded-xl border border-slate-200 dark:border-white/10 text-slate-700 dark:text-gray-300 font-semibold text-sm hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
                                     Konsultasi Gratis
-                                </button>
+                                </a>
                             </div>
                         </div>
 

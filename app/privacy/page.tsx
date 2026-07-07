@@ -79,7 +79,7 @@ const sections = [
             'Hak penghapusan: meminta penghapusan data Anda, dalam batas yang diizinkan hukum.',
             'Hak keberatan: mengajukan keberatan atas penggunaan data Anda untuk tujuan tertentu.',
         ],
-        footer: 'Untuk menggunakan hak-hak di atas, hubungi kami di hello@majakarsadigital.com.',
+        footer: 'Untuk menggunakan hak-hak di atas, hubungi kami di majakarsadigital.site.',
     },
     {
         id: 'tautan',
@@ -197,14 +197,14 @@ export default function PrivacyPage() {
                         </p>
                         <div className="flex flex-wrap gap-3">
                             <a
-                                href="mailto:hello@majakarsadigital.com"
+                                href="mailto:majakarsadigital.site"
                                 className="text-xs font-semibold text-indigo-500 dark:text-indigo-400 hover:underline"
                             >
-                                hello@majakarsadigital.com
+                                majakarsadigital.site
                             </a>
                             <span className="text-slate-300 dark:text-white/10">|</span>
                             <a
-                                href="https://wa.me/6281234567890"
+                                href="https://wa.me/628135382932"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-xs font-semibold text-indigo-500 dark:text-indigo-400 hover:underline"
