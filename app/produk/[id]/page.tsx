@@ -8,6 +8,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { BxRevision, IconParkSolidPhoneTelephone, MaterialSymbolsEditSquare, MaterialSymbolsElectricBoltRounded, MaterialSymbolsLightWorkspacePremium, MaterialSymbolsResponsiveLayout, MaterialSymbolsRocket, RiRotateLockLine, StreamlineFlexWarrantyBadgeHighlight, StreamlineFreehandPhoneActions24HoursCall } from '@/public/assets/icons'
 import { useEffect, useState } from 'react'
 import { getProductImages } from '@/lib/repositories/product-images.repository'
+import OrderModal from '@/components/OrderModal'
 
 const categoryMeta: Record<string, { icon: string; color: string; bg: string; darkBg: string }> = {
     'Website': { icon: '🌐', color: 'text-blue-500', bg: 'bg-blue-50', darkBg: 'dark:bg-blue-500/10' },
@@ -69,6 +70,7 @@ export default function ProductDetailPage() {
     const [activeImage, setActiveImage] = useState<string | null>(null)
     const [activeOrientation, setActiveOrientation] = useState<'landscape' | 'portrait'>('landscape')
     const [activeRatio, setActiveRatio] = useState<number>(16 / 9) // default sebelum gambar termuat
+    const [orderOpen, setOrderOpen] = useState(false)
 
     useEffect(() => {
         getProducts()
@@ -162,10 +164,10 @@ export default function ProductDetailPage() {
                                 <p className="text-sm text-slate-400 dark:text-gray-600 line-through mt-0.5">{Number(product.original_price).toLocaleString('id-ID')}</p>
                             </div>
                             <div className="flex flex-col gap-2 flex-1">
-                                <button className="w-full py-3 px-6 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm transition-colors">
-                                    Pesan Sekarang →
+                                <button onClick={() => setOrderOpen(true)} className="w-full cursor-pointer py-3 px-6 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm transition-colors">
+                                    Pesan Sekarang
                                 </button>
-                                <button className="w-full py-3 px-6 rounded-xl border border-slate-200 dark:border-white/10 text-slate-700 dark:text-gray-300 font-semibold text-sm hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
+                                <button className="w-full py-3 px-6 cursor-pointer rounded-xl border border-slate-200 dark:border-white/10 text-slate-700 dark:text-gray-300 font-semibold text-sm hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
                                     Konsultasi Gratis
                                 </button>
                             </div>
@@ -431,15 +433,21 @@ export default function ProductDetailPage() {
                     menjadi produk digital yang nyata, fungsional, dan berdampak.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button className="px-8 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-full transition-colors">
-                        Pesan {product.name} →
+                    <button onClick={() => setOrderOpen(true)} className="px-8 cursor-pointer py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-full transition-colors">
+                        Pesan {product.name}
                     </button>
-                    <button className="px-8 py-3.5 border border-slate-900/20 dark:border-white/20 text-slate-900 dark:text-white font-semibold rounded-full hover:bg-slate-900/5 dark:hover:bg-white/5 transition-colors">
+                    <button className="px-8 py-3.5 border cursor-pointer border-slate-900/20 dark:border-white/20 text-slate-900 dark:text-white font-semibold rounded-full hover:bg-slate-900/5 dark:hover:bg-white/5 transition-colors">
                         Hubungi Tim Kami
                     </button>
                 </div>
             </section>
-
+            <OrderModal
+                isOpen={orderOpen}
+                onClose={() => setOrderOpen(false)}
+                productName={product.name}
+                productPrice={product.price}
+                productCategory={product.category}
+            />
         </main>
     )
 }
