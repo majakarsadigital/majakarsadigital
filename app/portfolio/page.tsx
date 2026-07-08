@@ -96,9 +96,10 @@ export default async function PortfolioPage() {
       </section>
 
       {/* ================= BENTO GRID PROJECT ================= */}
-      <section className="mx-auto max-w-7xl px-6 pb-24">
+      <section className=" bg-black px-6 p-24">
+        <div className='mx-auto max-w-7xl'>
           <BentoGallery />
-
+        </div>
       </section>
 
       <section className="border-y border-slate-200/60 dark:border-white/5 bg-white dark:bg-white/[0.01] py-24">

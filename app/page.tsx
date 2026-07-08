@@ -190,31 +190,29 @@ export default async function Page() {
             className="absolute inset-0 pointer-events-none hidden dark:block"
             style={{ background: 'radial-gradient(ellipse at top, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 70%)' }}
           />
-          <div className="max-w-450 hidden lg:block dark:hidden mx-auto relative z-10">
+          <div className="max-w-450 hidden 2xl:block dark:hidden mx-auto relative z-10">
             <HeroCarousel />
           </div>
-          <div className="max-w-450 hidden dark:block mx-auto px-6 relative z-10">
-            <div className="grid lg:grid-cols-2 dark:grid-cols-1 items-center gap-12">
-
-              {/* Kiri */}
-              <div className="text-center lg:text-left dark:text-center">
-                <p className="hidden dark:block text-xs sm:text-sm tracking-[0.3em] text-slate-600 dark:text-gray-400 mb-6">
+          <div className="max-w-450 2xl:hidden dark:lg:block mx-auto px-6 relative z-10">
+            <div className="items-center gap-12">
+              <div className="text-center dark:text-center">
+                <p className="text-xs sm:text-sm tracking-[0.3em] text-slate-600 dark:text-gray-400 mb-6">
                   powered by majakarsa
                 </p>
 
-                <h1 className="text-3xl sm:text-5xl md:text-7xl font-semibold text-white leading-tight mb-6">
+                <h1 className="text-3xl sm:text-5xl md:text-7xl font-semibold text-slate-900 dark:text-white leading-tight mb-6">
                   MAJAKARSA
                   <span>
                     DIGITAL
                   </span>
                 </h1>
 
-                <p className="text-base sm:text-lg md:text-2xl text-gray-300 max-w-2xl mb-10 dark:mx-auto">
+                <p className="text-base sm:text-lg md:text-2xl dark:text-gray-300 text-slate-600 max-w-2xl mb-10 dark:mx-auto">
                   Dari website, aplikasi mobile, hingga sistem enterprise - kami hadirkan
                   produk digital berkualitas tinggi yang siap skalakan bisnis Anda.
                 </p>
 
-                <div className="flex flex-col sm:flex-row gap-4 dark:justify-center">
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <a
                     href="#services"
                     className="px-8 py-3.5 bg-slate-900 dark:bg-white text-white dark:text-black rounded-full font-semibold"
@@ -224,22 +222,12 @@ export default async function Page() {
 
                   <a
                     href="#contact"
-                    className="px-8 py-3.5 border border-slate-300 dark:border-white/30 text-white dark:text-white rounded-full font-semibold"
+                    className="px-8 py-3.5 border border-slate-700 dark:border-white/30 text-slate-900 dark:text-white rounded-full font-semibold"
                   >
                     Hubungi Kami
                   </a>
                 </div>
               </div>
-
-              {/* Kanan - hanya light mode */}
-              <div className="hidden lg:flex dark:hidden justify-start">
-                <img
-                  src="/assets/pictures/baksokuwung1_mockup.png"
-                  alt="Majakarsa Dashboard"
-                  className="max-w-4xl"
-                />
-              </div>
-
             </div>
           </div>
           <div className="absolute hidden dark:block bg-black/50 p-2 sm:p-3 bottom-0 left-1/2 -translate-x-1/2 w-full max-w-full">

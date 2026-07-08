@@ -43,7 +43,8 @@ export default function ProductComponent({
 
   const searchTerm = search.trim().toLowerCase()
   const isSearching = searchTerm !== ''
-
+  const [sortBy, setSortBy] = useState<'terbaru' | 'nama-az' | 'nama-za' | 'harga-rendah' | 'harga-tinggi'>('terbaru')
+  const handleSort = (value: typeof sortBy) => { setSortBy(value); setCurrentPage(1) }
   // Cek apakah produk cocok dengan kata kunci search (dipakai untuk highlight, bukan filter)
   const isMatch = (p: any) => {
     if (!isSearching) return false
@@ -56,8 +57,26 @@ export default function ProductComponent({
 
   // Hanya difilter oleh kategori — search tidak lagi menghilangkan produk
   const filtered = useMemo(() => {
-    return products.filter((p) => activeCategory === 'Semua' || p.category === activeCategory)
-  }, [products, activeCategory])
+    const base = products.filter((p) => activeCategory === 'Semua' || p.category === activeCategory)
+
+    const sorted = [...base].sort((a, b) => {
+      switch (sortBy) {
+        case 'nama-az':
+          return a.name.localeCompare(b.name)
+        case 'nama-za':
+          return b.name.localeCompare(a.name)
+        case 'harga-rendah':
+          return (a.price ?? 0) - (b.price ?? 0)
+        case 'harga-tinggi':
+          return (b.price ?? 0) - (a.price ?? 0)
+        case 'terbaru':
+        default:
+          return new Date(b.created_at ?? 0).getTime() - new Date(a.created_at ?? 0).getTime()
+      }
+    })
+
+    return sorted
+  }, [products, activeCategory, sortBy])
 
   const matchedCount = useMemo(() => {
     if (!isSearching) return filtered.length
@@ -130,19 +149,19 @@ export default function ProductComponent({
     <main className="min-h-screen bg-[#f4f5f7] dark:bg-black">
 
       {/* Header */}
-      <div className="bg-indigo-400 dark:bg-black">
-        <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 py-10 sm:py-16 border-b pb-0">
+      <div className="bg-white dark:bg-black">
+        <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 py-10 sm:py-16 pb-0">
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <div>
-              <p className="text-[10px] font-bold uppercase tracking-[0.3em] sm:tracking-[0.4em] text-white dark:text-indigo-400 mb-3 sm:mb-4">
+              <p className="text-[10px] font-bold uppercase tracking-[0.3em] sm:tracking-[0.4em] text-slate-900 dark:text-indigo-400 mb-3 sm:mb-4">
                 Katalog Produk
               </p>
-              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white dark:text-white mb-3 leading-tight tracking-tight">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-3 leading-tight tracking-tight">
                 Produk Digital
                 <br />
-                <span className="text-white">Siap Pakai</span>
+                <span className="text-slate-900 dark:text-slate-400">Siap Pakai</span>
               </h1>
-              <p className="text-white/80 dark:text-gray-500 text-sm max-w-md leading-relaxed">
+              <p className="text-slate-600 dark:text-gray-500 text-sm max-w-md leading-relaxed">
                 Solusi digital berkualitas tinggi yang bisa langsung digunakan
                 atau dikustomisasi sesuai kebutuhan bisnis Anda.
               </p>
@@ -155,8 +174,8 @@ export default function ProductComponent({
                 { value: '200+', label: 'Klien' },
               ].map(({ value, label }) => (
                 <div key={label} className="text-center">
-                  <p className="text-xl sm:text-2xl font-bold text-white dark:text-white">{value}</p>
-                  <p className="text-[10px] sm:text-xs text-white/80 dark:text-gray-600 mt-0.5">{label}</p>
+                  <p className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">{value}</p>
+                  <p className="text-[10px] sm:text-xs text-slate-600 dark:text-gray-600 mt-0.5">{label}</p>
                 </div>
               ))}
             </div>
@@ -166,10 +185,10 @@ export default function ProductComponent({
       </div>
 
       {/* Spacer navbar */}
-      <div className="h-14 sm:h-20 sticky top-0 z-20 bg-white dark:bg-black border-b border-slate-200/60 dark:border-white/5" />
+      <div className="hidden dark:block h-14 sm:h-20 sticky top-0 z-20 bg-white dark:bg-black border-b border-slate-200/60 dark:border-white/5" />
 
       {/* Filter bar */}
-      <div className="bg-white/80 dark:bg-black border-b border-slate-200/60 dark:border-white/5 sticky top-14 sm:top-17 z-50 backdrop-blur-xl">
+      <div className="bg-white dark:bg-black border-b border-slate-200/60 dark:border-white/5 sticky top-14 sm:top-17 z-50 backdrop-blur-xl">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-3 sm:py-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
 
           <div className="relative w-full sm:w-72">
@@ -192,18 +211,65 @@ export default function ProductComponent({
 
           <div className="hidden sm:block w-px h-5 bg-slate-200 dark:bg-white/10" />
 
+          <div className="relative flex-shrink-0">
+            <select
+              value={sortBy}
+              onChange={(e) => {
+                const value = e.target.value as typeof sortBy
+
+                handleSort(value)
+
+                setTimeout(() => {
+                  document.getElementById('productSection')?.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                  })
+                }, 50)
+              }}
+              className="appearance-none pl-3 pr-8 py-1.5 rounded-lg text-xs font-semibold bg-slate-50 dark:bg-white/5 text-slate-600 dark:text-gray-300 border border-slate-200 dark:border-white/10 focus:outline-none focus:border-indigo-400 dark:focus:border-indigo-500 cursor-pointer"
+            >
+              <option value="terbaru">Terbaru</option>
+              <option value="nama-az">Nama A–Z</option>
+              <option value="nama-za">Nama Z–A</option>
+              <option value="harga-rendah">Harga Termurah</option>
+              <option value="harga-tinggi">Harga Termahal</option>
+            </select>
+            <svg className="absolute right-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-slate-400 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </div>
+
           <div className="flex gap-1 flex-wrap overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             {categories.map((cat) => (
-              <button
+              <a
                 key={cat}
-                onClick={() => handleCategory(cat)}
+                href={cat === 'Semua' ? '#' : `#cat-${cat}`}
+                onClick={(e) => {
+                  e.preventDefault()
+
+                  handleCategory(cat)
+
+                  if (cat !== 'Semua') {
+                    document
+                      .getElementById(`cat-${cat}`)
+                      ?.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start',
+                      })
+                  } else {
+                    window.scrollTo({
+                      top: 0,
+                      behavior: 'smooth',
+                    })
+                  }
+                }}
                 className={`px-3.5 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap ${activeCategory === cat
                   ? 'bg-indigo-600 text-white shadow-sm'
                   : 'text-slate-500 dark:text-gray-400 hover:bg-slate-100 dark:hover:bg-white/5 hover:text-slate-700 dark:hover:text-gray-200'
                   }`}
               >
                 {cat}
-              </button>
+              </a>
             ))}
           </div>
 
@@ -216,7 +282,7 @@ export default function ProductComponent({
       </div>
 
       {/* Banner docked — fixed di luar max-w-7xl, sisi kanan layar */}
-      <div className={`hidden right-14 xl:block fixed bottom-10 z-50 w-64 transition-all duration-200 ${promoDocked
+      <div className={`hidden right-14 2xl:block fixed bottom-10 z-50 w-64 transition-all duration-200 ${promoDocked
         ? 'opacity-100 translate-x-0 pointer-events-auto'
         : 'opacity-0 translate-x-4 pointer-events-none'
         }`}>
@@ -226,7 +292,7 @@ export default function ProductComponent({
       {/* Main content */}
       <div ref={contentSectionRef} className="mx-auto max-w-7xl px-4 sm:px-6 py-8 sm:py-10">
         {/* Section Produk Terbaru */}
-        <div className={`hidden left-14 xl:block fixed bottom-10 z-20 w-64 transition-all duration-200 ${promoDocked
+        <div className={`hidden left-14 2xl:block fixed bottom-10 z-20 w-64 transition-all duration-200 ${promoDocked
           ? 'opacity-100 translate-x-0 pointer-events-auto'
           : 'opacity-0 -translate-x-4 pointer-events-none'
           }`}>
@@ -266,6 +332,30 @@ export default function ProductComponent({
 
           </div>
         </div>
+
+
+        {activeCategory === 'Semua' && groupedByCategory.length > 1 && (
+          <div className="sticky top-[104px] sm:top-[132px] z-40 -mx-4 sm:-mx-6 px-4 sm:px-6 py-3 mb-6 sm:mb-8 bg-[#f4f5f7]/95 dark:bg-black/95 backdrop-blur-md border-b border-slate-200/60 dark:border-white/5">
+            <div className="flex items-center gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-gray-600 flex-shrink-0">
+                Lompat ke:
+              </span>
+              {groupedByCategory.map(({ category, items }) => (
+                <a
+                  key={category}
+                  href={`#cat-${category}`}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    document.getElementById(`cat-${category}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                  }}
+                  className="px-3 py-1.5 rounded-full text-xs font-semibold bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-600 dark:text-gray-300 hover:border-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors whitespace-nowrap flex-shrink-0"
+                >
+                  {category} <span className="text-slate-400 dark:text-gray-600">({items.length})</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
 
         {latestProducts.length > 0 && !isSearching && (
           <div className="mb-10 sm:mb-14">
@@ -377,72 +467,75 @@ export default function ProductComponent({
             </button>
           </div>
         )}
+        <section id="productSection">
 
-        {/* Mode "Semua": grid dibagi per kategori, tanpa pagination */}
-        {filtered.length > 0 && activeCategory === 'Semua' && (
-          <div className="space-y-14">
-            {groupedByCategory.map(({ category, items }) => (
-              <section key={category}>
-                <div className="flex items-baseline gap-3 mb-5 sm:mb-6 pb-3 border-b border-slate-200 dark:border-white/10">
-                  <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
-                    {category}
-                  </h2>
-                  <span className="text-[11px] text-slate-400 dark:text-gray-600">
-                    {items.length} produk
-                  </span>
-                </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6">
-                  {items.map((product) => (
-                    <div key={product.id} className={cardWrapperClass(product)}>
-                      <ProductCard product={product} />
-                    </div>
-                  ))}
-                </div>
-              </section>
-            ))}
-          </div>
-        )}
+          {/* Mode "Semua": grid dibagi per kategori, tanpa pagination */}
+          {filtered.length > 0 && activeCategory === 'Semua' && (
+            <div className="space-y-14">
+              {groupedByCategory.map(({ category, items }) => (
+                <section key={category} id={`cat-${category}`} className="scroll-mt-32">
+                  <div className="flex items-baseline gap-3 mb-5 sm:mb-6 pb-3 border-b border-slate-200 dark:border-white/10">
+                    <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
+                      {category}
+                    </h2>
+                    <span className="text-[11px] text-slate-400 dark:text-gray-600">
+                      {items.length} produk
+                    </span>
+                  </div>
 
-        {/* Mode kategori spesifik: grid flat + pagination, seperti semula */}
-        {filtered.length > 0 && activeCategory !== 'Semua' && (
-          <>
-            <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
-              {paginated.map((product) => (
-                <div key={product.id} className={cardWrapperClass(product)}>
-                  <ProductCard product={product} />
-                </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 gap-5 sm:gap-6">
+                    {items.map((product) => (
+                      <div key={product.id} className={cardWrapperClass(product)}>
+                        <ProductCard product={product} />
+                      </div>
+                    ))}
+                  </div>
+                </section>
               ))}
             </div>
+          )}
 
-            <div className="mt-8 sm:mt-10 pt-6 border-t border-slate-200/60 dark:border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
-              <p className="text-xs text-slate-400 dark:text-gray-600 text-center sm:text-left">
-                Menampilkan{' '}
-                <span className="font-semibold text-slate-600 dark:text-gray-400">{start + 1}–{Math.min(start + PRODUCTS_PER_PAGE, filtered.length)}</span>
-                {' '}dari{' '}
-                <span className="font-semibold text-slate-600 dark:text-gray-400">{filtered.length}</span> produk
-              </p>
+          {/* Mode kategori spesifik: grid flat + pagination, seperti semula */}
+          {filtered.length > 0 && activeCategory !== 'Semua' && (
+            <>
+              <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-5">
+                {paginated.map((product) => (
+                  <div key={product.id} className={cardWrapperClass(product)}>
+                    <ProductCard product={product} />
+                  </div>
+                ))}
+              </div>
 
-              {totalPages > 1 && (
-                <Pagination className="mx-0 w-auto">
-                  <PaginationContent>
-                    <PaginationItem>
-                      <PaginationPrevious href="#" onClick={(e) => { e.preventDefault(); setCurrentPage(p => Math.max(1, p - 1)) }} className={currentPage === 1 ? 'pointer-events-none opacity-30' : ''} />
-                    </PaginationItem>
-                    {getPageNumbers().map((page, i) =>
-                      page === 'ellipsis'
-                        ? <PaginationItem key={`e-${i}`}><PaginationEllipsis /></PaginationItem>
-                        : <PaginationItem key={page}><PaginationLink href="#" isActive={currentPage === page} onClick={(e) => { e.preventDefault(); setCurrentPage(page) }}>{page}</PaginationLink></PaginationItem>
-                    )}
-                    <PaginationItem>
-                      <PaginationNext href="#" onClick={(e) => { e.preventDefault(); setCurrentPage(p => Math.min(totalPages, p + 1)) }} className={currentPage === totalPages ? 'pointer-events-none opacity-30' : ''} />
-                    </PaginationItem>
-                  </PaginationContent>
-                </Pagination>
-              )}
-            </div>
-          </>
-        )}
+              <div className="mt-8 sm:mt-10 pt-6 border-t border-slate-200/60 dark:border-white/5 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p className="text-xs text-slate-400 dark:text-gray-600 text-center sm:text-left">
+                  Menampilkan{' '}
+                  <span className="font-semibold text-slate-600 dark:text-gray-400">{start + 1}–{Math.min(start + PRODUCTS_PER_PAGE, filtered.length)}</span>
+                  {' '}dari{' '}
+                  <span className="font-semibold text-slate-600 dark:text-gray-400">{filtered.length}</span> produk
+                </p>
+
+                {totalPages > 1 && (
+                  <Pagination className="mx-0 w-auto">
+                    <PaginationContent>
+                      <PaginationItem>
+                        <PaginationPrevious href="#" onClick={(e) => { e.preventDefault(); setCurrentPage(p => Math.max(1, p - 1)) }} className={currentPage === 1 ? 'pointer-events-none opacity-30' : ''} />
+                      </PaginationItem>
+                      {getPageNumbers().map((page, i) =>
+                        page === 'ellipsis'
+                          ? <PaginationItem key={`e-${i}`}><PaginationEllipsis /></PaginationItem>
+                          : <PaginationItem key={page}><PaginationLink href="#" isActive={currentPage === page} onClick={(e) => { e.preventDefault(); setCurrentPage(page) }}>{page}</PaginationLink></PaginationItem>
+                      )}
+                      <PaginationItem>
+                        <PaginationNext href="#" onClick={(e) => { e.preventDefault(); setCurrentPage(p => Math.min(totalPages, p + 1)) }} className={currentPage === totalPages ? 'pointer-events-none opacity-30' : ''} />
+                      </PaginationItem>
+                    </PaginationContent>
+                  </Pagination>
+                )}
+              </div>
+            </>
+          )}
+        </section>
 
         {/* CTA custom */}
         <div className="mt-12 sm:mt-16 rounded-2xl border  bg-white dark:bg-white/[0.02] border-indigo-100/80 dark:border-white/5 p-6 sm:p-8 md:p-12 text-center">
@@ -465,6 +558,6 @@ export default function ProductComponent({
         </div>
 
       </div>
-    </main>
+    </main >
   )
 }

@@ -8,6 +8,7 @@ export const menuItems = [
     { label: 'PRODUK', href: '/produk' },
     { label: 'PRICELIST', href: '/pricelist' },
     { label: 'PORTFOLIO', href: '/portfolio' },
+    { label: 'Hubungi Kami', href: '/#contact' },
     { label: 'BUAT', href: '/buat', isNew: true },
 ]
 

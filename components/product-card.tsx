@@ -4,10 +4,10 @@ import Link from 'next/link'
 
 export function ProductCard({ product }: { product: Product }) {
   return (
-    <div className="group relative rounded-sm border border-slate-200 dark:border-white/40 bg-white dark:bg-white/[0.02] hover:border-slate-300 dark:hover:border-white/10 hover:shadow-xl dark:hover:shadow-black/40 hover:-translate-y-1 transition-all duration-300 overflow-hidden cursor-pointer">
+    <div className="group shadow-sm relative rounded-sm border border-slate-200 dark:border-white/40 bg-white dark:bg-white/[0.02] hover:border-slate-300 dark:hover:border-white/10 hover:shadow-xl dark:hover:shadow-black/40 hover:-translate-y-1 transition-all duration-300 overflow-hidden cursor-pointer">
       
       {/* Thumbnail — diperbesar & jadi anchor utama card */}
-      <div className="relative h-80 sm:h-96 bg-slate-100 dark:bg-white/[0.03] overflow-hidden">
+      <div className="relative aspect-[16/10] bg-slate-100 dark:bg-white/[0.03] overflow-hidden">
         {product.image_url && (
           <Image
             src={product.image_url}
@@ -34,7 +34,7 @@ export function ProductCard({ product }: { product: Product }) {
                 : 'bg-emerald-500/90 text-white'
             }`}
           >
-            {product.badge === 'Popular' ? '🔥 Popular' : '✨ New'}
+            {product.badge === 'Popular' ? 'Populer' : 'Baru'}
           </span>
         )}
 
@@ -43,7 +43,7 @@ export function ProductCard({ product }: { product: Product }) {
           <span className="inline-flex items-center gap-1.5 text-[10px] font-bold tracking-widest uppercase text-white/70 mb-1.5">
             {product.category}
           </span>
-          <h3 className="text-white font-bold text-base sm:text-lg leading-snug drop-shadow-sm">
+          <h3 className="text-white font-bold text-base sm:text-lg leading-snug drop-shadow-sm line-clamp-1">
             {product.name}
           </h3>
         </div>
@@ -51,9 +51,6 @@ export function ProductCard({ product }: { product: Product }) {
 
       {/* Body — jadi lebih ringkas karena judul sudah pindah ke gambar */}
       <div className="p-4 sm:p-5">
-        <p className="text-slate-500 dark:text-gray-500 text-xs leading-relaxed mb-4">
-          {product.description}
-        </p>
 
         <div className="flex gap-1.5 flex-wrap mb-4">
           {(['Next.js', 'Tailwind', 'TypeScript'] as const).map(tag => (

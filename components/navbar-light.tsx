@@ -12,7 +12,7 @@ export function NavbarLight() {
     return (
         <>
             <div className="sticky top-0 z-50 isolate bg-white">
-                <div className="border-b border-black/[0.08]">
+                <div className="border-b border-black/[0.06]">
                     <div className="mx-auto max-w-7xl px-3 sm:px-6 md:px-8 lg:px-12">
                         <div
                             className={`relative flex items-center justify-center transition-[height] duration-300 ease-out ${scrolled ? 'h-10' : 'h-14'
@@ -49,7 +49,7 @@ export function NavbarLight() {
                 </div>
 
                 {/* ── Baris 2: Nav links kiri, CTA kanan (desktop only) ── */}
-                <div className="hidden md:block border-b border-black/[0.06]">
+                <div className="hidden md:block border-b border-black/[0.08]">
                     <div className="mx-auto max-w-7xl px-3 sm:px-6 md:px-8 lg:px-12">
                         <div className="flex h-10 items-center justify-between">
                             <div className="flex items-center gap-5 lg:gap-6">
