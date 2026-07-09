@@ -21,6 +21,7 @@ import StackedCards from '@/components/StackedCard'
 import { CatalogCarousel } from '@/components/catalog_carousel'
 import { MingcuteSearchLine } from '@/public/assets/icons'
 import { Product } from '@/lib/interfaces/products.inteface'
+import { ArrowLeftIcon, ArrowLeftToLine, ArrowRightCircle, ArrowRightToLine } from 'lucide-react'
 
 const PRODUCTS_PER_PAGE = 9
 const categories = ['Semua', 'Website', 'Aplikasi', 'Web & App']
@@ -53,6 +54,24 @@ export default function ProductComponent({
       p.description.toLowerCase().includes(searchTerm) ||
       p.category.toLowerCase().includes(searchTerm)
     )
+  }
+
+  const ITEMS_PER_CATEGORY_PAGE = 3 // 1 baris (lg:grid-cols-3)
+  const [categoryPage, setCategoryPage] = useState<Record<string, number>>({})
+
+  const getCategoryPage = (category: string) => categoryPage[category] ?? 1
+
+  const setCategoryPageFor = (category: string, page: number) =>
+    setCategoryPage(prev => ({ ...prev, [category]: page }))
+
+
+  const scrollRefs = useRef<Record<string, HTMLDivElement | null>>({})
+
+  const scrollByCard = (category: string, dir: 1 | -1) => {
+    const el = scrollRefs.current[category]
+    if (!el) return
+    const cardWidth = el.firstElementChild?.clientWidth ?? 300
+    el.scrollBy({ left: dir * (cardWidth + 24), behavior: 'smooth' })
   }
 
   // Hanya difilter oleh kategori — search tidak lagi menghilangkan produk
@@ -332,15 +351,14 @@ export default function ProductComponent({
 
 
       {/* Main content */}
-      <div ref={contentSectionRef} >
-
-
+      <div ref={contentSectionRef} className='px-4 sm:px-6 py-8 sm:py-10'>
         {activeCategory === 'Semua' && groupedByCategory.length > 1 && (
           <div className="sticky top-[104px] sm:top-35 z-40 bg-white dark:bg-black/95 backdrop-blur-md border-b border-slate-200/60 dark:border-white/5">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 py-3">
-              <div className="flex items-center gap-2 overflow-x-auto">              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-gray-600 flex-shrink-0">
-                Lompat ke:
-              </span>
+              <div className="flex items-center gap-2 overflow-x-auto">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 dark:text-gray-600 flex-shrink-0">
+                  Lompat ke:
+                </span>
                 {groupedByCategory.map(({ category, items }) => (
                   <a
                     key={category}
@@ -468,38 +486,96 @@ export default function ProductComponent({
             </div>
           )}
           <section id="productSection">
-
-
             {/* Mode "Semua": grid dibagi per kategori, tanpa pagination */}
             {filtered.length > 0 && activeCategory === 'Semua' && (
               <div className="space-y-14">
-                {groupedByCategory.map(({ category, items }) => (
-                  <section key={category} id={`cat-${category}`} className="scroll-mt-32">
-                    <div className="flex items-baseline gap-3 mb-5 sm:mb-6 pb-3 border-b border-slate-200 dark:border-white/10">
-                      <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
-                        {category}
-                      </h2>
-                      <span className="text-[11px] text-slate-400 dark:text-gray-600">
-                        {items.length} produk
-                      </span>
-                    </div>
+                {groupedByCategory.map(({ category, items }) => {
+                  const page = getCategoryPage(category)
+                  const totalCatPages = Math.ceil(items.length / ITEMS_PER_CATEGORY_PAGE)
+                  const start = (page - 1) * ITEMS_PER_CATEGORY_PAGE
+                  const pageItems = items.slice(start, start + ITEMS_PER_CATEGORY_PAGE)
 
-                    <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 gap-5 sm:gap-6">
-                      {items.map((product) => (
-                        <div key={product.id} className={cardWrapperClass(product)}>
-                          <ProductCard product={product} />
+                  return (
+                    <section key={category} id={`cat-${category}`} className="scroll-mt-32">
+                      <div className="flex items-baseline justify-between gap-3 mb-5 sm:mb-6 pb-3 border-b border-slate-200 dark:border-white/10">
+                        <div className="flex items-baseline gap-3">
+                          <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">
+                            {category}
+                          </h2>
+                          <span className="text-[11px] text-slate-400 dark:text-gray-600">
+                            {items.length} produk
+                          </span>
                         </div>
-                      ))}
-                    </div>
-                  </section>
-                ))}
+                      </div>
+
+                      <div className="relative">
+                        {/* Tombol kiri */}
+                        {totalCatPages > 1 && (
+                          <button
+                            onClick={() =>
+                              setCategoryPageFor(
+                                category,
+                                page === 1 ? totalCatPages : page - 1
+                              )
+                            }
+                            className="hidden lg:flex absolute left-0 inset-y-0 w-14 items-center justify-center bg-black/20 hover:bg-black/35 backdrop-blur-sm text-white transition-all duration-200 z-20"
+                          >
+                            <ArrowLeftToLine className="w-6 h-6" />
+                          </button>
+                        )}
+
+                        {/* Grid Product */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 px-14">
+                          {pageItems.map((product) => (
+                            <div key={product.id} className={cardWrapperClass(product)}>
+                              <ProductCard product={product} />
+                            </div>
+                          ))}
+                        </div>
+
+                        {/* Tombol kanan */}
+                        {totalCatPages > 1 && (
+                          <button
+                            onClick={() =>
+                              setCategoryPageFor(
+                                category,
+                                page === totalCatPages ? 1 : page + 1
+                              )
+                            }
+                            className="hidden lg:flex absolute right-0 inset-y-0 w-14 items-center justify-center bg-black/20 hover:bg-black/35 backdrop-blur-sm text-white transition-all duration-200 z-20"
+                          >
+                            <ArrowRightToLine className="w-6 h-6" />
+                          </button>
+                        )}
+                      </div>
+
+                      {/* Dot pagination */}
+                      {totalCatPages > 1 && (
+                        <div className="flex items-center justify-center gap-1.5 mt-5">
+                          {Array.from({ length: totalCatPages }).map((_, i) => (
+                            <button
+                              key={i}
+                              onClick={() => setCategoryPageFor(category, i + 1)}
+                              className={`h-1.5 rounded-full transition-all duration-300 ${page === i + 1
+                                ? "w-5 bg-indigo-500"
+                                : "w-1.5 bg-slate-300 dark:bg-white/15"
+                                }`}
+                            />
+                          ))}
+                        </div>
+                      )}
+                    </section>
+                  )
+                })}
               </div>
             )}
+
+
 
             {/* Mode kategori spesifik: grid flat + pagination, seperti semula */}
             {filtered.length > 0 && activeCategory !== 'Semua' && (
               <>
-                <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
                   {paginated.map((product) => (
                     <div key={product.id} className={cardWrapperClass(product)}>
                       <ProductCard product={product} />
