@@ -68,44 +68,48 @@ const timeline = [
     desc: 'Mulai mengembangkan tools dan komponen open-source untuk komunitas developer.',
   },
 ]
-
 const team = [
   {
     name: 'Rizky Firmansyah',
     role: 'Founder & Product Manager',
     focus: 'Manajemen produk, arsitektur sistem, dan strategi pengembangan',
     initials: 'RF',
+    photo: '/assets/pictures/team/person_riz.png',
   },
   {
     name: 'Novri Nasution',
     role: 'Founder & Fullstack Engineer',
     focus: 'Pengembangan frontend, backend, dan integrasi sistem',
     initials: 'NN',
+    photo: '/assets/pictures/team/person_nov.png',
   },
   {
     name: 'Rizal Alif',
     role: 'IT Support & Computer Technician',
     focus: 'Pemeliharaan perangkat, jaringan, dan dukungan teknis',
     initials: 'RA',
+    photo: '/assets/pictures/team/person_riz.png',
   },
   {
     name: 'Dhika Karya',
     role: 'Fullstack Engineer & UI/UX Designer',
     focus: 'Desain antarmuka, pengalaman pengguna, dan pengembangan aplikasi web',
     initials: 'DK',
+    photo: '/assets/pictures/team/person_dhik.png',
   },
   {
     name: 'Nabil Shalahudin',
     role: 'Produk QC',
     focus: 'Quality Control Produk',
     initials: 'NS',
+    photo: '/assets/pictures/team/person_nab.png',
   },
 ]
 
 export default function TentangPage() {
   return (
     <main className="min-h-screen bg-[#f4f5f7] dark:bg-black">
-      <div className="fixed right-6 bottom-6 z-50 hidden lg:block">
+      <div className="fixed right-6 bottom-6 z-100 hidden lg:block">
         <StackedCards />
       </div>
 
@@ -302,7 +306,7 @@ export default function TentangPage() {
           </div>
 
           <div className="relative">
-            <div className="absolute left-[27px] top-2 bottom-2 w-px bg-slate-200 dark:bg-white/10 md:left-1/2" />
+            <div className="absolute left-[27px] top-2 bottom-2 w-0.5 bg-slate-300 dark:bg-white/10 md:left-1/2" />
 
             <div className="space-y-10">
               {timeline.map((t, i) => (
@@ -347,39 +351,44 @@ export default function TentangPage() {
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.3em] text-indigo-500">
               Di Balik Layar
             </p>
-
             <h2 className="text-4xl font-bold text-slate-800 dark:text-white mb-3">
               Tim Pengembang Kami
             </h2>
-
             <p className="mx-auto max-w-md text-sm text-slate-500 dark:text-gray-500 leading-relaxed">
               Tim kecil dengan jam terbang tinggi - setiap proyek ditangani
               langsung oleh orang yang menulis kodenya.
             </p>
           </div>
-
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {team.map((member) => (
               <div
                 key={member.name}
                 className="rounded-3xl border border-slate-200/70 bg-[#fcfcfd] p-8 text-center shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg dark:border-white/5 dark:bg-white/[0.02]"
               >
-                <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 text-lg font-bold text-white">
-                  {member.initials}
+                <div className="mx-auto mb-5 h-16 w-16 overflow-hidden rounded-full">
+                  {member.photo ? (
+                    <Image
+                      src={member.photo}
+                      alt={member.name}
+                      width={100}
+                      height={100}
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-indigo-500 to-violet-600 text-lg font-bold text-white">
+                      {member.initials}
+                    </div>
+                  )}
                 </div>
-
                 <h3 className="mb-1 font-semibold text-slate-800 dark:text-white">
                   {member.name}
                 </h3>
-
                 <p className="mb-3 text-[11px] font-semibold text-indigo-500 dark:text-indigo-400">
                   {member.role}
                 </p>
-
                 <p className="mb-5 text-sm leading-relaxed text-slate-500 dark:text-gray-500">
                   {member.focus}
                 </p>
-
                 <div className="flex items-center justify-center gap-3 text-slate-400 dark:text-gray-600">
                   <a href="#" aria-label={`LinkedIn ${member.name}`} className="hover:text-indigo-500 transition-colors">
                     <MdiLinkedin className="size-4" />
@@ -396,7 +405,6 @@ export default function TentangPage() {
           </div>
         </div>
       </section>
-
       {/* SECTION 7 — Nilai Kami — bg-[#f4f5f7] */}
       <section className="bg-[#f4f5f7] dark:bg-white/[0.02]">
         <div className="mx-auto max-w-7xl px-6 py-24">

@@ -282,7 +282,7 @@ export default function ProductComponent({
       </div>
 
       {/* Banner docked — fixed di luar max-w-7xl, sisi kanan layar */}
-      <div className={`hidden right-14 2xl:block fixed bottom-10 z-50 w-64 transition-all duration-200 ${promoDocked
+      <div className={`hidden right-14 2xl:block fixed bottom-10 z-100 w-64 transition-all duration-200 ${promoDocked
         ? 'opacity-100 translate-x-0 pointer-events-auto'
         : 'opacity-0 translate-x-4 pointer-events-none'
         }`}>

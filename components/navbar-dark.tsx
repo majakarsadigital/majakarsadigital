@@ -74,7 +74,7 @@ export function NavbarDark() {
         role="dialog"
         aria-modal="true"
         aria-label="Menu navigasi"
-        className={`md:hidden fixed top-0 right-0 z-[70] h-dvh w-[80%] max-w-[300px] sm:max-w-[320px] bg-[#0a0a0a] border-l border-white/10 shadow-[-8px_0_32px_rgba(0,0,0,0.5)] transition-transform duration-300 ease-out flex flex-col ${
+        className={`md:hidden fixed top-0 right-0 z-100 h-dvh w-[80%] max-w-[300px] sm:max-w-[320px] bg-[#0a0a0a] border-l border-white/10 shadow-[-8px_0_32px_rgba(0,0,0,0.5)] transition-transform duration-300 ease-out flex flex-col ${
           open ? 'translate-x-0' : 'translate-x-full'
         }`}
       >

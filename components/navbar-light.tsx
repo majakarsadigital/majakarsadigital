@@ -4,9 +4,9 @@ import { ThemeToggle } from './theme-toggle'
 import { useNavbar } from './use-navbar'
 
 const secondaryItems = [
-    { label: 'Sponsor', href: '/tickets' },
-    { label: 'Paket', href: '/packages' },
-    { label: 'Dukungan', href: '/hospitality' },
+    { label: 'Sponsor', href: '/sponsor' },
+    { label: 'Paket', href: '/paket' },
+    { label: 'Dukungan', href: '/dukungan' },
     { label: 'Terms & Privacy', href: '/store' },
 ]
 
