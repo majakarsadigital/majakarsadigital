@@ -8,8 +8,8 @@ export function NavbarDark() {
 
   return (
     <>
-      <div className="sticky top-0 z-50 isolate px-3 pt-3 sm:px-4">
-        <nav className="mx-auto py-0 max-w-4xl rounded-full border border-white/[0.08] bg-white/[0.08] backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.12)] px-12">
+      <div className="sticky top-0 z-100 isolate px-3 pt-3 sm:px-4">
+        <nav className="mx-auto py-0 max-w-4xl rounded-full border border-white/[0.08] bg-white/[0.08] backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.35),inset_0_1px_0_rgba(255,255,255,0.12)] px-6 md:px-12">
           <div className="flex h-[52px] items-center justify-between gap-2 sm:gap-4">
             <Link href="/" className="shrink-0 text-[15px] font-bold tracking-tight text-white">
               majakarsa

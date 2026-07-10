@@ -11,7 +11,7 @@ export function NavbarLight() {
 
     return (
         <>
-            <div className="sticky top-0 z-50 isolate bg-white">
+            <div className="sticky top-0 z-100 isolate bg-white">
                 <div className="border-b border-black/[0.06]">
                     <div className="mx-auto max-w-7xl px-3 sm:px-6 md:px-8 lg:px-12">
                         <div

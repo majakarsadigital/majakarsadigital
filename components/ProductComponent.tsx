@@ -185,10 +185,10 @@ export default function ProductComponent({
       </div>
 
       {/* Spacer navbar */}
-      <div className="hidden dark:block h-14 sm:h-20 sticky top-0 z-20 bg-white dark:bg-black border-b border-slate-200/60 dark:border-white/5" />
+      <div className="h-14 dark:h-17 sm:h-20 sticky top-0 z-20 bg-white dark:bg-black border-b border-slate-200/60 dark:border-white/5" />
 
       {/* Filter bar */}
-      <div className="bg-white dark:bg-black border-b border-slate-200/60 dark:border-white/5 sticky top-14 sm:top-17 z-50 backdrop-blur-xl">
+      <div className="bg-white dark:bg-black border-b border-slate-200/60 dark:border-white/5 sticky top-10 dark:top-17 sm:top-17 z-50 backdrop-blur-xl">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-3 sm:py-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
 
           <div className="relative w-full sm:w-72">
