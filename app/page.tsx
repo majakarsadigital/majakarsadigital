@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import { TwoRowCarousel } from '@/components/carousel-two-rows'
 import { Navbar } from '@/components/navbar'
-import { TopBanner } from '@/components/top-banner'
 import { BxBxsQuoteLeft, BxBxsQuoteRight, FluentCalendarDataBar32Filled, IcBaselineApple, LogosFacebook, LogosWhatsappIcon, MaterialSymbolsAndroid, MaterialSymbolsDemographyRounded, MaterialSymbolsEditSquare, MaterialSymbolsShoppingBagSpeed, MaterialSymbolsViewQuiltRounded, RiRotateLockFill, RiRotateLockLine, SkillIconsInstagram, StreamlineInterfaceContentChartProductDataAnalysisAnalyticsGraphLineBusinessBoardChart, StreamlinePlumpBrowserWebsite1Remix, TypcnCloudStorage } from '@/public/assets/icons'
 import Link from 'next/link'
 import { Footer } from '@/components/footer'
