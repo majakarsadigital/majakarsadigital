@@ -16,7 +16,7 @@ export function ThemeToggle() {
       className="rounded-full"
     >
       {theme === 'light' ? (
-        <Moon className="h-5 w-5" />
+        <Moon className="h-5 w-5 text-white" />
       ) : (
         <Sun className="h-5 w-5" />
       )}
