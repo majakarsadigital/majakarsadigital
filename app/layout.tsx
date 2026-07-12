@@ -3,6 +3,7 @@ import type { Metadata, Viewport } from 'next'
 import { Poppins } from 'next/font/google'
 import { AppWrapper } from '@/components/app-wrapper'
 import './globals.css'
+import { createClient } from '@supabase/supabase-js'
 
 const poppins = Poppins({
   variable: '--font-poppins',
@@ -25,16 +26,27 @@ export const viewport: Viewport = {
     { media: '(prefers-color-scheme: dark)', color: 'black' },
   ],
 }
-
-export default function RootLayout({
+export default async function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  )
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+
   return (
     <html lang="en" className={`${poppins.variable} bg-[#f4f5f7]`}>
       <body className="font-sans antialiased">
-        <AppWrapper>{children}</AppWrapper>
+        <AppWrapper>
+          {children}
+        </AppWrapper>
+
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
