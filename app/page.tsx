@@ -229,7 +229,7 @@ export default async function Page() {
               </div>
             </div>
           </div>
-          <div className="absolute hidden dark:block bg-black/50 p-2 sm:p-3 bottom-0 left-1/2 -translate-x-1/2 w-full max-w-full">
+          <div className="absolute bg-black p-2 sm:p-3 bottom-0 left-1/2 -translate-x-1/2 w-full max-w-full">
             <Marquee
               gradient
               gradientColor="black"
@@ -240,15 +240,14 @@ export default async function Page() {
               {sponsors.map((sponsor) => (
                 <div
                   key={sponsor.id}
-                  className="mx-6 grayscale invert sm:mx-8 flex items-center transition-opacity duration-300"
+                  className="mx-6 flex items-center grayscale invert hover:grayscale-0 hover:invert-0 transition-[filter] duration-300 sm:mx-8"
                 >
                   <SponsorLogo sponsor={sponsor} />
-                </div>
-              ))}
+                </div>))}
             </Marquee>
           </div>
 
-          <div className="absolute dark:hidden bg-[#f4f5f7] border-t border-slate-200/60 p-2 sm:p-3 bottom-0 left-1/2 -translate-x-1/2 w-full max-w-full">
+          {/* <div className="absolute dark:hidden bg-[#f4f5f7] border-t border-slate-200/60 p-2 sm:p-3 bottom-0 left-1/2 -translate-x-1/2 w-full max-w-full">
             <Marquee
               gradient
               speed={50}
@@ -257,7 +256,7 @@ export default async function Page() {
               className='bg-[#f4f5f7]'
             >
 
-              {/* {sponsors.map((sponsor) => (
+              {sponsors.map((sponsor) => (
                 <div
                   key={sponsor.id}
                   className="mx-6 sm:mx-8 flex items-center transition-opacity duration-300"
@@ -270,7 +269,7 @@ export default async function Page() {
                     className="h-5 sm:h-6 w-auto object-contain transition-all duration-300"
                   />
                 </div>
-              ))} */}
+              ))}
 
               {sponsors.map((sponsor) => (
                 <div
@@ -281,7 +280,7 @@ export default async function Page() {
                 </div>
               ))}
             </Marquee>
-          </div>
+          </div> */}
         </section >
 
         {/* CAROUSEL + QUOTE */}

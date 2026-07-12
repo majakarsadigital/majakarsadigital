@@ -15,9 +15,8 @@ export function Footer() {
                 <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-12 gap-x-6 gap-y-8 sm:gap-10 mb-10 sm:mb-12">
 
                     <div className="col-span-2 md:col-span-4">
-                        <Link href="/" className="inline-flex items-baseline text-lg font-bold text-white mb-4">
-                            majakarsa
-                            <span className="text-sm font-normal text-white/40 ml-1">digital</span>
+                        <Link href="/" className="inline-flex uppercase font-futura items-baseline text-lg font-bold text-white mb-4">
+                            majakarsa<span className="text-white/40">digital</span>
                         </Link>
                         <p className="text-gray-500 text-sm leading-relaxed max-w-xs mb-6">
                             Agensi digital yang membangun website, aplikasi, dan sistem custom
@@ -106,7 +105,7 @@ export function Footer() {
                     </div>
                 </div>
 
-                <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 sm:gap-4 py-6 sm:py-8 border-t border-b border-white/5 mb-6 sm:mb-8">
+                <div id="subscribe" className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 sm:gap-4 py-6 sm:py-8 border-t border-b border-white/5 mb-6 sm:mb-8">
                     <div>
                         <p className="text-sm font-semibold text-white mb-1">Dapatkan update terbaru</p>
                         <p className="text-xs text-gray-600">Tips digital, studi kasus, dan penawaran spesial - langsung ke email Anda.</p>

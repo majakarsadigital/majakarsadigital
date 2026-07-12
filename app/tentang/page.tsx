@@ -93,7 +93,7 @@ const team = [
   {
     name: 'Dhika Karya',
     role: 'Fullstack Engineer & UI/UX Designer',
-    focus: 'Desain antarmuka, pengalaman pengguna, dan pengembangan aplikasi web',
+    focus: 'Frontend, backend, UI/UX, dan integrasi sistem',
     initials: 'DK',
     photo: '/assets/pictures/team/person_dhik.png',
   },
@@ -108,7 +108,7 @@ const team = [
 
 export default function TentangPage() {
   return (
-    <main className="min-h-screen bg-[#f4f5f7] dark:bg-black">
+    <main className="min-h-screen bg-[#f4f5f7] darduok:bg-black">
       <div className="fixed right-6 bottom-6 z-100 hidden lg:block">
         <StackedCards />
       </div>
