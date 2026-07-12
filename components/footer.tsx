@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-import { X } from 'lucide-react'
+import { X, Mail, Lock, LogOut, ArrowRight } from 'lucide-react'
 import { LogosFacebook, LogosWhatsappIcon, SkillIconsInstagram } from '@/public/assets/icons'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
@@ -38,6 +38,17 @@ export function Footer() {
         router.push('/')
         router.refresh()
     }
+
+    async function handleLogout() {
+        await supabase.auth.signOut()
+        router.push('/')
+        router.refresh()
+    }
+
+    const initials = (user?.user_metadata?.full_name || user?.email || '?')
+        .trim()
+        .charAt(0)
+        .toUpperCase()
 
     return (
         <footer className="relative z-10 bg-black border-t border-white/5">
@@ -136,54 +147,97 @@ export function Footer() {
                     </div>
                 </div>
 
-                <div id="login" className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 sm:gap-4 py-6 sm:py-8 border-t border-b border-white/5 mb-6 sm:mb-8">
-                    <div>
-                        <p className="text-sm font-semibold text-white mb-1">
-                            {user ? 'Selamat datang kembali' : 'Sudah punya akun?'}
-                        </p>
-                        <p className="text-xs text-gray-600">
-                            {user
-                                ? 'Anda sudah masuk ke akun Anda.'
-                                : 'Masuk untuk memantau proyek dan pesanan Anda.'}
-                        </p>
-                    </div>
-
+                <div id="login" className="py-8 sm:py-10 border-t border-b border-white/5 mb-6 sm:mb-8">
                     {!user ? (
-                        <form onSubmit={handleLogin} className="flex flex-col xs:flex-row w-full sm:w-auto gap-2">
-                            <input
-                                type="email"
-                                placeholder="Email Anda"
-                                required
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                className="flex-1 sm:w-48 px-4 py-2.5 text-sm rounded-full border border-white/10 bg-white/5 text-white placeholder-gray-600 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400/20 transition-all min-w-0"
-                            />
-                            <input
-                                type="password"
-                                placeholder="Password"
-                                required
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                className="flex-1 sm:w-48 px-4 py-2.5 text-sm rounded-full border border-white/10 bg-white/5 text-white placeholder-gray-600 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400/20 transition-all min-w-0"
-                            />
-                            <button
-                                type="submit"
-                                disabled={loading}
-                                className="px-5 py-2.5 rounded-full bg-white text-black text-sm font-semibold hover:bg-indigo-400 hover:text-white transition-colors flex-shrink-0 disabled:opacity-50"
-                            >
-                                {loading ? 'Memproses...' : 'Login'}
-                            </button>
+                        <div className="rounded-3xl bg-white/[0.03] border border-white/10 p-6 sm:p-8">
+                            <div className="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-10">
+                                <div className="lg:w-64 shrink-0">
+                                    <p className="text-base font-semibold text-white mb-1.5">
+                                        Sudah punya akun?
+                                    </p>
+                                    <p className="text-xs text-gray-500 leading-relaxed">
+                                        Masuk untuk memantau progres proyek, riwayat pesanan, dan invoice Anda.
+                                    </p>
+                                </div>
 
-                            {errorMsg && (
-                                <p className="w-full text-xs text-red-400 mt-1">{errorMsg}</p>
-                            )}
-                        </form>
+                                <form onSubmit={handleLogin} className="flex-1">
+                                    <div className="flex flex-col sm:flex-row gap-2.5">
+                                        <div className="relative flex-1 sm:max-w-[220px]">
+                                            <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                                            <input
+                                                type="email"
+                                                placeholder="Email Anda"
+                                                required
+                                                value={email}
+                                                onChange={(e) => setEmail(e.target.value)}
+                                                className="w-full pl-10.5 pr-4 py-3 text-sm rounded-full border border-white/10 bg-white/5 text-white placeholder-gray-600 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/15 transition-all"
+                                            />
+                                        </div>
+                                        <div className="relative flex-1 sm:max-w-[220px]">
+                                            <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+                                            <input
+                                                type="password"
+                                                placeholder="Password"
+                                                required
+                                                value={password}
+                                                onChange={(e) => setPassword(e.target.value)}
+                                                className="w-full pl-10.5 pr-4 py-3 text-sm rounded-full border border-white/10 bg-white/5 text-white placeholder-gray-600 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/15 transition-all"
+                                            />
+                                        </div>
+                                        <button
+                                            type="submit"
+                                            disabled={loading}
+                                            className="px-6 py-3 rounded-full bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-500 transition-colors shrink-0 disabled:opacity-50 flex items-center justify-center gap-1.5"
+                                        >
+                                            {loading ? 'Memproses...' : 'Masuk'}
+                                            {!loading && <ArrowRight className="w-3.5 h-3.5" />}
+                                        </button>
+                                    </div>
+
+                                    <div className="flex items-center justify-between mt-3">
+                                        {errorMsg ? (
+                                            <p className="text-xs text-red-400">{errorMsg}</p>
+                                        ) : <span />}
+                                        <p className="text-xs text-gray-500">
+                                            Belum punya akun?{' '}
+                                            <Link href="/register" className="text-indigo-400 hover:text-indigo-300 font-medium">
+                                                Daftar
+                                            </Link>
+                                        </p>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     ) : (
-                        <div className="w-full sm:w-auto p-5 rounded-3xl border border-white/10 bg-white/5">
-                            <p className="text-sm font-semibold text-white mb-1">Logged in</p>
-                            <p className="text-xs text-gray-400">
-                                Masuk sebagai {user.email}.
-                            </p>
+                        <div className="rounded-3xl bg-white/[0.03] border border-white/10 p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-4 sm:gap-5">
+                            <div className="w-12 h-12 rounded-full bg-indigo-500/15 border border-indigo-400/30 flex items-center justify-center text-indigo-300 font-semibold text-lg shrink-0">
+                                {initials}
+                            </div>
+
+                            <div className="flex-1 text-center sm:text-left">
+                                <p className="text-sm font-semibold text-white mb-0.5">
+                                    Selamat datang kembali{user.user_metadata?.full_name ? `, ${user.user_metadata.full_name}` : ''}
+                                </p>
+                                <p className="text-xs text-gray-500">
+                                    Masuk sebagai {user.email}
+                                </p>
+                            </div>
+
+                            <div className="flex items-center gap-2">
+                                <Link
+                                    href="/dashboard"
+                                    className="px-5 py-2.5 rounded-full bg-indigo-600 text-white text-sm font-semibold hover:bg-indigo-500 transition-colors"
+                                >
+                                    Ke Dashboard
+                                </Link>
+                                <button
+                                    onClick={handleLogout}
+                                    className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:text-red-400 hover:border-red-400/30 hover:bg-red-500/5 transition-colors shrink-0"
+                                    aria-label="Keluar"
+                                >
+                                    <LogOut className="w-4 h-4" />
+                                </button>
+                            </div>
                         </div>
                     )}
                 </div>
