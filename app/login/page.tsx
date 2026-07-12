@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
 import Link from 'next/link'
 import { supabase } from '@/lib/supabase'
 import { useRouter, useSearchParams } from 'next/navigation'
@@ -29,7 +29,7 @@ const BENEFITS = [
     },
 ]
 
-export default function LoginPage() {
+function LoginForm() {
     const router = useRouter()
     const searchParams = useSearchParams()
     const justRegistered = searchParams.get('registered') === '1'
@@ -188,5 +188,21 @@ export default function LoginPage() {
                 </form>
             </div>
         </div>
+    )
+}
+
+function LoginFallback() {
+    return (
+        <div className="min-h-screen bg-[#0c0e14] flex items-center justify-center">
+            <div className="w-full max-w-md h-[420px] rounded-3xl bg-white/[0.04] border border-white/10 animate-pulse" />
+        </div>
+    )
+}
+
+export default function LoginPage() {
+    return (
+        <Suspense fallback={<LoginFallback />}>
+            <LoginForm />
+        </Suspense>
     )
 }
