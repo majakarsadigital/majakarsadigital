@@ -2,8 +2,7 @@
 import Link from 'next/link'
 import { ThemeToggle } from './theme-toggle'
 import { useNavbar } from './use-navbar'
-import { useEffect, useState } from 'react'
-import { User } from '@supabase/supabase-js'
+import { useAuth } from './auth-provider'
 import { supabase } from '@/lib/supabase'
 
 const secondaryItems = [
@@ -15,31 +14,7 @@ const secondaryItems = [
 
 export function NavbarLight() {
     const { open, setOpen, isActive, menuItems, scrolled } = useNavbar()
-
-    const [user, setUser] = useState<User | null>(null)
-    const [authLoading, setAuthLoading] = useState(true)
-
-    useEffect(() => {
-        async function getUser() {
-            const {
-                data: { user },
-            } = await supabase.auth.getUser()
-
-            setUser(user)
-            setAuthLoading(false)
-        }
-
-        getUser()
-
-        const {
-            data: { subscription },
-        } = supabase.auth.onAuthStateChange((_event, session) => {
-            setUser(session?.user ?? null)
-            setAuthLoading(false)
-        })
-
-        return () => subscription.unsubscribe()
-    }, [])
+    const { user } = useAuth()
 
     const userName = user?.user_metadata?.full_name ?? user?.email ?? ''
     const userEmail = user?.email ?? ''
@@ -127,9 +102,7 @@ export function NavbarLight() {
                             <div className="flex-1 md:flex-none" />
 
                             <div className="flex items-center gap-3 shrink-0">
-                                {authLoading ? (
-                                    <span className="hidden sm:block h-3 w-28 rounded-full bg-white/10 animate-pulse" />
-                                ) : user ? (
+                                {user ? (
                                     <span className="hidden sm:flex items-center gap-1.5 text-[12px] tracking-[0.2px]">
                                         <button
                                             type="button"
@@ -243,9 +216,7 @@ export function NavbarLight() {
                         ))}
 
                         <div className="mt-2 pt-2 border-t border-white/[0.08] flex items-center justify-between px-3.5">
-                            {authLoading ? (
-                                <span className="block h-3 w-24 rounded bg-white/10 animate-pulse my-2.5" />
-                            ) : user ? (
+                            {user ? (
                                 <div className="flex items-center gap-1.5 py-2.5 text-[12px]">
                                     <button
                                         type="button"

@@ -1,4 +1,3 @@
-// components/portfolio/GaleriProjek.tsx
 'use client'
 
 export type GalleryImage = {

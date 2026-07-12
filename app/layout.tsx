@@ -2,6 +2,7 @@ import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
 import { Poppins } from 'next/font/google'
 import { AppWrapper } from '@/components/app-wrapper'
+import { AuthProvider } from '@/components/auth-provider'
 import './globals.css'
 import { createClient } from '@supabase/supabase-js'
 
@@ -26,6 +27,7 @@ export const viewport: Viewport = {
     { media: '(prefers-color-scheme: dark)', color: 'black' },
   ],
 }
+
 export default async function RootLayout({
   children,
 }: {
@@ -43,9 +45,11 @@ export default async function RootLayout({
   return (
     <html lang="en" className={`${poppins.variable} bg-[#f4f5f7]`}>
       <body className="font-sans antialiased">
-        <AppWrapper>
-          {children}
-        </AppWrapper>
+        <AuthProvider initialUser={user}>
+          <AppWrapper>
+            {children}
+          </AppWrapper>
+        </AuthProvider>
 
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

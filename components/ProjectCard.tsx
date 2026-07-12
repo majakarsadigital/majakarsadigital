@@ -19,6 +19,7 @@ interface ProjectCardProps {
   techList: string[]
 }
 
+import Image from 'next/image'
 import Link from 'next/link'
 
 export default function ProjectCard({ project, tileClasses, isLarge, gradient, techList }: ProjectCardProps) {
@@ -40,27 +41,31 @@ export default function ProjectCard({ project, tileClasses, isLarge, gradient, t
       href={`/portfolio/project/${project.slug}`}
       onMouseMove={handleImageZoom}
       onMouseLeave={resetImageZoom}
-      className={`group relative overflow-hidden rounded-2xl border bg-white/[0.02] hover:shadow-xl hover:shadow-black/50 transition-all duration-300 ${tileClasses} ${
-        project.is_featured
+      className={`group relative overflow-hidden rounded-2xl border bg-white/[0.02] hover:shadow-xl hover:shadow-black/50 transition-all duration-300 ${tileClasses} ${project.is_featured
           ? 'border-indigo-500/40 ring-1 ring-indigo-500/20'
           : 'border-white/[0.06] hover:border-white/10'
-      }`}
+        }`}
       style={{ '--zoom-x': '50%', '--zoom-y': '50%' } as React.CSSProperties}
     >
-      <div className={`absolute inset-0 overflow-hidden bg-gradient-to-br from-white/[0.03] to-transparent`}>
-        <img
+      <div className="absolute inset-0 overflow-hidden bg-gradient-to-br from-white/[0.03] to-transparent">
+        {/* Background blur */}
+        <Image
           src={project.image_url}
           alt=""
           aria-hidden="true"
-          className="absolute inset-0 h-full w-full object-cover blur-xl scale-110 opacity-25"
-          loading="lazy"
+          fill
+          sizes="(max-width: 768px) 100vw, 33vw"
+          className="absolute inset-0 object-cover scale-110 blur-xl opacity-25"
         />
-        <img
+
+        {/* Gambar utama */}
+        <Image
           src={project.image_url}
           alt={project.title}
-          className="absolute inset-0 h-full w-full object-contain transition-transform duration-300 ease-out group-hover:scale-[1.35]"
-          style={{ transformOrigin: 'var(--zoom-x) var(--zoom-y)' }}
-          loading="lazy"
+          fill
+          sizes="(max-width: 768px) 100vw, 33vw"
+          className="absolute inset-0 object-contain transition-transform duration-300 ease-out group-hover:scale-[1.35]"
+          style={{ transformOrigin: "var(--zoom-x) var(--zoom-y)" }}
         />
       </div>
 

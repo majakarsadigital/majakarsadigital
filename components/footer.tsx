@@ -5,8 +5,39 @@ import Image from 'next/image'
 import { X } from 'lucide-react'
 import { LogosFacebook, LogosWhatsappIcon, SkillIconsInstagram } from '@/public/assets/icons'
 import Link from 'next/link'
+import { supabase } from '@/lib/supabase'
+import { useRouter } from 'next/navigation'
+import { useAuth } from '@/components/auth-provider'
 
 export function Footer() {
+    const { user } = useAuth()
+    const router = useRouter()
+
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [loading, setLoading] = useState(false)
+    const [errorMsg, setErrorMsg] = useState('')
+
+    async function handleLogin(e: React.FormEvent) {
+        e.preventDefault()
+        setErrorMsg('')
+        setLoading(true)
+
+        const { error } = await supabase.auth.signInWithPassword({
+            email,
+            password,
+        })
+
+        setLoading(false)
+
+        if (error) {
+            setErrorMsg(error.message)
+            return
+        }
+
+        router.push('/')
+        router.refresh()
+    }
 
     return (
         <footer className="relative z-10 bg-black border-t border-white/5">
@@ -105,24 +136,56 @@ export function Footer() {
                     </div>
                 </div>
 
-                <div id="subscribe" className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 sm:gap-4 py-6 sm:py-8 border-t border-b border-white/5 mb-6 sm:mb-8">
+                <div id="login" className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 sm:gap-4 py-6 sm:py-8 border-t border-b border-white/5 mb-6 sm:mb-8">
                     <div>
-                        <p className="text-sm font-semibold text-white mb-1">Dapatkan update terbaru</p>
-                        <p className="text-xs text-gray-600">Tips digital, studi kasus, dan penawaran spesial - langsung ke email Anda.</p>
+                        <p className="text-sm font-semibold text-white mb-1">
+                            {user ? 'Selamat datang kembali' : 'Sudah punya akun?'}
+                        </p>
+                        <p className="text-xs text-gray-600">
+                            {user
+                                ? 'Anda sudah masuk ke akun Anda.'
+                                : 'Masuk untuk memantau proyek dan pesanan Anda.'}
+                        </p>
                     </div>
-                    <form className="flex flex-col xs:flex-row w-full sm:w-auto gap-2">
-                        <input
-                            type="email"
-                            placeholder="Email Anda"
-                            className="flex-1 sm:w-64 px-4 py-2.5 text-sm rounded-full border border-white/10 bg-white/5 text-white placeholder-gray-600 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400/20 transition-all min-w-0"
-                        />
-                        <button
-                            type="submit"
-                            className="px-5 py-2.5 rounded-full bg-white text-black text-sm font-semibold hover:bg-indigo-400 hover:text-white transition-colors flex-shrink-0"
-                        >
-                            Subscribe
-                        </button>
-                    </form>
+
+                    {!user ? (
+                        <form onSubmit={handleLogin} className="flex flex-col xs:flex-row w-full sm:w-auto gap-2">
+                            <input
+                                type="email"
+                                placeholder="Email Anda"
+                                required
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="flex-1 sm:w-48 px-4 py-2.5 text-sm rounded-full border border-white/10 bg-white/5 text-white placeholder-gray-600 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400/20 transition-all min-w-0"
+                            />
+                            <input
+                                type="password"
+                                placeholder="Password"
+                                required
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className="flex-1 sm:w-48 px-4 py-2.5 text-sm rounded-full border border-white/10 bg-white/5 text-white placeholder-gray-600 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-400/20 transition-all min-w-0"
+                            />
+                            <button
+                                type="submit"
+                                disabled={loading}
+                                className="px-5 py-2.5 rounded-full bg-white text-black text-sm font-semibold hover:bg-indigo-400 hover:text-white transition-colors flex-shrink-0 disabled:opacity-50"
+                            >
+                                {loading ? 'Memproses...' : 'Login'}
+                            </button>
+
+                            {errorMsg && (
+                                <p className="w-full text-xs text-red-400 mt-1">{errorMsg}</p>
+                            )}
+                        </form>
+                    ) : (
+                        <div className="w-full sm:w-auto p-5 rounded-3xl border border-white/10 bg-white/5">
+                            <p className="text-sm font-semibold text-white mb-1">Logged in</p>
+                            <p className="text-xs text-gray-400">
+                                Masuk sebagai {user.email}.
+                            </p>
+                        </div>
+                    )}
                 </div>
 
                 <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 text-center sm:text-left">
